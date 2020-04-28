@@ -24,18 +24,18 @@ Das Tutorial ist in 2 Teile aufgebaut:
 ## Anleitung zum Starten des Tutorials
 ### 1. Installiere Git:
 
-   ####Linux:
+   #### Linux:
    Führe einen der folgenden Befehle aus
       
        apt install git  (Ubuntu, Fedora ...)
        yum install git  (CentOS)
          
-   ####MacOs:
+   #### MacOs:
    Führe den folgenden Befehl aus
       
         brew install git
          
-   ####Windows:
+   #### Windows:
       
    Downloade unter folgendem Link git und installiere es: https://gitforwindows.org/
        
@@ -55,13 +55,13 @@ Verschiebe die heruntergeladenen Projektresourcen in einen Ordner deiner Wahl un
          
 ### 3. Starte das Tutorial:
 
-####Linux und MacOs:
+#### Linux und MacOs:
 Öffne ein Terminal und navigiere zu dem Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast.
 Wechsel in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
 
     python main.py
     
-####Windows:
+#### Windows:
 Suche über die Apps nach der Power-Shell und öffne sie.
 Navigiere nun zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast.
 Wechsle in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
