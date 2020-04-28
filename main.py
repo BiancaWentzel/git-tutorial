@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import tkinter as tk
 from first_part import Introduction, LocalStructure, RemoteStructure, NewProject, \
     NewContent, InitializeRepo, ConfigGit, GitCommit, GitAdd, GitStatus, Gitignore, Summary

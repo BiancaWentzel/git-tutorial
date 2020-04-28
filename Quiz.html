@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="de">
     <head>
+        <meta charset="utf-8">
     </head>
 
     <body>
@@ -10,7 +11,7 @@
                 als richtig oder flasch markiert.</p>
             <div>
                 <h5>Frage 1: Was bedeutet die Abkürzung VCS im Zusammenhang mit Git?</h5>
-                <form action="">
+                <form action="checkAnswers" id="firstquestion">
                     <label><input type="checkbox" name="question1" value="Schweiz">Verkehrsclub Schweiz</label>
                     <label><input type="checkbox" name="question1" value="Versionierung">Version Controll System</label>
                     <label><input type="checkbox" name="question1" value="Medizin">Vena cava superior</label>
@@ -163,6 +164,7 @@
                     <label><input type="checkbox" name="question13" value="commit">Git commit</label>
                 </form>
             </div>
+            <button onclick="checkAnswers()">Absenden</button>
         </div>
 
         <style>
@@ -181,5 +183,12 @@
                 flex-direction: column;
             }
         </style>
+        <script>
+            var results = undefined;
+            function checkAnswers() {
+                document.getElementById("firstquestion").submit();
+            }
+            console.log(results);
+        </script>
     </body>
 </html>

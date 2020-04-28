@@ -68,7 +68,7 @@ Definiere eine neue leere virtuelle Umgebung:
     
 Aktiviere die virtuelle Umgebung und installiere das Tkinter-Paket:
 
-    source ven/vbin/activate
+    source ven/bin/activate
     pip install tkinter   
     
 #### Windows:

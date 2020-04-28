@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 import tkinter as tk
 import subprocess
 import os
-
+import webbrowser
 
 from utils import right_directory, is_repository, maintxt_exists, mainlog_exists
 
@@ -37,9 +39,35 @@ class Introduction(Page):
         title = tk.Label(description_container, text="Was ist Git?", font="TkHeaderFont 24 bold", bg='white',
                          fg=font_color)
         title.place(x=0, y=0)
+        text = tk.Label(description_container,
+                        text="Git ist ein sogenanntes Versionierungskontrollsystem (VCS - Version Controll System)."
+                             "\nEs dient zur Protokollierung und Archivierung sowie Dokumentation von Änderungen in "
+                             "Dateien \nund ordnern eines projektes. Für alle registrierten Änderung wird eine Version des "
+                             "gesamten \nProjektes wie ein Screenshot abgespeichert und mit Angaben zur Zeit und des "
+                             "Autors sowie \neinem Kommentar des Autors zu den Änderungen archiviert."
+                             "\n\nGit bietet folgende Möglichkeiten/ Vorteile:"
+                             "\n- Änderungen können immer nachvollzogen werden"
+                             "\n- man hat ein Archiv mit allen Versionen des Projektes"
+                             "\n- man kann jederzeit ältere Versionen des projektes wiederherstellen"
+                             "\n\nGit bietet durch die interne Regelung und Archivierung der Versionen hervorragende "
+                             "Möglichkeiten,\num im team an einem Projekt zu arbeiten, ohne dass Änderungen verloren gehen."
+                             "\n\nWeiterhin bieten Hostingdienste wie GitLab oder GitHub die Möglichkeit, Projektinhate auf"
+                             "\nServern zu speichern, die von überall über das Internet erreichbar sind.",
+                        font="TkFont 12 bold", bg="white", fg=font_color,
+                        justify="left")
+        text.place(x=0, rely=0.15)
 
-        explanation = tk.Label(description_container, text="", bg="white")
-        explanation.pack()
+        explanation = tk.Label(description_container, text="Weiterführende Links mit Informationen", bg="white",
+                               font="TkFont 14 bold", fg=font_color)
+        explanation.place(x=0, rely=0.60)
+
+        links = tk.Label(description_container, text="https://de.wikipedia.org/wiki/Versionsverwaltung"
+                                                     "\nhttps://git-scm.com/docs/git"
+                                                     "\nhttps://de.wikipedia.org/wiki/Git"
+                                                     "\nhttps://about.gitlab.com/"
+                                                     "\nhttps://github.com/",
+                         font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
+        links.place(x=0, rely=0.65)
 
 
 class LocalStructure(Page):
@@ -53,8 +81,10 @@ class LocalStructure(Page):
                          fg=font_color)
         title.place(x=0, y=0)
 
-        explanation = tk.Label(description_container, text="", bg="white")
-        explanation.pack()
+        img = tk.PhotoImage(file="./img/localVCS.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(x=0, rely=0.15)
 
 
 class RemoteStructure(Page):
@@ -174,9 +204,9 @@ class InitializeRepo(Page):
         text = tk.Label(description_container,
                         text="Jetzt befinden wir uns im Projektverzeichnis (Working Directory) und wollen den Inhalt "
                              "des Projektes \nversionieren. Hierzu müssen wir ein Git-Repository initialisieren."
-                             "\nHierfür stellt Git den Befehl 'git init' bereit. Fürht man diesen Befehl aus, werden die\n"
-                             "zwei zusätzlichen Git-Ebenen 'Staging Area (Zwischenablage)' und 'Repository (Archiv)' "
-                             "angelegt,\njedoch versteckt. Möchte man sehen, ob tasächlich ein Repsotiroy angelegt wurde, "
+                             "Hierfür stellt Git \nden Befehl 'git init' bereit. Fürht man diesen Befehl aus, werden die"
+                             "zwei zusätzlichen \nGit-Ebenen 'Staging Area (Zwischenablage)' und 'Repository (Archiv)' "
+                             "angelegt, jedoch versteckt. \n\nMöchte man sehen, ob tasächlich ein Repsotiroy angelegt wurde, "
                              "kann man\nden Befehl 'ls --all' (list) ausführen und es sollte ein .git-Verzeichnis angezeigt "
                              "werden,\nwobei der . vor dem Verzeichnisnamen symbolisiert, dass es sich um einen\n"
                              "versteckten Ordner handelt.", font="TkFont 12 bold", bg="white", fg=font_color,
@@ -248,6 +278,21 @@ class ConfigGit(Page):
                          fg=font_color)
         title.place(x=0, y=0)
 
+        text = tk.Label(description_container,
+                        text="Um nachvollziehen zu können, welche Verändeurngen und Archivierungsschritte von wem "
+                             "gemacht \nwurden und Benachrichtigungen über Codeanfragen oder ähnliches bekommen zu "
+                             "können, \nmuss sowohl der Benutzername als auch eine Email-Adresse konfiguriert werden. "
+                             "\nDer Benutzername wird als Auto bei Änderungen hinterlegt.", font="TkFont 12 bold", bg="white", fg=font_color,
+                        justify="left")
+        commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
+                                  fg=font_color)
+        commands = tk.Label(description_container, text="- git config --global user.name 'Vorname Nachname'\n- git config --global user.email 'email@server.com'\n- git config --list", bg="white",
+                            fg=font_color, font="TkFont 12 bold", justify="left")
+
+        text.place(x=0, rely=0.15)
+        commands_title.place(x=0, rely=0.45)
+        commands.place(x=0, rely=0.52)
+
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.67)
         task1 = tk.Label(description_container, text="1. Konfiguriere deinen Usernamen.", bg="#fff",
@@ -302,6 +347,25 @@ class NewContent(Page):
                          fg=font_color)
         title.place(x=0, y=0)
 
+        text = tk.Label(description_container,
+                       text="Um verschiedenen Versionen unseres Projektes versionieren zu können braucht es Inhalt. "
+                            "\nDiesen Inhalt wollen wir nun erstellen. Wir wollen zwei Dateien anlegen: 'main.txt' und 'main.log'."
+                            "\n\nDies kann man mit dem Befehl 'touch' tun. Dieser Befehl ist eigentlich dafür gedacht,\n"
+                            "den zeitstempel von Dateien zu erstellen oder zu bearbeiten. Existiert die angegebenen Datei"
+                            "\njedoch nicht, wird die Datei und ihr Zeitstempel angelegt.", font="TkFont 12 bold",
+                       bg="white", fg=font_color,
+                       justify="left")
+        commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
+                                  fg=font_color)
+        commands = tk.Label(description_container,
+                            text="- touch main.txt\n- touch main.log",
+                            bg="white",
+                            fg=font_color, font="TkFont 12 bold", justify="left")
+
+        text.place(x=0, rely=0.15)
+        commands_title.place(x=0, rely=0.55)
+        commands.place(x=0, rely=0.62)
+
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.75)
         task1 = tk.Label(description_container, text="1. Lege die Datei 'main.txt' an.", bg="#fff",
@@ -320,10 +384,6 @@ class NewContent(Page):
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
-
-        image = tk.Label(description_container, text="Working directory", bd=30, bg=font_color, fg="white")
-        image.place(y=0, relx=0.8)
-
 
 class Gitignore(Page):
     def __init__(self, *args, **kwargs):
@@ -360,6 +420,27 @@ class Gitignore(Page):
         title = tk.Label(description_container, text="Gitignore", bg="#fff", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
+        text = tk.Label(description_container,
+                        text="Manchmal hat man Detien und Ordner, die man nicht mit versionieren möchte. Dazu zählen "
+                             "Ordner,\nin denen Informationen und Software von virtuellen Umgebungen abgespeichert sind "
+                             "sowie \nKonfigurationsdateien, die sensible Daten wie passwörter oder ähnliches enthalten."
+                             "\n\nUm diese dateien trotzdem in ihrem zugehörigen Projekt zu haben aber nict zu versionieren, "
+                             "\ngibt es die sogenannte '.gitignore'. Hierbei handelt es sich um eine versteckte Datei, "
+                             "\nin die alle Ordner und Dateien geschrieben werden, die bei der Versionierung ignoriert "
+                             "werden sollen.\nIn unserem Fall wollen wir die Datei main.log und ihr Inhalt nicht versionieren, "
+                             "\ndeswegen müssen wir sie in der .gitignore vermerken.", font="TkFont 12 bold",
+                        bg="white", fg=font_color,
+                        justify="left")
+        commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
+                                  fg=font_color)
+        commands = tk.Label(description_container,
+                            text="- touch .gitignore\n- echo 'main.log' >> .gitignore",
+                            bg="white",
+                            fg=font_color, font="TkFont 12 bold", justify="left")
+
+        text.place(x=0, rely=0.15)
+        commands_title.place(x=0, rely=0.55)
+        commands.place(x=0, rely=0.62)
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.75)
@@ -380,11 +461,6 @@ class Gitignore(Page):
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
-
-        image2 = tk.Label(description_container, text="Staging Area", bg=font_color, fg="white", bd=15)
-        image3 = tk.Label(description_container, text="Repository", bg=font_color, fg="white", bd=15)
-        image2.place(y=0, relx=0.8)
-        image3.place(y=45, relx=0.8)
 
 
 class GitStatus(Page):
@@ -560,6 +636,9 @@ class Summary(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
+        def callback(filename):
+            webbrowser.open('file://' + os.path.realpath(filename))
+
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
@@ -567,8 +646,29 @@ class Summary(Page):
                          fg=font_color)
         title.place(x=0, y=0)
 
-        explanation = tk.Label(description_container, text="", bg="white")
-        explanation.pack()
+        text = tk.Label(description_container,
+                        text="Du hast den ersten teil des Totiroals zu Git fertig. Du kannst das Tutorial jederzeit "
+                             "wiederholen. \n\nDu solltest jetzt folgende Fakten und Befehle rund ums Thema Git wissen:"
+                             "\n- Was ist Git und wie ist es aufgebaut"
+                             "\n- Initialisieren eines Repositories und konfigurieren von Git (git init, git config)"
+                             "\n- Übersicht über gemachte Änderungen (git status)"
+                             "\n- Vormerken von Änderungen zur Archivierung (git add)"
+                             "\n- Archivierung von Änderungen (git commit)"
+                             "\n\nUm dein Wissen nochmal zu festigen bzw. zu prüfen, folge dem Link zum Quiz und bearbeite dieses.", font="TkFont 12 bold",
+                        bg="white", fg=font_color,
+                        justify="left")
+        text.place(x=0, rely=0.1)
+
+        link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold", cursor="hand2")
+        link1.place(relx=0.4, rely=0.37)
+        link1.bind("<Button-1>", lambda e: callback("Quiz.html"))
+
+        additional = tk.Label(description_container, text="Bei Anmerkungen, Fragen oder Fehlern und Problemen mit dem "
+                                                          "Tutorial oder allgemein zu Git,\nschreib mir entweder über "
+                                                          "RocketChat oder per Mail: bianca1409@zedat.fu-berlin.de",
+                              font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
+        additional.place(x=0, rely=0.92)
+
 
 
 
