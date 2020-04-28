@@ -51,12 +51,32 @@ Lade die Projektresourcen herunter.
 ![download_repo](img/download_sourcecode.png)
 
 Verschiebe die heruntergeladenen Projektresourcen in einen Ordner deiner Wahl und entpacke sie.
-  
+
+
+### 3. Installiere die Softwarevoraussetzungen
+#### Linux und MacOS:
+Öffne ein Terminal und installiere 'virtualenv':
+
+    apt install virtualenv (Ubuntu, Fedora ...)
+    yum install virtualenv (CentOS)
+    brew install virtualenv (MacOS)
+
+Navigiere zum Ort, an dem due die Software des Git-Tutorials gespeichert und entpackt hast.
+Definiere eine neue leere virtuelle Umgebung:
+
+    virtualenv venv
+    
+Aktiviere die virtuelle Umgebung und installiere das Tkinter-Paket:
+
+    source ven/vbin/activate
+    pip install tkinter   
+    
+#### Windows:
+Es sollten bereits alle notwendigen Softwarevoraussetzungen vorhanden sein, sodass nichts weiter installiert werden muss.
          
-### 3. Starte das Tutorial:
+### 4. Starte das Tutorial:
 
 #### Linux und MacOs:
-Öffne ein Terminal und navigiere zu dem Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast.
 Wechsel in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
 
     python main.py
