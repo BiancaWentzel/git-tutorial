@@ -5,7 +5,7 @@ import subprocess
 import os
 import webbrowser
 
-from utils import right_directory, is_repository, maintxt_exists, mainlog_exists
+from utils import right_directory, is_repository, file_exists
 
 values = {
     "add_first_status": False,
@@ -70,7 +70,7 @@ class Introduction(Page):
         links.place(x=0, rely=0.65)
 
 
-class LocalStructure(Page):
+class GeneralStructure(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
@@ -81,13 +81,29 @@ class LocalStructure(Page):
                          fg=font_color)
         title.place(x=0, y=0)
 
-        img = tk.PhotoImage(file="./img/localVCS.png")
+        text = tk.Label(description_container,
+                        text="Primär findet Versionierung mit Git lokal auf deinem rechner statt. "
+                        "Hierbei gliedert sich die lokale\nVersionierung hauptsächlich in 3 Ebenenen: das working "
+                             "Directory, die staging Area und\ndas repository. Hierbei sind die staging Area und das "
+                             "repsoitory virtuellen Ebenen,\ndie ersteinaml nicht sichtbar sind. Zum Navigation oder "
+                             "Registrierung von Änderungen gibt es\nzahlreiche Befehle, die zur Interkation der "
+                             "einzelnen Ebenen dienen.",font="TkFont 12 bold", bg="white", fg=font_color,
+                        justify="left")
+        text.place(x=0, rely=0.1)
+
+        text2 = tk.Label(description_container,text="Weiterhin gibt es ein sogenanntes Remote Repository, dass durch unterschiedliche "
+                             "\nSoftwaredienstw ie GitLab oder Github genutz werden kann."
+                             "Die einzelnen Ebenen werden im \nFolgenden detaillierter erläutert.",font="TkFont 12 bold", bg="white", fg=font_color,
+                        justify="left")
+        text2.place(x=0, rely=0.85)
+
+        img = tk.PhotoImage(file="./img/generalstructure.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(x=0, rely=0.15)
+        panel.place(relx=0.15, rely=0.25)
 
 
-class RemoteStructure(Page):
+class WorkingDirectory(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
@@ -98,8 +114,61 @@ class RemoteStructure(Page):
                          fg=font_color)
         title.place(x=0, y=0)
 
-        explanation = tk.Label(description_container, text="", bg="white")
-        explanation.pack()
+        img = tk.PhotoImage(file="./img/areas.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(x=0, rely=0.15)
+
+
+class StagingArea(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=1)
+
+        title = tk.Label(description_container, text="Remote VCS", font="TkHeaderFont 24 bold", bg='white',
+                         fg=font_color)
+        title.place(x=0, y=0)
+
+        img = tk.PhotoImage(file="./img/areas.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(x=0, rely=0.15)
+
+
+class Repository(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=1)
+
+        title = tk.Label(description_container, text="Remote VCS", font="TkHeaderFont 24 bold", bg='white',
+                         fg=font_color)
+        title.place(x=0, y=0)
+
+        img = tk.PhotoImage(file="./img/areas.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(x=0, rely=0.15)
+
+
+class RemoteRepository(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=1)
+
+        title = tk.Label(description_container, text="Remote VCS", font="TkHeaderFont 24 bold", bg='white',
+                         fg=font_color)
+        title.place(x=0, y=0)
+
+        img = tk.PhotoImage(file="./img/remote.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(x=0, rely=0.15)
 
 
 class NewProject(Page):
@@ -120,7 +189,7 @@ class NewProject(Page):
             elif command == "cd gitcourse":
                 try:
                     os.chdir("gitcourse")
-                    output['text'] = "Gewechselt in da Verzeichnis 'gitcourse'. \nDu befindet dich jetzt hier: {}".format(subprocess.check_output("pwd"))
+                    output['text'] = "Gewechselt in das Verzeichnis 'gitcourse'. \nDu befindet dich jetzt hier: {}".format(subprocess.check_output("pwd"))
                     task2['bg'] = '#6b9e1f'
                 except:
                     if right_directory():
@@ -181,10 +250,14 @@ class InitializeRepo(Page):
 
             if right_directory():
                 if command == "git init":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
-                    task1['bg'] = '#6b9e1f'
-                elif command == "ls -al":
+                    if is_repository():
+                        output['text'] = "Du hast bereits ein Repository initialisiert!"
+                        task1['bg'] = '#6b9e1f'
+                    else:
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task1['bg'] = '#6b9e1f'
+                elif command == "ls -a":
                     response = subprocess.check_output(command, shell=True)
                     output['text'] = response
                     task2['bg'] = '#6b9e1f'
@@ -247,8 +320,8 @@ class ConfigGit(Page):
 
         def run_command(command):
 
-            if os.getcwd().endswith("gitcourse"):
-                if ".git" in os.listdir(os.getcwd()):
+            if right_directory():
+                if is_repository():
                     if command.startswith("git config --global user.name"):
                         response = subprocess.check_output(command, shell=True)
                         output['text'] = response
@@ -326,19 +399,37 @@ class NewContent(Page):
             if right_directory():
                 if is_repository():
                     if command == "touch main.txt":
-                        if not maintxt_exists():
+                        if not file_exists("main.txt"):
                             subprocess.check_output(command, shell=True)
                             output['text'] = "Die Datei 'main.txt' wurde angelegt."
                             task1['bg'] = '#6b9e1f'
                         else:
                             output['text'] = "Die Datei 'main.txt' existiert bereits!"
                     elif command == "touch main.log":
-                        if not mainlog_exists():
+                        if not file_exists("main.log"):
                             subprocess.check_output(command, shell=True)
-                            output['text'] = "Die Datei 'main.txt' wurde angelegt."
+                            output['text'] = "Die Datei 'main.log' wurde angelegt."
                             task2['bg'] = '#6b9e1f'
                         else:
                             output['text'] = "Die Datei 'main.log' existiert bereits!"
+                    elif command == "touch second.txt":
+                        if not file_exists("second.txt"):
+                            subprocess.check_output(command, shell=True)
+                            output['text'] = "Die Datei 'second.txt' wurde angelegt."
+                            task2['bg'] = '#6b9e1f'
+                        else:
+                            output['text'] = "Die Datei 'second.txt' existiert bereits!"
+                    elif command == "touch third.txt":
+                        if not file_exists("third.txt"):
+                            subprocess.check_output(command, shell=True)
+                            output['text'] = "Die Datei 'thid.txt' wurde angelegt."
+                            task2['bg'] = '#6b9e1f'
+                        else:
+                            output['text'] = "Die Datei 'third.txt' existiert bereits!"
+                else:
+                    output['text'] = "Du hast noch kein Repository initialisiert.\n Bitte gehe zurück zu Schritt ... zurück und erledige alle Aufgaben!"
+            else:
+                output['text'] = "Du befindest dich nicht im gitcourse-Verzeichnis.\n Bitte geh zurück zu Schritt ... und erledige alle Aufgaben!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -349,7 +440,7 @@ class NewContent(Page):
 
         text = tk.Label(description_container,
                        text="Um verschiedenen Versionen unseres Projektes versionieren zu können braucht es Inhalt. "
-                            "\nDiesen Inhalt wollen wir nun erstellen. Wir wollen zwei Dateien anlegen: 'main.txt' und 'main.log'."
+                            "\nDiesen Inhalt wollen wir nun erstellen. Wir wollen vier Dateien anlegen: 'main.txt', 'main.log', \n'second.txt' und 'third.txt'."
                             "\n\nDies kann man mit dem Befehl 'touch' tun. Dieser Befehl ist eigentlich dafür gedacht,\n"
                             "den zeitstempel von Dateien zu erstellen oder zu bearbeiten. Existiert die angegebenen Datei"
                             "\njedoch nicht, wird die Datei und ihr Zeitstempel angelegt.", font="TkFont 12 bold",
@@ -358,22 +449,28 @@ class NewContent(Page):
         commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
                                   fg=font_color)
         commands = tk.Label(description_container,
-                            text="- touch main.txt\n- touch main.log",
+                            text="- touch Dateiname",
                             bg="white",
                             fg=font_color, font="TkFont 12 bold", justify="left")
 
         text.place(x=0, rely=0.15)
-        commands_title.place(x=0, rely=0.55)
-        commands.place(x=0, rely=0.62)
+        commands_title.place(x=0, rely=0.52)
+        commands.place(x=0, rely=0.59)
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.75)
         task1 = tk.Label(description_container, text="1. Lege die Datei 'main.txt' an.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.82)
+        task1.place(x=0, rely=0.66)
         task2 = tk.Label(description_container, text="2. Lege die Datei 'main.log' an.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.9)
+        task2.place(x=0, rely=0.74)
+        task3 = tk.Label(description_container, text="3. Lege die Datei 'second.txt' an.", bg="#fff",
+                         font="TkFont 12 bold", fg=font_color, bd=5)
+        task3.place(x=0, rely=0.82)
+        task4 = tk.Label(description_container, text="4. Lege die Datei 'third.txt' an.", bg="#fff",
+                         font="TkFont 12 bold", fg=font_color, bd=5)
+        task4.place(x=0, rely=0.9)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -385,6 +482,7 @@ class NewContent(Page):
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
+
 class Gitignore(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
@@ -393,7 +491,7 @@ class Gitignore(Page):
 
            if right_directory():
                if is_repository():
-                   if mainlog_exists() and maintxt_exists():
+                   if file_exists("main.txt") and file_exists("main.log") and file_exists("second.txt") and file_exists("third.txt"):
                        if command == "touch .gitignore":
                            subprocess.check_output(command, shell=True)
                            output['text'] = "Die Datei '.gitignore' wurde erfolgreich angelegt."
@@ -405,7 +503,7 @@ class Gitignore(Page):
                        else:
                             output['text'] = "Bitte überprüfe deine Syntax!"
                    else:
-                       output['text'] = "Es fehlen die Dateien 'main.txt' und 'main.log'! \n " \
+                       output['text'] = "Es fehlen die Dateien 'main.txt', 'main.log', 'second.txt' and 'third.txt'! \n " \
                                         "Bitte kehre zum letzten Schritt zurück und erledige die Aufgaben!"
                else:
                    output['text'] = "Du hast noch kein Repository angelegt! \n " \
@@ -463,13 +561,14 @@ class Gitignore(Page):
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
 
-class GitStatus(Page):
+class GitStatusNew(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
 
-            if right_directory() and is_repository() and maintxt_exists() and mainlog_exists():
+            if right_directory() and is_repository() and file_exists("main.txt") and file_exists("main.log") \
+                    and file_exists("second.txt") and file_exists("third.txt"):
                 if command == "git status":
                     response = subprocess.check_output(command, shell=True)
                     output['text'] = response
@@ -486,6 +585,30 @@ class GitStatus(Page):
         title = tk.Label(description_container, text="Git status", bg="#fff", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
+        text = tk.Label(description_container,
+                        text="Nun haben wir Änderungen an unserem Projekt vorgenommen. Man kann beim Arbeiten an einem "
+                             "\nprojekt gern mal den Überblick darüber velieren, wo man Änderunge vorgenommen hat."
+                             "\nHierzu stellt git einen Befehl 'status' bereit. Dieser zeigt alle Dateien und Ordner an, "
+                             "\ndie verändert wurden. Das beinhaltet sowohl veränderungen an bestehenden Dateien\nund "
+                             "ordner sowie das Anlegen und Löschen dieser."
+                             "\n\nJe nachdem, welche Zusatnd zutrofft, zeigt 'git status' die Änderugen unterschiedlich an."
+                             "\nDateien und Ordner, id eneu angelegt wurden, werden unter dem Punkt 'Unversioniert Dateien' \nangezeigt."
+                             "Da sie vorher nicht existierten udn demnach natürlich auch noch nicht versioniert \nwerden konnten."
+                             "Dies triftt auf alle unsere angelegten dateine zu. \n\nAuffällig hierbei, die 'main.log' wird "
+                             "nicht angezeigt, da sie in der .gitignore vermekt ist und \ndemnach nicht berücksichtigt werden soll.", font="TkFont 12 bold",
+                        bg="white", fg=font_color,
+                        justify="left")
+        text.place(x=0, rely=0.12)
+
+        commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
+                                  fg=font_color)
+        commands = tk.Label(description_container,
+                            text="- git status",
+                            bg="white",
+                            fg=font_color, font="TkFont 12 bold", justify="left")
+
+        commands_title.place(x=0, rely=0.70)
+        commands.place(x=0, rely=0.75)
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.83)
@@ -498,16 +621,12 @@ class GitStatus(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green,
+                               fg="white", font="TkFont 10 bold")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
-
-        image2 = tk.Label(description_container, text="Staging Area", bg=font_color, fg="white", bd=15)
-        image3 = tk.Label(description_container, text="Repository", bg=font_color, fg="white", bd=15)
-        image2.place(y=0, relx=0.8)
-        image3.place(y=45, relx=0.8)
 
 
 class GitAdd(Page):
@@ -516,23 +635,12 @@ class GitAdd(Page):
 
         def run_command(command):
 
-            if right_directory() and is_repository() and maintxt_exists() and mainlog_exists():
+            if right_directory() and is_repository() and file_exists("main.txt") and file_exists("main.log") \
+                    and file_exists("second.txt") and file_exists("third.txt"):
                 if command == "git add main.txt":
                     subprocess.check_output(command, shell=True)
                     output['text'] = "main.txt wurde zur Archivierung vorgemerkt."
                     task1['bg'] = '#6b9e1f'
-                elif command == "git status":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
-                    if not values["add_first_status"]:
-                        task2['bg'] = '#6b9e1f'
-                        values["add_first_status"] = True
-                    elif values["add_first_status"] and not values["add_second_status"]:
-                        task4['bg'] = '#6b9e1f'
-                        values["add_second_status"] = True
-                    elif values["add_second_status"] and values["add_first_status"]:
-                        task2['bg'] = '#6b9e1f'
-                        task4['bg'] = '#6b9e1f'
                 elif command == "git add .gitignore":
                     subprocess.check_output(command, shell=True)
                     output['text'] = ".gitignore wurde zur Archivierung vorgemerkt."
@@ -551,20 +659,38 @@ class GitAdd(Page):
                          fg=font_color)
         title.place(x=0, y=0)
 
+        text = tk.Label(description_container,
+                        text="Wenn du Änderungen an einem Projekt gemacht hast, die du als eine neue Projketversion\nim "
+                             "archiv also dem Reposiroty speicher nöchtest, musst du sie zur speicherung vormerken. "
+                             "\nHierzu stellt git den befehl 'add' bereit. Dieser merkt alle benannten Änderungen zur\n "
+                             "Archivierung vor."
+                            "\nDas heißt, die Änderungen im Working Directory werden zur Stagig Area hinzugefügt. "
+                            "\nEs gibt mehrere Möglichkeiten, Dateien und Ordner zur Versionierung vorzumerken. \nMan "
+                             "kann einzelne Dateien und Ordner vormerken, indem man sie nametlich bennent: \n'git add Dateiname."
+                             "\nOder man kann alle veränderten Dateien vormerken mit 'git add .' \nHierbei muss man jedoch "
+                             "darauf achten, dass nur alle Dateien des AKTUELLEN Verzeichnisses \nvorgemerkt werden."
+                             "Deteien und Ordner, die über dem aktuellen Verzeichnis liegen, \nwerden nicht vorgemerkt.",
+                        font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
+        text.place(x=0, rely=0.10)
+
+        commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
+                                  fg=font_color)
+        commands = tk.Label(description_container,
+                            text="- git add Dateiname",
+                            bg="white",
+                            fg=font_color, font="TkFont 12 bold", justify="left")
+
+        commands_title.place(x=0, rely=0.70)
+        commands.place(x=0, rely=0.75)
+
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.59)
+        task_title.place(x=0, rely=0.82)
         task1 = tk.Label(description_container, text="1. Merke die Änderungen in der main.txt-Datei zur Versionierung vor.",
                          bg="#fff", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.66)
-        task2 = tk.Label(description_container, text="2. Prüfe den Versionierungsstatus deines Repositories.", bg="#fff",
-                         font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.74)
-        task3 = tk.Label(description_container, text="3. Merke die Änderungen in der .gitignore zur Versionierung vor!.",
+        task1.place(x=0, rely=0.88)
+        task3 = tk.Label(description_container, text="2. Merke die Änderungen in der .gitignore zur Versionierung vor!.",
                          bg="#fff", font="TkFont 12 bold", fg=font_color, bd=5)
-        task3.place(x=0, rely=0.82)
-        task4 = tk.Label(description_container, text="4. Prüfe den Versionierungsstatus deines Repositories.", bg="#fff",
-                         font="TkFont 12 bold", fg=font_color, bd=5)
-        task4.place(x=0, rely=0.9)
+        task3.place(x=0, rely=0.94)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -577,8 +703,77 @@ class GitAdd(Page):
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
-        image = tk.Label(description_container, text="Staging Area", bd=30, bg=font_color, fg="white")
-        image.place(y=0, relx=0.8)
+        img = tk.PhotoImage(file="./img/gitadd.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0.25, rely=0.61)
+
+
+class GitStatusAdded(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        def run_command(command):
+
+            if right_directory() and is_repository() and file_exists("main.txt") and file_exists("main.log") \
+                    and file_exists("second.txt") and file_exists("third.txt"):
+                if command == "git status":
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    checkbox['bg'] = '#6b9e1f'
+                else:
+                    output['text'] = "Bitte überprüfe deine Syntax!"
+            else:
+                output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
+                                 "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=0.6)
+
+        title = tk.Label(description_container, text="Git status", bg="#fff", font="TkHeaderFont 24 bold",
+                         fg=font_color)
+        title.place(x=0, y=0)
+        text = tk.Label(description_container,
+                        text="Nun hast du 'main.txt' und '.gitignore' zur Staging area hinzugefügt, also zur "
+                             "\nVersionierung vorgemerkt. Der Befehl 'git status' dient außerdem dazu, zu überprüfen,\nob "
+                             "und welche Dateien zur Versionierung vorgemerkt sind."
+                             "Wenn wir nun den Status prüfen, \nsehen wir, dass '.gitignore' und 'main.txt' unter dem Punkt"
+                             "'zum Commit vorgemerkte \nÄnderungen' gelistet sind."
+                             "Weiterhin sehen wir die Dateien 'second.txt' und 'third.txt' \nnach wie vor als 'unversioniert "
+                             "Dateien' gelistet sind.",
+                        font="TkFont 12 bold",
+                        bg="white", fg=font_color,
+                        justify="left")
+        text.place(x=0, rely=0.12)
+
+        commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
+                                  fg=font_color)
+        commands = tk.Label(description_container,
+                            text="- git status",
+                            bg="white",
+                            fg=font_color, font="TkFont 12 bold", justify="left")
+
+        commands_title.place(x=0, rely=0.70)
+        commands.place(x=0, rely=0.75)
+
+        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
+        task_title.place(x=0, rely=0.83)
+        checkbox = tk.Label(description_container, text="1. Prüfe den ARchivierungsstatus deiner Respositories.",
+                            font="TkFont 12 bold", fg=font_color, bd=5, bg="#fff")
+        checkbox.place(x=0, rely=0.9)
+
+        terminal_container = tk.Frame(self, bg="#464e51")
+        terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
+
+        command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
+        command_line.place(relwidth=0.8, relheight=0.15)
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()),
+                               bg=fu_green,
+                               fg="white", font="TkFont 10 bold")
+        run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
+        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
+                          anchor="nw", font="TkFont 10 bold")
+        output.place(relheight=0.85, relwidth=1, rely=0.15)
 
 
 class GitCommit(Page):
@@ -587,16 +782,12 @@ class GitCommit(Page):
 
         def run_command(command):
 
-           if right_directory() and is_repository() and mainlog_exists() and maintxt_exists():
+           if right_directory() and is_repository() and file_exists("main.txt") and file_exists("main.log") \
+                    and file_exists("second.txt") and file_exists("third.txt"):
                if command == 'git commit -m "updated .gitignore and added main-file"':
                    response = subprocess.check_output(command, shell=True)
                    output['text'] = response
                    task1['bg'] = '#6b9e1f'
-               elif command == "git status":
-                   response = subprocess.check_output(command, shell=True)
-                   output['text'] = response
-                   task2['bg'] = '#6b9e1f'
-
            else:
                output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
                                  "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
@@ -607,15 +798,34 @@ class GitCommit(Page):
         title = tk.Label(description_container, text="Git commit", bg="#fff", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
+        text = tk.Label(description_container,
+                        text="Wenn man nun mit seinen Änderunge fertig ist, möchte man die neue Version des Porjektes\nim"
+                             "Repository, also dem Archiv, speichern. Dies tut man mit 'git commit'. Zu jedem \nCommit sollte"
+                             "man eine kurze Beschreibung dessen mitliefern, was man geändert hat,\ndamit man später alle "
+                             "Änderungen nachvollzeihen kann. Dies tut man am besten, indem \nman den Befehl mit der Option "
+                             "-m ergänzt in Verbidung mit der sogenannten Commitmessage."
+                             "\n\nBeim Commiten speichert man nur alle Änderungen, die in der Staging Area zur Archivierung\n "
+                             "vorgemerkt wurden im Repositry. Alle anderen Änderungen bleiben zwar erhalten, \nsind aber nicht im "
+                             "gespeicherten Snapshot im Repository vorhanden. \nDiese kann man in einer nächsten Version "
+                             "speichern oder zurücksetzen.", font="TkFont 12 bold", bg="white", fg=font_color,
+                        justify="left")
+        text.place(x=0, rely=0.1)
+
+        commands_title = tk.Label(description_container, text="Befehle", bg="white", font="TkFont 14 bold",
+                                  fg=font_color)
+        commands = tk.Label(description_container,
+                            text="- git commit -m 'kurze Beschreibung'",
+                            bg="white",
+                            fg=font_color, font="TkFont 12 bold", justify="left")
+
+        commands_title.place(x=0, rely=0.70)
+        commands.place(x=0, rely=0.75)
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.75)
+        task_title.place(x=0, rely=0.85)
         task1= tk.Label(description_container, text="1. Commite die vorgemerkten Änderungen in dein Repository.",
                         bg="#fff", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.82)
-        task2 = tk.Label(description_container, text="2. Prüfe den Versionierungsstatus deines Repositories.",
-                         bg="#fff", font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.9)
+        task1.place(x=0, rely=0.92)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -628,8 +838,76 @@ class GitCommit(Page):
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
-        image = tk.Label(description_container, text="Repository", bd=30, bg=font_color, fg="white")
-        image.place(y=0, relx=0.8)
+        img = tk.PhotoImage(file="./img/gitcommit.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(x=0, rely=0.515)
+
+
+class GitStatusAll(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        def run_command(command):
+
+            if right_directory() and is_repository() and file_exists("main.txt") and file_exists("main.log") \
+                    and file_exists("second.txt") and file_exists("third.txt"):
+                if command == "git status":
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    checkbox['bg'] = '#6b9e1f'
+                else:
+                    output['text'] = "Bitte überprüfe deine Syntax!"
+            else:
+                output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
+                                 "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=0.6)
+
+        title = tk.Label(description_container, text="Git status", bg="#fff", font="TkHeaderFont 24 bold",
+                         fg=font_color)
+        title.place(x=0, y=0)
+        text = tk.Label(description_container,
+                        text="Nun hast du eine Version deines Projektes als Snapchot im Repository (Arciv) gespeichert."
+                             "\nNun wollen wir noch eine Änderung an der 'main.txt# vornehmen, indem wir 'erster Inhalt' "
+                             "\nin die Datei schreiben."
+                             "\n\nNun wollen wir ein letztes Mal den Status unserer Ändeurngen begutachten."
+                             "\nWeiterhin sind 'second.txt# und 'third.txt' als unversionierte ateien vorgemerkt."
+                             "\nDie gitignore wurde im letzten Commit im Archiv gesoeichert und seitdem nicht mehr "
+                             "verändert, \nsodass die Datei nicht im Status augleistet wird."
+                             "Neu hinzugekommen sind die Änderungen, \ndie in der 'main.txt' gemacht wurden."
+                             "Da diese datei nicht neu angelegt wurde aber\n Änderungen enthalt, die nicht zur "
+                             "Archivierung vorgemerkt sind, wird sie unter dem Punkt \n'Änderungen, die nicht zum "
+                             "Commit vorgemerkt sind'' gelistet. "
+                             "\nAlle Änderunge, die in einem Projekt stattfinden, werden einer der drei Kategorien "
+                             "\nzugeodnet und dementsprechend an der passenden Stelle gelistet. \nSo hat man immer einen Überblick"
+                             "über den Stand seineS projektes."
+                             "Sollte man nicht mehr ganz \nzusammenbekommen, wo sich welche datei befindet und was man mit "
+                             "ihr machen kann,\n schreibt git immer befehlsvorschläge dazu.",
+                        font="TkFont 12 bold",
+                        bg="white", fg=font_color,
+                        justify="left")
+        text.place(x=0, rely=0.12)
+
+        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
+        task_title.place(x=0, rely=0.88)
+        checkbox = tk.Label(description_container, text="1. Prüfe den ARchivierungsstatus deiner Respositories.",
+                            font="TkFont 12 bold", fg=font_color, bd=5, bg="#fff")
+        checkbox.place(x=0, rely=0.95)
+
+        terminal_container = tk.Frame(self, bg="#464e51")
+        terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
+
+        command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
+        command_line.place(relwidth=0.8, relheight=0.15)
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()),
+                               bg=fu_green,
+                               fg="white", font="TkFont 10 bold")
+        run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
+        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
+                          anchor="nw", font="TkFont 10 bold")
+        output.place(relheight=0.85, relwidth=1, rely=0.15)
 
 
 class Summary(Page):
@@ -654,14 +932,19 @@ class Summary(Page):
                              "\n- Übersicht über gemachte Änderungen (git status)"
                              "\n- Vormerken von Änderungen zur Archivierung (git add)"
                              "\n- Archivierung von Änderungen (git commit)"
-                             "\n\nUm dein Wissen nochmal zu festigen bzw. zu prüfen, folge dem Link zum Quiz und bearbeite dieses.", font="TkFont 12 bold",
+                             "\n\nUm dein Wissen nochmal zu festigen bzw. zu prüfen, folge dem Link zum Quiz und bearbeite \ndieses.", font="TkFont 12 bold",
                         bg="white", fg=font_color,
                         justify="left")
         text.place(x=0, rely=0.1)
 
+        img = tk.PhotoImage(file="./img/localVCS.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(x=0, rely=0.15)
+
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold", cursor="hand2")
         link1.place(relx=0.4, rely=0.37)
-        link1.bind("<Button-1>", lambda e: callback("Quiz.html"))
+        link1.bind("<Button-1>", lambda e: callback("questionaire/first_questionaire.html"))
 
         additional = tk.Label(description_container, text="Bei Anmerkungen, Fragen oder Fehlern und Problemen mit dem "
                                                           "Tutorial oder allgemein zu Git,\nschreib mir entweder über "
