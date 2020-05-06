@@ -65,9 +65,15 @@ function showResults() {
             answerContainers[questionNumber].style.background = '#ffb9b9';
         }
     });
+    var newDate = new Date();
+    var dateString = newDate.toDateString();
+    var timeString = newDate.toLocaleTimeString();
+
     output.push(`<div class="modal-content">
-            <p id="modalcontent" style="font-size:14pt; font-weight:bold;">Hervorragend!</p>
-            <p>Du hast <span style="font-weight:bold; color: #6b9e1f;">${numCorrect}</span> Fragen korrekt beantwortet!</p>
+            <p id="modalcontent" style="font-size:14pt; font-weight:bold;">Geschafft!</p>
+            <p>Du hast <span style="font-weight:bold; color: #6b9e1f;">${numCorrect}/${myQuestions.length}</span> Fragen korrekt beantwortet!</p>
+            <p>${dateString} ${timeString}</p>
+            <p style="color:red;">Vergiss nicht, einen Screenshot hiervon zu machen!</p>
           </div>`);
     modal.innerHTML = output.join('');
     modal.style.display = "block";
