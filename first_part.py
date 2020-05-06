@@ -55,21 +55,12 @@ class Introduction(Page):
                              "\nServern zu speichern, die von überall über das Internet erreichbar sind.",
                         font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
-        text.place(x=0, rely=0.15)
-
-        explanation = tk.Label(description_container, text="Weiterführende Links mit Informationen", bg="white",
-                               font="TkFont 14 bold", fg=font_color)
-        explanation.place(x=0, rely=0.60)
+        text.place(x=0, rely=0.50)
 
         img = tk.PhotoImage(file="./img/vc-xkcd.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.15, rely=0.45)
-
-        img = tk.PhotoImage(file="./img/phd_final.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0.15, rely=0.45)
+        panel.place(relx=0.15, rely=0.10)
 
 
 class GeneralStructure(Page):
@@ -283,7 +274,7 @@ class NewProject(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="white")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")
@@ -350,7 +341,7 @@ class InitializeRepo(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="white")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")
@@ -422,7 +413,7 @@ class ConfigGit(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="White")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")
@@ -514,7 +505,7 @@ class NewContent(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="white")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
@@ -556,8 +547,8 @@ class Gitignore(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Manchmal hat man Detien und Ordner, die man nicht mit versionieren möchte. Dazu zählen "
-                             "Ordner,\nin denen Informationen und Software von virtuellen Umgebungen abgespeichert sind "
+                        text="Manchmal hat man Detien und Ordner, die man nicht mit ver-\nsionieren möchte. Dazu zählen "
+                             "Ordner, in denen Informationen und Software von virtuellen Umgebungen abgespeichert sind "
                              "sowie \nKonfigurationsdateien, die sensible Daten wie passwörter oder ähnliches enthalten."
                              "\n\nUm diese dateien trotzdem in ihrem zugehörigen Projekt zu haben aber nict zu versionieren, "
                              "\ngibt es die sogenannte '.gitignore'. Hierbei handelt es sich um eine versteckte Datei, "
@@ -568,7 +559,7 @@ class Gitignore(Page):
                         justify="left")
 
 
-        text.place(x=0, rely=0.15)
+        text.place(x=0, rely=0.1)
 
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
@@ -585,7 +576,7 @@ class Gitignore(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="white")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")
@@ -594,7 +585,7 @@ class Gitignore(Page):
         img = tk.PhotoImage(file="./img/gitignore.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.15, rely=0.45)
+        panel.place(relx=0.70, rely=0.0)
 
 
 class GitStatusNew(Page):
@@ -717,7 +708,7 @@ class GitAdd(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="white")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")
@@ -838,7 +829,7 @@ class GitCommit(Page):
 
         command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
         command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()))
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="white")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
         output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
                           anchor="nw", font="TkFont 10 bold")

@@ -54,7 +54,7 @@ class MainView(tk.Frame):
         p14.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
 
         b1 = tk.Button(buttonframe, text="1. Was ist Git?", command=p1.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
-        b2 = tk.Button(buttonframe, text="2. Allgemeine Struktur?", command=p2.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
+        b2 = tk.Button(buttonframe, text="2. Allgemeine Struktur", command=p2.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
         b3 = tk.Button(buttonframe, text="3. Working Directory", command=p3.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
         b4 = tk.Button(buttonframe, text="4. Staging Area", command=p4.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
         b41 = tk.Button(buttonframe, text="5. Repository", command=p41.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
