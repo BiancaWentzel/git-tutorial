@@ -4,6 +4,7 @@ import tkinter as tk
 import subprocess
 import os
 import webbrowser
+import platform
 
 from utils import right_directory, is_repository, file_exists
 
@@ -225,19 +226,23 @@ class NewProject(Page):
                 if os.system(command) == 0:
                     output['text'] = "Das Verzeichnis 'gitcouse' wurde angelegt."
                     task1['bg'] = '#6b9e1f'
-                elif os.system(command) == 256:
+                elif platform.system() == "Windows" and os.system(command) != 0:
+                    output['text'] = "Das Verzeichnis existiert bereits!"
+                    task1['bg'] = '#6b9e1f'
+                elif platform.system() != "Windows" and os.system(command) == 256:
                     output['text'] = "Das Projekt existiert bereits."
                     task1['bg'] = '#6b9e1f'
                 else:
                     output['text'] = "Bitte überprüfe deine Syntax!"
             elif command == "cd gitcourse":
                 try:
-                    os.chdir("gitcourse")
-                    output['text'] = "Gewechselt in das Verzeichnis 'gitcourse'. \nDu befindet dich jetzt hier: {}".format(subprocess.check_output("pwd"))
+                    os.chdir("./gitcourse")
+                    output['text'] = "Gewechselt in das Verzeichnis 'gitcourse'.{}".format(os.getcwd())
                     task2['bg'] = '#6b9e1f'
                 except:
                     if right_directory():
-                        output['text'] = "Du befindest dich bereits im gitcourse-Projektordner."
+                        output['text'] = "Du befindest dich bereits im gitcourse-Projektordner. {}".format(os.getcwd())
+                        task2['bg'] = '#6b9e1f'
                     else:
                         output['text'] = "Bist du sicher, dass du einen Projektordner namens 'gitcourse' angelegt hast?"
 
@@ -297,9 +302,14 @@ class InitializeRepo(Page):
                         output['text'] = response
                         task1['bg'] = '#6b9e1f'
                 elif command == "ls -a":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
-                    task2['bg'] = '#6b9e1f'
+                    if platform.system() == "Linux" or platform.system() == "MacOS":
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task2['bg'] = '#6b9e1f'
+                    elif platform.system() == "Windows":
+                        response = subprocess.check_output("dir",shell=True)
+                        output['text'] = response
+                        task2['bg'] = '#6b9e1f'
                 else:
                     output['text'] = "Bitte überprüfe die Syntax und die Rechtschreibung."
             else:
@@ -430,7 +440,15 @@ class NewContent(Page):
                 if is_repository():
                     if command == "touch main.txt":
                         if not file_exists("main.txt"):
-                            subprocess.check_output(command, shell=True)
+                            if platform.system() == "Windows":
+                                try:
+                                    subprocess.check_output("<nul (set/p z=)>main.txt", shell=True)
+                                    output['text'] = "Die Datei 'main.txt' wurde angelegt."
+                                    task1['bg'] = '#6b9e1f'
+                                except:
+                                    pass
+                            else:
+                                subprocess.check_output(command, shell=True)
                             output['text'] = "Die Datei 'main.txt' wurde angelegt."
                             task1['bg'] = '#6b9e1f'
                         else:
@@ -438,7 +456,15 @@ class NewContent(Page):
                             task1['bg'] = fu_green
                     elif command == "touch main.log":
                         if not file_exists("main.log"):
-                            subprocess.check_output(command, shell=True)
+                            if platform.system() == "Windows":
+                                try:
+                                    subprocess.check_output("<nul (set/p z=)>main.log", shell=True)
+                                    output['text'] = "Die Datei 'main.log' wurde angelegt."
+                                    task1['bg'] = '#6b9e1f'
+                                except:
+                                    pass
+                            else:
+                                subprocess.check_output(command, shell=True)
                             output['text'] = "Die Datei 'main.log' wurde angelegt."
                             task2['bg'] = '#6b9e1f'
                         else:
@@ -446,7 +472,15 @@ class NewContent(Page):
                             task2['bg'] = fu_green
                     elif command == "touch second.txt":
                         if not file_exists("second.txt"):
-                            subprocess.check_output(command, shell=True)
+                            if platform.system() == "Windows":
+                                try:
+                                    subprocess.check_output("<nul (set/p z=)>second.txt", shell=True)
+                                    output['text'] = "Die Datei 'second.txt' wurde angelegt."
+                                    task1['bg'] = '#6b9e1f'
+                                except:
+                                    pass
+                            else:
+                                subprocess.check_output(command, shell=True)
                             output['text'] = "Die Datei 'second.txt' wurde angelegt."
                             task3['bg'] = '#6b9e1f'
                         else:
@@ -454,7 +488,15 @@ class NewContent(Page):
                             task3['bg'] = fu_green
                     elif command == "touch third.txt":
                         if not file_exists("third.txt"):
-                            subprocess.check_output(command, shell=True)
+                            if platform.system() == "Windows":
+                                try:
+                                    subprocess.check_output("<nul (set/p z=)>third.txt", shell=True)
+                                    output['text'] = "Die Datei 'third.txt' wurde angelegt."
+                                    task1['bg'] = '#6b9e1f'
+                                except:
+                                    pass
+                            else:
+                                subprocess.check_output(command, shell=True)
                             output['text'] = "Die Datei 'thid.txt' wurde angelegt."
                             task4['bg'] = '#6b9e1f'
                         else:
@@ -521,11 +563,24 @@ class Gitignore(Page):
                if is_repository():
                    if file_exists("main.txt") and file_exists("main.log") and file_exists("second.txt") and file_exists("third.txt"):
                        if command == "touch .gitignore":
-                           subprocess.check_output(command, shell=True)
+                           if platform.system() == "Windows":
+                               try:
+                                    subprocess.check_output("<nul (set/p z=)>.gitignore", shell=True)
+                                    output['text'] = "Die Datei '.gitignore' wurde angelegt."
+                                    task1['bg'] = '#6b9e1f'
+                               except:
+                                    pass
+                           else:
+                               subprocess.check_output(command, shell=True)
                            output['text'] = "Die Datei '.gitignore' wurde erfolgreich angelegt."
                            task1['bg'] = '#6b9e1f'
-                       elif command == "echo 'main.log' >> .gitignore":
-                           subprocess.check_output(command, shell=True)
+                       elif command == 'echo "main.log" >> .gitignore':
+                           if platform.system() == "Windows":
+                               subprocess.check_output("echo main.log >> .gitignore",shell=True)
+                               output['text'] = "'main.log' wurde erfolgreich zur .gitignor ehinzugefügt."
+                               task2['bg'] = '#6b9e1f'
+                           else:
+                               subprocess.check_output(command, shell=True)
                            output['text'] = "'main.log' wurde erfolgreich zur .gitignor ehinzugefügt."
                            task2['bg'] = '#6b9e1f'
                        else:
