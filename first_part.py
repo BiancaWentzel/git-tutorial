@@ -328,7 +328,7 @@ class InitializeRepo(Page):
                         output['text'] = response
                         task2['bg'] = '#6b9e1f'
                 else:
-                    output['text'] = "Bitte überprüfe die Syntax und die Rechtschreibung."
+                    output['text'] = "Bitte überprüfe deine Syntax."
             else:
                 output['text'] = "Du befindest dich nicht im 'gitcourse-Projektordner!\n" \
                                  "Gehe zurück zum vorherigen Schritt und erledige die dort gestellten Aufgaben."
@@ -405,7 +405,7 @@ class ConfigGit(Page):
                                      "Bitte gehe zurück zum vorherigen Schritt und bearbeite die dortigen Aufgaben."
             else:
                 output['text'] = "Du befindest dich nicht im gitcourse-Projektordner. \n " \
-                                 "Bitte gehe zurück zu Schritt ... und bearbeite die dortigen Aufgaben!"
+                                 "Bitte gehe zurück zu Schritt 7 und bearbeite die dortigen Aufgaben!"
 
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
@@ -532,9 +532,9 @@ class NewContent(Page):
                             output['text'] = "Die Datei 'third.txt' existiert bereits!"
                             task4['bg'] = fu_green
                 else:
-                    output['text'] = "Du hast noch kein Repository initialisiert.\n Bitte gehe zurück zu Schritt ... zurück und erledige alle Aufgaben!"
+                    output['text'] = "Du hast noch kein Repository initialisiert.\n Bitte gehe zurück zu Schritt 8 zurück und erledige alle Aufgaben!"
             else:
-                output['text'] = "Du befindest dich nicht im gitcourse-Verzeichnis.\n Bitte geh zurück zu Schritt ... und erledige alle Aufgaben!"
+                output['text'] = "Du befindest dich nicht im gitcourse-Verzeichnis.\n Bitte geh zurück zu Schritt 7 und erledige alle Aufgaben!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -624,10 +624,10 @@ class Gitignore(Page):
                                         "Bitte kehre zum letzten Schritt zurück und erledige die Aufgaben!"
                else:
                    output['text'] = "Du hast noch kein Repository angelegt! \n " \
-                                    "Bitte keher zu Schritt ... zurück und arbeite die Aufgaben nacheinander ab!"
+                                    "Bitte kehre zu Schritt 8 zurück und arbeite die Aufgaben nacheinander ab!"
            else:
                output['text'] = "Du befindest dich nicht im gitcourse-Projektordner! \n " \
-                                "Bitte kehre zu schritt ... zurück und arbeite die Aufgaben der Reihe nach ab!"
+                                "Bitte kehre zu Schritt 7 zurück und arbeite die Aufgaben der Reihe nach ab!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -696,8 +696,8 @@ class GitStatusNew(Page):
                 else:
                     output['text'] = "Bitte überprüfe deine Syntax!"
             else:
-                output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
-                                 "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
+                output['text'] = "Du scheinst einige Schritte übersprungen zu haben.\n" \
+                                 "Bitte gehe zurück zu Schritt 7 und arbeite die Aufgaben nacheinander ab!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -766,8 +766,8 @@ class GitAdd(Page):
                     output['text'] = "Bitte übeprüfe deine Syntax!"
 
             else:
-                output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
-                                 "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
+                output['text'] = "Du scheinst einige Schritte übersprungen zu haben.\n" \
+                                 "Bitte gehe zurück zu Schritt 7 und arbeite die Aufgaben nacheinander ab!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -834,8 +834,8 @@ class GitStatusAdded(Page):
                 else:
                     output['text'] = "Bitte überprüfe deine Syntax!"
             else:
-                output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
-                                 "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
+                output['text'] = "Du scheinst einige Schritte übersprungen zu haben.\n" \
+                                 "Bitte gehe zurück zu Schritt 7 und arbeite die Aufgaben nacheinander ab!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -895,8 +895,8 @@ class GitCommit(Page):
                else:
                    output['text'] = "Prüfe deine Syntax und die Commitmessage!"
            else:
-               output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
-                                 "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
+               output['text'] = "Du scheinst einige Schritte übersprungen zu haben.\n" \
+                                 "Bitte gehe zurück zu Schritt 7 und arbeite die Aufgaben nacheinander ab!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -956,15 +956,15 @@ class GitStatusAll(Page):
                     response = subprocess.check_output(command, shell=True)
                     output['text'] = response
                     task2['bg'] = '#6b9e1f'
-                elif command == "echo 'Erster Inhalt' >> main.txt":
+                elif command == "echo 'erster Inhalt' >> main.txt":
                     subprocess.check_output(command, shell=True)
-                    output['text'] = "Du hast 'Erster Inhalt' in die main.txt geschrieben."
+                    output['text'] = "Du hast 'erster Inhalt' in die main.txt geschrieben."
                     task1['bg'] = fu_green
                 else:
                     output['text'] = "Bitte überprüfe deine Syntax!"
             else:
-                output['text'] = "Du schienst einige Schritte übersprungen zu haben. \n" \
-                                 "Bitte gehe zurük zu Schritt ... und arbeite die Aufgaben nacheinander ab!"
+                output['text'] = "Du scheinst einige Schritte übersprungen zu haben.\n" \
+                                 "Bitte gehe zurück zu Schritt 7 und arbeite die Aufgaben nacheinander ab!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
