@@ -41,27 +41,30 @@ class Introduction(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Git ist ein sogenanntes Versionskontrollsystem (VCS - Version Controll System)."
-                             "\nEs dient zur Protokollierung und Archivierung sowie Dokumentation von Änderungen in "
-                             "Dateien \nund ordnern eines projektes. Für alle registrierten Änderung wird eine Version des "
-                             "gesamten \nProjektes wie ein Screenshot abgespeichert und mit Angaben zur Zeit und des "
-                             "Autors sowie \neinem Kommentar des Autors zu den Änderungen archiviert."
-                             "\n\nGit bietet folgende Möglichkeiten/ Vorteile:"
-                             "\n- Änderungen können immer nachvollzogen werden"
-                             "\n- man hat ein Archiv mit allen Versionen des Projektes"
-                             "\n- man kann jederzeit ältere Versionen des projektes wiederherstellen"
-                             "\n\nGit bietet durch die interne Regelung und Archivierung der Versionen hervorragende "
-                             "Möglichkeiten,\num im team an einem Projekt zu arbeiten, ohne dass Änderungen verloren gehen."
-                             "\n\nWeiterhin bieten Hostingdienste wie GitLab oder GitHub die Möglichkeit, Projektinhate auf"
-                             "\nServern zu speichern, die von überall über das Internet erreichbar sind.",
+                        text="Wie oft ist es dir schon passiert, dass du aus Versehen Änderungen gemacht hast\noder "
+                             "etwas gelöscht hast und dann alles nochmal machen musstest? Oder kennst du es,\nwenn man "
+                             "für jede Änderungen eine neue Datei anlegt, um die alte Version nicht zu\nverlieren und "
+                             "langsam den Überblick über die ganzen zusätzlichen Dateien verliert?"
+                             "\n\nGenau hier setztz Git an und ist dein bester Freund, damit dein Projekt übersichtlich\n"
+                             "bleibt und nichts verloren geht und sich jede Änderungen nachvollziehen lässt."
+                             "\n\nGit ist ein sogenanntes Versionskontrollsystem (VCS - Version Controll System)."
+                             "\nEs dient zur Protokollierung, Archivierung und Dokumentation von Änderungen in "
+                             "Dateien \nund Ordnern eines Projektes. Für alle vorgemerkten Änderung wird eine Version des "
+                             "gesamten \nProjektes wie ein Screenshot abgespeichert und mit Angaben zur Zeit und zum "
+                             "Autor sowie \neinem Kommentar des Autors zu den Änderungen archiviert. "
+                             "\n\nWeiterhin bietet Git durch seine Funktionsweise die perfekte Umgebung, um im Team\nan "
+                             "einem Projekt zu arbeiten. Teammitglieder können parallel an den gleichen Dateien\nund "
+                             "Ordnern arbeiten, ohne dass etwas verloren geht. "
+                             "In Verbindung mit einer Platform\nwie GitLab oder GitHub ist der Projektinhalt außerdem "
+                             "immer und von überall erreichbar,\nwas noch flexibleres Arbeiten ermöglicht.",
                         font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
-        text.place(x=0, rely=0.50)
+        text.place(x=0, rely=0.49)
 
         img = tk.PhotoImage(file="./img/vc-xkcd.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.15, rely=0.10)
+        panel.place(relx=0.15, rely=0.1)
 
 
 class GeneralStructure(Page):
@@ -76,25 +79,24 @@ class GeneralStructure(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Primär findet Versionierung mit Git lokal auf deinem rechner statt. "
-                        "Hierbei gliedert sich die lokale\nVersionierung hauptsächlich in 3 Ebenenen: das working "
-                             "Directory, die staging Area und\ndas repository. Hierbei sind die staging Area und das "
-                             "repsoitory virtuellen Ebenen,\ndie ersteinaml nicht sichtbar sind. Zum Navigation oder "
-                             "Registrierung von Änderungen gibt es\nzahlreiche Befehle, die zur Interkation der "
-                             "einzelnen Ebenen dienen.",font="TkFont 12 bold", bg="white", fg=font_color,
+                        text="Versionierung mit Git findet überwiegend lokal auf deinem Rechner statt.\nMan kann die "
+                             "lokale Versionierung jedoch erweitern, indem man eine Platform wie\nGitLab oder GitHub nutzt, "
+                             "um das Archiv (Remote Repository) auf einem Server zu hinterlegen."
+                             "\n\nZuerst konzentrieren wir uns jedoch auf die lokale Versionierung. Grob gesagt,\nkann "
+                             "man die Versionierung in drei Ebenen aufteilen:"
+                             "\n- das Working Directory"
+                             "\n- die Staging Area"
+                             "\n- das Repository"
+                             "\n\nJede dieser Ebenen spielt eine wichtige Rolle in der Versionierung und dient einem\n"
+                             "bestimmten Zweck. Dieser Zweck und die Interaktion zwischen den einzelnen Ebenen\nwird in "
+                             "den folgenden Kapiteln näher erläutert.",font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
-        text.place(x=0, rely=0.1)
-
-        text2 = tk.Label(description_container,text="Weiterhin gibt es ein sogenanntes Remote Repository, dass durch unterschiedliche "
-                             "\nSoftwaredienstw ie GitLab oder Github genutz werden kann."
-                             "Die einzelnen Ebenen werden im \nFolgenden detaillierter erläutert.",font="TkFont 12 bold", bg="white", fg=font_color,
-                        justify="left")
-        text2.place(x=0, rely=0.85)
+        text.place(x=0, rely=0.63)
 
         img = tk.PhotoImage(file="./img/generalstructure.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.15, rely=0.25)
+        panel.place(relx=0.1, rely=0.07)
 
 
 class WorkingDirectory(Page):
@@ -108,11 +110,17 @@ class WorkingDirectory(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Das Working Directory ist das Arbeitsverzeichnis, also der Projektordne,r in dem sich\n "
-                             "alle Dateien und Dokumente befinden, die zum Projekt gehören. \nDas Working Directory ist der"
-                             "Ort, an dem alle Änderungen staffinden \nund erst einmal unabhängig ist von Git und Versionierung."
-                             "Sobald man das Projekt \njedoch versionieren möchte, ist es auch der Ort, an dem ein "
-                             "Repository angelegt wird.",font="TkFont 12 bold", bg="white", fg=font_color,
+                        text="Die erste Ebene ist das Working Directory, also das Projektverzeichnis, in dem sich\nalle "
+                             "Unterordner, Dateien und Dokumente des Projektes befinden. Dieses Verzeichnis\nist im "
+                             "Wesentlichen erstmal unabhängig von Git und Versionierung."
+                             "\n\nMöchte man nun jedoch alle Inhalte des Projektes versionieren, dann ist das der Ort,\nan "
+                             "dem ein Repository angelegt wird. "
+                             "Das bedeutet man sagt Git, dass man dieses\nProjekt versionieren möchte und Git legt "
+                             "dann die übrigen zwei \nEbenen (Staging Area und Repository) als versteckte virtuelle Ebenen "
+                             "in\ndiesem Projektordner an."
+                             "\n\nAlso alles, was du in dem Projekt machst, sei es eine Änderung in einem Dokument\noder das "
+                             "Anlegen einer neuen Datei, passiert im Working Directory und ist erst einmal\nunabhängig von Git."
+                             ,font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
         text.place(x=0, rely=0.1)
 
@@ -133,25 +141,27 @@ class StagingArea(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Wenn man nun ein Projekt verionieren möchte, initialisiert man ein Repository. \nBei der "
-                             "Initialisierung werden zwei unsichtbare Zwischenebenen angelegt. \nEine davon ist die sogenannte Staging Area."
-                             "Diese Ebene kann man als \nZwischenablage oder Mekrzettel verstehen. Wenn man eine Änderung "
-                             "gemacht hat,\ndie man gerne versionieren bzw. Archivieren möchte, so merkt man diese in der \nStaging Area vor."
-                             "\nDas kann man mit allen Änderungen machen. Die Staging Area ist also soetwas\n wie ein Merkzettel "
-                             "für alle Änderungen, die in Repository (Archiv) übernommen werden sollen.",
+                        text="Kommen wir nun zur zweiten Ebene. Diese ist eigentlich nur virtuell und wurde\nbeim "
+                             "Initalisieren eines Repsoitories angelegt."
+                             " Diese Ebene ist die Staging Area\nund kann als Zwischenablage oder Merkzettel gesehen werden."
+                             "\nSie dient dazu, gemachte Änderungen zur Versionierung vorzumerken."
+                             "\n\nDas heißt, wenn man einige Änderungen in seinem Projekt gemacht hat, kann man\nalle für einen "
+                             "relevanten Änderungen vormerken. Sie befinden sich dann also in\nder Staging Area (also virtuell, nicht wirklich)."
+                             " Alle vorgemerkten Änderungen können\ndann in einem nächsten Schritt archiviert werden."
+                             " Das betrifft dann aber auch \nwirklich nur die Änderungen, die vorgemerkt sind."
+                             " Alle anderen Änderungen,\ndie gemacht wurden, aber nicht vorgemerkt, werden nicht mit archiviert, "
+                             "sie bleiben\njedoch im Working Directory erhalten."
+                             "\n\nDer Zweck der Staging Area liegt also darin, Änderungen zur Archivierung vorzumerken.\nGleichzeitig bietet sie"
+                             "die Möglichkeit, nur spezifische Änderungen vorzumerken, damit\ndie einzelnen "
+                             "Projektversionen, die archiviert werden, thematisch abgeschlossen sind\nbzw. besser strukturiert werden können.",
                         font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
-        text.place(x=0, rely=0.1)
+        text.place(x=0, rely=0.07)
 
         img = tk.PhotoImage(file="./img/areas.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(x=0, rely=0.35)
-
-        img = tk.PhotoImage(file="./img/gitadd.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(x=0, rely=0.35)
+        panel.place(relx=0.15, rely=0.5)
 
 
 class Repository(Page):
@@ -165,24 +175,24 @@ class Repository(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Die letzte und wichtigste Ebene bei einer Versionierung wird Repository genannt. \nDas "
-                             "Repsoritory ist sozusagen das Archiv, in dem alle Versionen des Projektes \nabgespeichert werden."
-                             "Wenn man nun also Änderungen an seinem Projekt gemacht hat \nund diese Änderungen zur "
-                             "Archivierung in der Staging Area vorgemerkt hat, dann wird \nsoetwas wie ein Snapshot vom "
-                             "gesamten Projekt mit diesen Änderungen gemacht und \nim Archiv gespeichert. Mit Zeitstempel, "
-                             "Autor und Kommentar des Autoren.",font="TkFont 12 bold", bg="white", fg=font_color,
+                        text="Die letzte und wichtigste Ebene ist das Repository, also das Archiv. Wenn man ein\nProjekt "
+                             "versionieren möchte, sagt man, dass man ein Repository anlegt, obwohl\nsowohl ein Reposiroty als auch "
+                             "eine Staging Area angelegt werden. Da jedoch\ndas Repsoitory den Kernbestandteil der "
+                             "Versionierung darstellt, benutzt man\nden Begriff Repository einfach übergreifend."
+                             "\n\nDas Repository ist also das Archiv, in dem alle Versionen des Projektes gespeichert\nwerden. "
+                             "Jede Version hat einen Zeitstempel, einen Autor und eine vom Autor\nverfasste Anmerkung "
+                             "zur Version oder den gemachten Änderungen (Commit-Message)."
+                             "\n\nDas Archiv bietet also die Möglichkeit, unterschiedliche Versionen eines Projektes "
+                             "\nabzuspeichern und die einzelnen Änderungen Schritt für Schritt nachvollziehen zu können."
+                             "\nBesonders mächtig wird das Repsoitory dadurch, dass man die Möglichkeit hat,\njede dieser "
+                             "Versionen wiederherzustellen.",font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
-        text.place(x=0, rely=0.1)
+        text.place(x=0, rely=0.07)
 
         img = tk.PhotoImage(file="./img/areas.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(x=0, rely=0.35)
-
-        img = tk.PhotoImage(file="./img/gitcommit.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(x=0, rely=0.35)
+        panel.place(relx=0.15, rely=0.45)
 
 
 class RemoteRepository(Page):
@@ -197,23 +207,24 @@ class RemoteRepository(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Versionierung ist ein mächtiges Werkzeug und bietet sich sehr gut für Arbeiten im Team "
-                             "an.\nSolange du jedoch nicht auf einem Server arbeitet und versionierst, sondern nur lokal\n"
-                             "auf deinem Rechner, ist dies jedoch nicht möglich. Da man sich auch nicht unbedingt\n einen "
-                             "Server beorgen möchte, gibt es Diensteleister wie GitLab oder Github. \nHierbei handelt es "
-                             "sich um Onlineserver, auf denen man sein Repsoitory speichern kann."
-                             "\nDas nennt sich dann Remote Repository. Es ist eine Kopie deines lokalen Reposiorries, \ndann "
-                             "üüber das Internet erreichbar ist. Das bietet den Vorteil, dass man jederzeit und \nvon "
-                             "überall an sein Projekt hernakommt und daran arbeiten kann, weil man das lokale \nund remote "
-                             "Reposirtory synchronisieren kann. Weiterhin bietet es die Möglichkeit, \ndass mehrerer Leute "
-                             "an diesem Projekt arbeiten, mit der Schnittstelle des remote Repositores.",font="TkFont 12 bold", bg="white", fg=font_color,
+                        text="Vor allem für die Arbeit im Team ist Git sehr gut geeignet. Befindet sich dein Projekt\n"
+                             "jedoch nur lokal auf deinem Rechner, geht das leider eher schlecht. Um Versionierung\nund "
+                             "das Arbeiten im Team zu ermöglichen, gibt es Platformen wie GitLab oder GitHub,\ndie online auf "
+                             "einem Server eine Kopie deines lokalen Repositories speichern.\nAlso ein sogenanntes Remote Repository."
+                             "\n\nDieses Repository ist dann von überall über das Internet erreichbar und auch für deine\nTeammitglieder."
+                             " Du kannst also lokal an deinem Rechner Änderungen vornhemen\nund diese versionieren, während ein "
+                             "Teamkollege das auch macht. Wenn du mit deiner\nArbeit fertig bist, kannst du den neuen "
+                             "Stand des Projektes, den du lokal in deinem\nRepository archiviert hast, auf das "
+                             "Remote Repository übertragen.\nSo haben alle Teammitglieder immer die neueste Version des Projekts."
+                             "\n\nAußerdem bietet ein solches Repository die Sicherheit, dass deine Projektdaten nicht\nverloren "
+                             "gehen, wenn dein Rechner mal kaputt gehen sollte.",font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
-        text.place(x=0, rely=0.1)
+        text.place(x=0, rely=0.07)
 
         img = tk.PhotoImage(file="./img/remote.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(x=0, rely=0.45)
+        panel.place(relx=0.15, rely=0.47)
 
 
 class NewProject(Page):
@@ -256,23 +267,29 @@ class NewProject(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Nun wollen wir ein neues Projekt anlegen, in dem wir später ein Git-Repository "
-                             "initialisieren, \num die grundlegenden Befehle zu lernen. Um einen neuen Projektordner "
-                             "anzulegen, \ngibt es den Befehl 'mkdir' (make directoy). \n\nWenn man dann einen Projektordner "
-                             "angelegt hat, möchte man in ihm arbeiten. \nDafür kann man mit 'cd '(change directory) in den "
-                             "Projektordner wechseln.", font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
+                        text="Um die grundlegenden Befehle von Git zu lernen und die Funktionsweise der Versionierung\n"
+                             "zu verstehen, brauchen wir zuerst einmal einen Projektordner, also das sogenannte\n"
+                             "Working Directory."
+                             "\n\nUm über ein Terminal einen Ordner anzulegen, gibt es den Befehl 'mkdir' (make directory).\n"
+                             "Mit 'mkdir Ordnername' legt man also einen neuen Ordner an, der den mitgegebenen\nNamen trägt."
+                             " Da wir in diesem Ordner agieren wollen, wäre es besser, wenn wir uns\nin diesem Ordner befinden."
+                             " Hierzu dient der Befehl 'cd Ordnername' (change directory),\nder dann in den angegebenen Ordner wechselt."
+                             "\n\nAnmerkung: Das Tutorial hat ein eingebautes Terminal, das im Hintergund die\nübergebenen "
+                             "Befehle ausführt. Man könnte das Tutorial auch parallel in einem extra\nTerminal durcharbeiten, "
+                             "muss dabei jedoch darauf achten, dass die Befehle\nvom Betribssystem abhängig sind."
+                             , font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
 
         text.place(x=0, rely=0.15)
 
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.75)
+        task_title.place(x=0, rely=0.77)
         task1 = tk.Label(description_container, text="1. Lege einen neuen Projektordner mit dem Name 'gitcourse' an.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.82)
+        task1.place(x=0, rely=0.84)
         task2 = tk.Label(description_container, text="2. Wechsel in den angelegten Projektordner 'gitcourse'.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.9)
+        task2.place(x=0, rely=0.92)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -324,27 +341,30 @@ class InitializeRepo(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Jetzt befinden wir uns im Projektverzeichnis (Working Directory) und wollen den Inhalt "
-                             "des Projektes \nversionieren. Hierzu müssen wir ein Git-Repository initialisieren."
-                             "Hierfür stellt Git \nden Befehl 'git init' bereit. Fürht man diesen Befehl aus, werden die"
-                             "zwei zusätzlichen \nGit-Ebenen 'Staging Area (Zwischenablage)' und 'Repository (Archiv)' "
-                             "angelegt, jedoch versteckt. \n\nMöchte man sehen, ob tasächlich ein Repsotiroy angelegt wurde, "
-                             "kann man\nden Befehl 'ls --all' (list) ausführen und es sollte ein .git-Verzeichnis angezeigt "
-                             "werden,\nwobei der . vor dem Verzeichnisnamen symbolisiert, dass es sich um einen\n"
-                             "versteckten Ordner handelt.", font="TkFont 12 bold", bg="white", fg=font_color,
+                        text="Jetzt wollen wir anfangen, unser Projket zu versionieren. Dafür müssen wir Git sagen,\n"
+                             "dass wir das Projekt, in dem wir uns gerade befinden, versionieren möchten.\nAlso ein "
+                             "Repository anlegen bzw. initiieren."
+                             "\n\nAngelehnt daran legt der Befehl 'git init' ein neues leere Repository(Archiv) an.\nBeim "
+                             "Initialisieren werden nun, wie bereits erläutert, also zwei virtuellen Ebenen angelegt: \ndie Staging Area und das Repository."
+                             "\nDiese Ebenen und alles rund um die Versionierung wird in einem versteckten Ordner (.git/)\nangelegt. "
+                             "\n\nUm sich diesen versteckten Ordner anzeigen zu lassen und damit zu prüfen, ob wirklich\nein "
+                             "Repository angelegt wurde, lassen wir und den Inhalt des aktuellen Verzeichnisses\nanzeigen."
+                             " Der Befehl 'ls -a' (list --all) zeigt alle Datein und Ordner im Projekt an,\nauch die "
+                             "versteckten (also die, die mit einem Punkt beginnen)."
+                             , font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
 
 
         text.place(x=0, rely=0.15)
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.75)
+        task_title.place(x=0, rely=0.77)
         task1 = tk.Label(description_container, text="1. Lege ein Git-Repository an", bg="white", font="TkFont 12 bold",
                          fg=font_color, bd=5)
-        task1.place(x=0, rely=0.82)
+        task1.place(x=0, rely=0.84)
         task2 = tk.Label(description_container, text="2. Lass dir den Inhalt des Projektordners anzeigen.", bg="white",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.9)
+        task2.place(x=0, rely=0.92)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -396,27 +416,36 @@ class ConfigGit(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Um nachvollziehen zu können, welche Verändeurngen und Archivierungsschritte von wem "
-                             "gemacht \nwurden und Benachrichtigungen über Codeanfragen oder ähnliches bekommen zu "
-                             "können, \nmuss sowohl der Benutzername als auch eine Email-Adresse konfiguriert werden. "
-                             "\nDer Benutzername wird als Auto bei Änderungen hinterlegt.", font="TkFont 12 bold", bg="white", fg=font_color,
+                        text="Damit jede archivierte Projektversion mit Zeitstempel und Auto versehen werden kann,\nmuss "
+                             "natürlich auch hinterlegt sein, wer der Autor ist. Dies macht man in der\nGit-Konfiguration."
+                             "\nHier kann man verschiedene Variablen definieren, Minimum sind der Autor (Username)\nund die"
+                             "dazugehörige Email-Adresse. Die "
+                             "Email-Adresse bietet zusätzlich die Möglichkeit,\ndass man sich benachrichten lassen kann, "
+                             "wenn es Änderungen im Projekt gab."
+                             "\n\nUm die Variablen zu konfigurieren, gibt es den Befehl 'git config'. Diesem kann man die\n"
+                             "gewünschte Variable und den dazugehörigen Wert übergeben und schon hat man die\nKonfiguration"
+                             "geändert. Mit 'git config --global user.name \"Vorname Nachname\"'\nkonfiguriert man den Autor,"
+                             " mit 'git config --global user.email \"username@zedat.fu-berlin.de\"'\nkonfiguriert man die Email."
+                             "\nWenn man alle gewünschten Variablen konfiguriert hat, kann man sich die Konfigurationen "
+                             "\nmit 'git config --list' ansehen."
+                        , font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
 
 
-        text.place(x=0, rely=0.15)
+        text.place(x=0, rely=0.1)
 
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.67)
+        task_title.place(x=0, rely=0.7)
         task1 = tk.Label(description_container, text="1. Konfiguriere deinen Usernamen.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.74)
+        task1.place(x=0, rely=0.77)
         task2 = tk.Label(description_container, text="2. Konfiguriere deine Mailadresse.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.82)
+        task2.place(x=0, rely=0.85)
         task3 = tk.Label(description_container, text="3. Lass dir alle Konfigurationen anzeigen.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task3.place(x=0, rely=0.9)
+        task3.place(x=0, rely=0.93)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -515,32 +544,36 @@ class NewContent(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                       text="Um verschiedenen Versionen unseres Projektes versionieren zu können braucht es Inhalt. "
-                            "\nDiesen Inhalt wollen wir nun erstellen. Wir wollen vier Dateien anlegen: 'main.txt', 'main.log', \n'second.txt' und 'third.txt'."
-                            "\n\nDies kann man mit dem Befehl 'touch' tun. Dieser Befehl ist eigentlich dafür gedacht,\n"
-                            "den zeitstempel von Dateien zu erstellen oder zu bearbeiten. Existiert die angegebenen Datei"
-                            "\njedoch nicht, wird die Datei und ihr Zeitstempel angelegt.", font="TkFont 12 bold",
+                       text="Um etwas zum Versionieren zu haben und uns die Funktionalität"
+                            "der Staging Area\nanzusehen, braucht unser Projekt jetzt Inhalt. Hierzu wollen wir vier Dateien anlegen:"
+                            "\nmain.txt, main.log, second.txt und third.txt."
+                            "\n\nÜber das Terminal gibt es einen Trick, wie man eine leere Datei anlegt.\nHierzu kann man "
+                            "den Befehl 'touch' verwenden. Dieser ist eigentlich dafür gedacht,\nden Zeitstempel einer "
+                            "Datei zu ändern. Existiert die angegebene Datei jedoch nicht,\nwird diese angelegt und "
+                            "gleichzeitig der Zeitstempel geändert."
+                            "\n\nAuf diese Weise können wir mit 'touch Dateiname' eine leere Datei mit dem\nangegebenen Namen anlegen."
+                        , font="TkFont 12 bold",
                        bg="white", fg=font_color,
                        justify="left")
 
 
-        text.place(x=0, rely=0.15)
+        text.place(x=0, rely=0.1)
 
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.75)
+        task_title.place(x=0, rely=0.62)
         task1 = tk.Label(description_container, text="1. Lege die Datei 'main.txt' an.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.66)
+        task1.place(x=0, rely=0.68)
         task2 = tk.Label(description_container, text="2. Lege die Datei 'main.log' an.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.74)
+        task2.place(x=0, rely=0.76)
         task3 = tk.Label(description_container, text="3. Lege die Datei 'second.txt' an.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task3.place(x=0, rely=0.82)
+        task3.place(x=0, rely=0.84)
         task4 = tk.Label(description_container, text="4. Lege die Datei 'third.txt' an.", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task4.place(x=0, rely=0.9)
+        task4.place(x=0, rely=0.92)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -549,7 +582,8 @@ class NewContent(Page):
         command_line.place(relwidth=0.8, relheight=0.15)
         run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()), bg=fu_green, fg="white")
         run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
-        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc")
+        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
+                          anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
 
@@ -602,14 +636,18 @@ class Gitignore(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Manchmal hat man Detien und Ordner, die man nicht mit ver-\nsionieren möchte. Dazu zählen "
-                             "Ordner, in denen Informationen und Software von virtuellen Umgebungen abgespeichert sind "
-                             "sowie \nKonfigurationsdateien, die sensible Daten wie passwörter oder ähnliches enthalten."
-                             "\n\nUm diese dateien trotzdem in ihrem zugehörigen Projekt zu haben aber nict zu versionieren, "
-                             "\ngibt es die sogenannte '.gitignore'. Hierbei handelt es sich um eine versteckte Datei, "
-                             "\nin die alle Ordner und Dateien geschrieben werden, die bei der Versionierung ignoriert "
-                             "werden sollen.\nIn unserem Fall wollen wir die Datei main.log und ihr Inhalt nicht versionieren, "
-                             "\ndeswegen müssen wir sie in der .gitignore vermerken.", font="TkFont 12 bold",
+                        text="In einem Projekt gibt es manchmal Dateien oder Ordner, die nicht\nversioniert "
+                             "werden sollen. Das können Dateien sein, die\nsensible Daten wie Passwörter oder spezifische "
+                             "Konfigurationen\nenthalten. Es können aber auch Ordner sein, die von deiner "
+                             "\nEntwicklungsumgebung angelegt wurden."
+                             "\nDamit soclhe Dateien und Ordner nicht mit versioniert werden, "
+                             "\ngibt es die sogenannte .gitignore. Diese Datei enthält alle Namen,\nEndungen oder "
+                             "Ordner, die du nicht mit in deinem Archiv haben\nwillst. Sie werden ignoriert."
+                             "\n\nHierzu muss die .gitignore angelegt werden. Dies können wir\nwieder mit dem touch-Befehl machen. "
+                             "\nWichtig: Nicht den Punkt vor dem Dateinamen vergessen!"
+                             "\nIn unserem Projekt wollen wir nicht, dass die Datei 'main.log'\nversioniert wird. Um sie in die "
+                             ".gitignore einzutragen, können wir\nden Befehl 'echo \"main.log\" >> .gitignore' ausführen."
+                             , font="TkFont 12 bold",
                         bg="white", fg=font_color,
                         justify="left")
 
@@ -618,13 +656,13 @@ class Gitignore(Page):
 
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.75)
+        task_title.place(x=0, rely=0.79)
         task1 = tk.Label(description_container, text="1. Lege die Datei .gitignore an!", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.82)
+        task1.place(x=0, rely=0.85)
         task2 = tk.Label(description_container, text="2. Füge die main.log-Datei zur .gitignore hinzu", bg="#fff",
                          font="TkFont 12 bold", fg=font_color, bd=5)
-        task2.place(x=0, rely=0.9)
+        task2.place(x=0, rely=0.93)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -668,27 +706,32 @@ class GitStatusNew(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Nun haben wir Änderungen an unserem Projekt vorgenommen. Man kann beim Arbeiten an einem "
-                             "\nprojekt gern mal den Überblick darüber velieren, wo man Änderunge vorgenommen hat."
-                             "\nHierzu stellt git einen Befehl 'status' bereit. Dieser zeigt alle Dateien und Ordner an, "
-                             "\ndie verändert wurden. Das beinhaltet sowohl veränderungen an bestehenden Dateien\nund "
-                             "ordner sowie das Anlegen und Löschen dieser."
-                             "\n\nJe nachdem, welche Zusatnd zutrofft, zeigt 'git status' die Änderugen unterschiedlich an."
-                             "\nDateien und Ordner, id eneu angelegt wurden, werden unter dem Punkt 'Unversioniert Dateien' \nangezeigt."
-                             "Da sie vorher nicht existierten udn demnach natürlich auch noch nicht versioniert \nwerden konnten."
-                             "Dies triftt auf alle unsere angelegten dateine zu. \n\nAuffällig hierbei, die 'main.log' wird "
-                             "nicht angezeigt, da sie in der .gitignore vermekt ist und \ndemnach nicht berücksichtigt werden soll.", font="TkFont 12 bold",
+                        text="Beim Arbeiten an einem Projekt kann man schnell den Überblick verlieren, wo man etwas\n"
+                             "geändert hat und welche der Änderungen man nun schon zur Archivierung vorgemerkt hat\noder nicht."
+                             "\n\nMit 'git status' kann man sich alle Dateien und Ordner anzeigen lassen, in denen Änderungen\n"
+                             "vorgenommen wurden. Das beinhaltet sowohl inhaltliche Änderungen sowie das Löschen\nund Neuanlegen "
+                             "von Dateien und Ordnern."
+                             " Alle diese Änderungen werden mit 'git status'\nangeziegt und noch zusätzlich kategorisiert."
+                             "\nUnterschieden wird in 'unversioniert', 'vorgemerkt' und 'nicht vorgemerkt'. "
+                             "\nDen Unterschied dieser Kategorisierungen werden wir in den folgenden Schritten verstehen\nlernen."
+                             "\n\nWenn wir und nun den Status unseres Projektes ansehen, dann werden die 'main.txt',\ndie 'second.txt'"
+                             ",die 'third.txt' und die '.gitigore' unter dem Punkt 'Unversionierte Dateien'\nangezeigt. "
+                             "Das trifft immer auf alle neu angelegten Dateien zu, da diese vorher nicht existierten\nund "
+                             "somit auch noch nie archiviert werden konnten."
+                             "\nWeiterhin sieht man, dass die 'main.log' nicht mit angezeigt wird. Hier greift die "
+                             ".gitignore,\ndie dazu führt, dass diese Datei ignoriert wird."
+                             , font="TkFont 12 bold",
                         bg="white", fg=font_color,
                         justify="left")
-        text.place(x=0, rely=0.12)
+        text.place(x=0, rely=0.1)
 
 
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.83)
-        checkbox = tk.Label(description_container, text="1. Prüfe den ARchivierungsstatus deiner Respositories.",
+        task_title.place(x=0, rely=0.87)
+        checkbox = tk.Label(description_container, text="1. Prüfe den Status deines Projekte",
                    font="TkFont 12 bold", fg=font_color, bd=5, bg="#fff")
-        checkbox.place(x=0, rely=0.9)
+        checkbox.place(x=0, rely=0.93)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -734,16 +777,17 @@ class GitAdd(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Wenn du Änderungen an einem Projekt gemacht hast, die du als eine neue Projketversion\nim "
-                             "archiv also dem Reposiroty speicher nöchtest, musst du sie zur speicherung vormerken. "
-                             "\nHierzu stellt git den befehl 'add' bereit. Dieser merkt alle benannten Änderungen zur\n "
-                             "Archivierung vor."
-                            "\nDas heißt, die Änderungen im Working Directory werden zur Stagig Area hinzugefügt. "
-                            "\nEs gibt mehrere Möglichkeiten, Dateien und Ordner zur Versionierung vorzumerken. \nMan "
-                             "kann einzelne Dateien und Ordner vormerken, indem man sie nametlich bennent: \n'git add Dateiname."
-                             "\nOder man kann alle veränderten Dateien vormerken mit 'git add .' \nHierbei muss man jedoch "
-                             "darauf achten, dass nur alle Dateien des AKTUELLEN Verzeichnisses \nvorgemerkt werden."
-                             "Deteien und Ordner, die über dem aktuellen Verzeichnis liegen, \nwerden nicht vorgemerkt.",
+                        text="Nun wollen wir ein paar der gemachten Änderungen zur Versionierung vormerken, sie also\nin "
+                             "die Staging Area verschieben."
+                             " Mit 'git add Dateiname' kann man eine bestimmte Datei\nzur Archivierung vormerken. Man kann "
+                             "auch eine Liste von Dateien vormerken oder\nmit 'git add .' alle Änderungen vormerken, die "
+                             "im aktuellen Verzeichnis gemacht wurden."
+                             "\nDas bedeutet, dass alle Änderungen, die in einem Verzecihnis darüber gemacht wurden, "
+                             "\nnicht berücksichtigt werden. Achte also gut darauf in welchen Verzeichnis du dich befindest,\n"
+                             "wenn du 'git add .' verwendest."
+                             "\n\nWir wollen vorerst nur zwei Dateien zur Archivierung vormerken: 'main.txt' und\n"
+                             "'.gitignore'. Das machen wir zur Übung am Anfang erstmal einzeln.\nAlso jede Datei wird "
+                             "mit 'git add Dateiname' zur Staging Area hinzugefügt.",
                         font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
         text.place(x=0, rely=0.10)
 
@@ -754,7 +798,7 @@ class GitAdd(Page):
         task1 = tk.Label(description_container, text="1. Merke die Änderungen in der main.txt-Datei zur Versionierung vor.",
                          bg="#fff", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.88)
-        task3 = tk.Label(description_container, text="2. Merke die Änderungen in der .gitignore zur Versionierung vor!.",
+        task3 = tk.Label(description_container, text="2. Merke die Änderungen in der .gitignore zur Versionierung vor.",
                          bg="#fff", font="TkFont 12 bold", fg=font_color, bd=5)
         task3.place(x=0, rely=0.94)
 
@@ -772,7 +816,7 @@ class GitAdd(Page):
         img = tk.PhotoImage(file="./img/gitadd.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.25, rely=0.61)
+        panel.place(relx=0.15, rely=0.61)
 
 
 class GitStatusAdded(Page):
@@ -800,13 +844,15 @@ class GitStatusAdded(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Nun hast du 'main.txt' und '.gitignore' zur Staging area hinzugefügt, also zur "
-                             "\nVersionierung vorgemerkt. Der Befehl 'git status' dient außerdem dazu, zu überprüfen,\nob "
-                             "und welche Dateien zur Versionierung vorgemerkt sind."
-                             "Wenn wir nun den Status prüfen, \nsehen wir, dass '.gitignore' und 'main.txt' unter dem Punkt"
-                             "'zum Commit vorgemerkte \nÄnderungen' gelistet sind."
-                             "Weiterhin sehen wir die Dateien 'second.txt' und 'third.txt' \nnach wie vor als 'unversioniert "
-                             "Dateien' gelistet sind.",
+                        text="Da wir nun zwei Dateien zu Archivierung vorgemerkt haben, sollte sich deren Status\ngeändert haben."
+                             " Wenn wir nun erneut 'git status' ausführen, sehen wir, dass diese\nbeiden Dateien nun unter "
+                             "dem Punkt 'Zur Versionierung vorgemerkt' aufgelistet sind. "
+                             "\n\nAlle Dateien, die in die Staging Area verschoben wurden, werden immer unter diesem\nPunkt "
+                             "angezeigt. Sie sind also zur Archivierung bzw. zum Commit vorgemerkt."
+                             "\n\nDie übrigen Dateien und deren Versionierung haben wir nicht verändert, also sind sie\n"
+                             "weiterhin unter dem Punkt 'Unversionierte Dateien' gelistet."
+                             "\n\nAnmerkung: In einigen Terminals werden Dateien, die zum Commit vorgemerkt sind,\n"
+                             "grün markiert, die übrigen rot.",
                         font="TkFont 12 bold",
                         bg="white", fg=font_color,
                         justify="left")
@@ -816,7 +862,7 @@ class GitStatusAdded(Page):
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.83)
-        checkbox = tk.Label(description_container, text="1. Prüfe den ARchivierungsstatus deiner Respositories.",
+        checkbox = tk.Label(description_container, text="1. Prüfe den Status deiner Dateien.",
                             font="TkFont 12 bold", fg=font_color, bd=5, bg="#fff")
         checkbox.place(x=0, rely=0.9)
 
@@ -859,15 +905,17 @@ class GitCommit(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Wenn man nun mit seinen Änderunge fertig ist, möchte man die neue Version des Porjektes\nim"
-                             "Repository, also dem Archiv, speichern. Dies tut man mit 'git commit'. Zu jedem \nCommit sollte"
-                             "man eine kurze Beschreibung dessen mitliefern, was man geändert hat,\ndamit man später alle "
-                             "Änderungen nachvollzeihen kann. Dies tut man am besten, indem \nman den Befehl mit der Option "
-                             "-m ergänzt in Verbidung mit der sogenannten Commitmessage."
-                             "\n\nBeim Commiten speichert man nur alle Änderungen, die in der Staging Area zur Archivierung\n "
-                             "vorgemerkt wurden im Repositry. Alle anderen Änderungen bleiben zwar erhalten, \nsind aber nicht im "
-                             "gespeicherten Snapshot im Repository vorhanden. \nDiese kann man in einer nächsten Version "
-                             "speichern oder zurücksetzen.", font="TkFont 12 bold", bg="white", fg=font_color,
+                        text="Nun wollen wir die aktuelle Projektversion mit den vorgemerkten Änderungen archivieren."
+                             "\nHierbei wird also soetwas wie ein Screenshot von dem Projekt mit allen vorgemerkten\nÄnderungen gemacht und gespeichert."
+                             " Man archiviert eine Projektversion mit dem Befehl\n'git commit'. Diesen kann man ohne weitere Optionen benutzen, sollte man jedoch nicht."
+                             "\nWenn man den Befehl ohne Option ausführt, öffnet sich ein Editor, der nach einer \nCommitmessage verlangt."
+                             " Um das zu umgehen, liefern wir gleich eine\nCommitmessage beim Ausführen des Befehls, indem wird die Option '-m' anfügen."
+                             "\nEine Commitmessage ist wichtig, denn in dieser kann man eine kurze Beschreibung\nder Version"
+                             " und der gemachten Änderungen mitliefern, damit man später alle\nÄnderungen nachvollziehen kann."
+                             "\nMan sollte also auch etwas sinnvolles in diese Message schreiben."
+                             "\n\nDa dies unsere erste Commit ist, also die erste Archivierung, schreiben wir das mit in\ndie Message:"
+                             "'git commit -m \"initial commit\"'."
+                            , font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
         text.place(x=0, rely=0.1)
 
@@ -875,7 +923,7 @@ class GitCommit(Page):
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.85)
-        task1= tk.Label(description_container, text="1. Commite die vorgemerkten Änderungen in dein Repository.",
+        task1= tk.Label(description_container, text="1. Commite die vorgemerkten Änderungen.",
                         bg="#fff", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.92)
 
@@ -893,7 +941,7 @@ class GitCommit(Page):
         img = tk.PhotoImage(file="./img/gitcommit.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(x=0, rely=0.515)
+        panel.place(relx=0.15, rely=0.7)
 
 
 class GitStatusAll(Page):
@@ -925,32 +973,29 @@ class GitStatusAll(Page):
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Label(description_container,
-                        text="Nun hast du eine Version deines Projektes als Snapchot im Repository (Arciv) gespeichert."
-                             "\nNun wollen wir noch eine Änderung an der 'main.txt# vornehmen, indem wir 'erster Inhalt' "
-                             "\nin die Datei schreiben."
-                             "\n\nNun wollen wir ein letztes Mal den Status unserer Ändeurngen begutachten."
-                             "\nWeiterhin sind 'second.txt# und 'third.txt' als unversionierte ateien vorgemerkt."
-                             "\nDie gitignore wurde im letzten Commit im Archiv gesoeichert und seitdem nicht mehr "
-                             "verändert, \nsodass die Datei nicht im Status augleistet wird."
-                             "Neu hinzugekommen sind die Änderungen, \ndie in der 'main.txt' gemacht wurden."
-                             "Da diese datei nicht neu angelegt wurde aber\n Änderungen enthalt, die nicht zur "
-                             "Archivierung vorgemerkt sind, wird sie unter dem Punkt \n'Änderungen, die nicht zum "
-                             "Commit vorgemerkt sind'' gelistet. "
-                             "\nAlle Änderunge, die in einem Projekt stattfinden, werden einer der drei Kategorien "
-                             "\nzugeodnet und dementsprechend an der passenden Stelle gelistet. \nSo hat man immer einen Überblick"
-                             "über den Stand seineS projektes."
-                             "Sollte man nicht mehr ganz \nzusammenbekommen, wo sich welche datei befindet und was man mit "
-                             "ihr machen kann,\n schreibt git immer befehlsvorschläge dazu.",
+                        text="Hervorragend! Jetzt haben wir eine neue Version unseres Projektes archiviert. Die zuvor\n"
+                             "angelegten Dateien 'second.txt' und 'third.txt' wurden nicht vorgemekt und sind in der\n"
+                             "archivierten Version nicht enthalten. Sie existieren jedoch in unserem Working Directory "
+                             "\nund wir könnten sie in eine spätere Version aufnehmen, wenn wir das wollen."
+                             "\n\nWir wollen und jedoch die letzte Kategorie ansehen, die 'git status' bietet."
+                             "\nHierzu schreiben wir mit 'echo \"erster Inhalt\" >> main.txt' den Satz 'erster Inhalt' in die\nDatei 'main.txt'."
+                             " Wenn wir das gemacht haben, prüfen wir den Status unserer Änderungen."
+                             "\n\nDie soeben gemachte Änderung wird nun unter dem Punkt \n'Änderungen, die nicht zum "
+                             "Commit vorgemerkt sind' angeziegt. Hier landen alle Änderungen,\ndie an bereits existierenden "
+                             "Dateien gemacht wurden, die mindestens einmal archiviert wurden."
+                             "\n\nDie Datei '.gitignore' wird nicht mehr gelistet, weil sie seit dem letzten Commit, also "
+                             "der\nletzte Archivierung, nicht mehr verändert wurde. Gleiches würde für 'main.txt' gelten,\n"
+                             "wenn wir nicht einen neuen Satz in die Datei geschrieben hätten.",
                         font="TkFont 12 bold",
                         bg="white", fg=font_color,
                         justify="left")
         text.place(x=0, rely=0.12)
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.88)
+        task_title.place(x=0, rely=0.8)
         task1 = tk.Label(description_container, text="1. Ändere den Inhalt der 'main.txt'",
                             font="TkFont 12 bold", fg=font_color, bd=5, bg="#fff")
-        task1.place(x=0, rely=0.75)
+        task1.place(x=0, rely=0.87)
         task2 = tk.Label(description_container, text="2. Prüfe den Archivierungsstatus deines Projektes",
                          font="TkFont 12 bold", fg=font_color, bd=5, bg="#fff")
         task2.place(x=0, rely=0.95)
@@ -984,30 +1029,28 @@ class Summary(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Du hast den ersten teil des Totiroals zu Git fertig. Du kannst das Tutorial jederzeit "
-                             "wiederholen. \n\nDu solltest jetzt folgende Fakten und Befehle rund ums Thema Git wissen:"
-                             "\n- Was ist Git und wie ist es aufgebaut"
-                             "\n- Initialisieren eines Repositories und konfigurieren von Git (git init, git config)"
-                             "\n- Übersicht über gemachte Änderungen (git status)"
-                             "\n- Vormerken von Änderungen zur Archivierung (git add)"
-                             "\n- Archivierung von Änderungen (git commit)"
-                             "\n\nUm dein Wissen nochmal zu festigen bzw. zu prüfen, folge dem Link zum Quiz und bearbeite \ndieses.", font="TkFont 12 bold",
+                        text="Super! Du hast den ersten Teil des Git-Tutorials geschafft."
+                             "\nHier nochmal eine kleine Zusammenfassung dessen, was du nun wissen solltest:"
+                             "\n- Was Git ist und wofür man es braucht"
+                             "\n- Aus welchen Ebenen sich das lokale Git zusammensetzt und wozu diese gut sind"
+                             "\n- Wie man eine Reposiroty anlegt, was eine .gitignore ist und wie man Git konfiguriert"
+                             "\n- Die Befehle: git init, git config, git status, git add und git commit"
+                             "\n\nNun kommen wir zur Hausaufgabe:"
+                             "\nTeil 1 der Hausaufgabe ist es, dass du zurück zu Schritt 16. gehst, dort 'git status' ausführst\nund ein Screenshot vom Terminaloutput machst."
+                             "\nTeil 2 der Hausaufgabe ist es, dass du das unten verlinkte Quiz löst und ebenfalls\nein Screenshot von der Anzeige deiner Ergebnisse machst."
+                             "\n\nBeide Screenshots schickst du dann bitte bis spätestens 15.05.2020 12:00 Uhr an mich:\nbianca1409@zedat.fu-berlin.de"
+                             , font="TkFont 12 bold",
                         bg="white", fg=font_color,
                         justify="left")
         text.place(x=0, rely=0.1)
 
-        img = tk.PhotoImage(file="./img/localVCS.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(x=0, rely=0.15)
-
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold", cursor="hand2")
-        link1.place(relx=0.4, rely=0.37)
+        link1.place(relx=0.25, rely=0.57, relwidth=0.5)
         link1.bind("<Button-1>", lambda e: callback("questionaire/first_questionaire.html"))
 
-        additional = tk.Label(description_container, text="Bei Anmerkungen, Fragen oder Fehlern und Problemen mit dem "
-                                                          "Tutorial oder allgemein zu Git,\nschreib mir entweder über "
-                                                          "RocketChat oder per Mail: bianca1409@zedat.fu-berlin.de",
+        additional = tk.Label(description_container, text="Bei Anmerkungen zum Tutorial (Rechtschreibfehler, Bugs ...) "
+                                                          "oder bei Fragen zum Thema Git,\nschreib mir einfach auf "
+                                                          "RocketChat oder per Mail an die oben genannte Adresse.",
                               font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
         additional.place(x=0, rely=0.92)
 
