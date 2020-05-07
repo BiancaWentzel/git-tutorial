@@ -102,7 +102,7 @@ const myQuestions = [
     correctAnswer: "a"
   },
   {
-    question: "Welche zusätzlichen Ebenen werden durch das Initialisieren eines Repsotories angelegt?",
+    question: "Welche zusätzlichen Ebenen werden durch das Initialisieren eines Repositorys angelegt?",
     answers: {
       a: "Working Directory, Staging Area und Respository",
       b: "Repository",

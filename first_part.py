@@ -46,7 +46,7 @@ class Introduction(Page):
                              "für jede Änderungen eine neue Datei anlegt, um die alte Version nicht zu\nverlieren und "
                              "langsam den Überblick über die ganzen zusätzlichen Dateien verliert?"
                              "\n\nGenau hier setztz Git an und ist dein bester Freund, damit dein Projekt übersichtlich\n"
-                             "bleibt und nichts verloren geht und sich jede Änderungen nachvollziehen lässt."
+                             "bleibt und nichts verloren geht und sich jede Änderung nachvollziehen lässt."
                              "\n\nGit ist ein sogenanntes Versionskontrollsystem (VCS - Version Controll System)."
                              "\nEs dient zur Protokollierung, Archivierung und Dokumentation von Änderungen in "
                              "Dateien \nund Ordnern eines Projektes. Für alle vorgemerkten Änderung wird eine Version des "
@@ -142,16 +142,16 @@ class StagingArea(Page):
         title.place(x=0, y=0)
         text = tk.Label(description_container,
                         text="Kommen wir nun zur zweiten Ebene. Diese ist eigentlich nur virtuell und wurde\nbeim "
-                             "Initalisieren eines Repsoitories angelegt."
+                             "Initalisieren eines Repositorys angelegt."
                              " Diese Ebene ist die Staging Area\nund kann als Zwischenablage oder Merkzettel gesehen werden."
                              "\nSie dient dazu, gemachte Änderungen zur Versionierung vorzumerken."
-                             "\n\nDas heißt, wenn man einige Änderungen in seinem Projekt gemacht hat, kann man\nalle für einen "
+                             "\n\nDas heißt, wenn man einige Änderungen in seinem Projekt gemacht hat, kann man\nalle "
                              "relevanten Änderungen vormerken. Sie befinden sich dann also in\nder Staging Area (also virtuell, nicht wirklich)."
                              " Alle vorgemerkten Änderungen können\ndann in einem nächsten Schritt archiviert werden."
                              " Das betrifft dann aber auch \nwirklich nur die Änderungen, die vorgemerkt sind."
                              " Alle anderen Änderungen,\ndie gemacht wurden, aber nicht vorgemerkt, werden nicht mit archiviert, "
                              "sie bleiben\njedoch im Working Directory erhalten."
-                             "\n\nDer Zweck der Staging Area liegt also darin, Änderungen zur Archivierung vorzumerken.\nGleichzeitig bietet sie"
+                             "\n\nDer Zweck der Staging Area liegt also darin, Änderungen zur Archivierung vorzumerken.\nGleichzeitig bietet sie "
                              "die Möglichkeit, nur spezifische Änderungen vorzumerken, damit\ndie einzelnen "
                              "Projektversionen, die archiviert werden, thematisch abgeschlossen sind\nbzw. besser strukturiert werden können.",
                         font="TkFont 12 bold", bg="white", fg=font_color,
@@ -176,8 +176,8 @@ class Repository(Page):
         title.place(x=0, y=0)
         text = tk.Label(description_container,
                         text="Die letzte und wichtigste Ebene ist das Repository, also das Archiv. Wenn man ein\nProjekt "
-                             "versionieren möchte, sagt man, dass man ein Repository anlegt, obwohl\nsowohl ein Reposiroty als auch "
-                             "eine Staging Area angelegt werden. Da jedoch\ndas Repsoitory den Kernbestandteil der "
+                             "versionieren möchte, sagt man, dass man ein Repository anlegt, obwohl\nsowohl ein Repository als auch "
+                             "eine Staging Area angelegt werden. Da jedoch\ndas Repositoryden Kernbestandteil der "
                              "Versionierung darstellt, benutzt man\nden Begriff Repository einfach übergreifend."
                              "\n\nDas Repository ist also das Archiv, in dem alle Versionen des Projektes gespeichert\nwerden. "
                              "Jede Version hat einen Zeitstempel, einen Autor und eine vom Autor\nverfasste Anmerkung "
@@ -210,7 +210,7 @@ class RemoteRepository(Page):
                         text="Vor allem für die Arbeit im Team ist Git sehr gut geeignet. Befindet sich dein Projekt\n"
                              "jedoch nur lokal auf deinem Rechner, geht das leider eher schlecht. Um Versionierung\nund "
                              "das Arbeiten im Team zu ermöglichen, gibt es Platformen wie GitLab oder GitHub,\ndie online auf "
-                             "einem Server eine Kopie deines lokalen Repositories speichern.\nAlso ein sogenanntes Remote Repository."
+                             "einem Server eine Kopie deines lokalen Repositorys speichern.\nAlso ein sogenanntes Remote Repository."
                              "\n\nDieses Repository ist dann von überall über das Internet erreichbar und auch für deine\nTeammitglieder."
                              " Du kannst also lokal an deinem Rechner Änderungen vornhemen\nund diese versionieren, während ein "
                              "Teamkollege das auch macht. Wenn du mit deiner\nArbeit fertig bist, kannst du den neuen "
@@ -341,7 +341,7 @@ class InitializeRepo(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Jetzt wollen wir anfangen, unser Projket zu versionieren. Dafür müssen wir Git sagen,\n"
+                        text="Jetzt wollen wir anfangen, unser Projekt zu versionieren. Dafür müssen wir Git sagen,\n"
                              "dass wir das Projekt, in dem wir uns gerade befinden, versionieren möchten.\nAlso ein "
                              "Repository anlegen bzw. initiieren."
                              "\n\nAngelehnt daran legt der Befehl 'git init' ein neues leere Repository(Archiv) an.\nBeim "
@@ -416,14 +416,14 @@ class ConfigGit(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                        text="Damit jede archivierte Projektversion mit Zeitstempel und Auto versehen werden kann,\nmuss "
+                        text="Damit jede archivierte Projektversion mit Zeitstempel und Autor versehen werden kann,\nmuss "
                              "natürlich auch hinterlegt sein, wer der Autor ist. Dies macht man in der\nGit-Konfiguration."
-                             "\nHier kann man verschiedene Variablen definieren, Minimum sind der Autor (Username)\nund die"
+                             "\nHier kann man verschiedene Variablen definieren, Minimum sind der Autor (Username)\nund die "
                              "dazugehörige Email-Adresse. Die "
                              "Email-Adresse bietet zusätzlich die Möglichkeit,\ndass man sich benachrichten lassen kann, "
                              "wenn es Änderungen im Projekt gab."
                              "\n\nUm die Variablen zu konfigurieren, gibt es den Befehl 'git config'. Diesem kann man die\n"
-                             "gewünschte Variable und den dazugehörigen Wert übergeben und schon hat man die\nKonfiguration"
+                             "gewünschte Variable und den dazugehörigen Wert übergeben und schon hat man die\nKonfiguration "
                              "geändert. Mit 'git config --global user.name \"Vorname Nachname\"'\nkonfiguriert man den Autor,"
                              " mit 'git config --global user.email \"username@zedat.fu-berlin.de\"'\nkonfiguriert man die Email."
                              "\nWenn man alle gewünschten Variablen konfiguriert hat, kann man sich die Konfigurationen "
@@ -544,7 +544,7 @@ class NewContent(Page):
         title.place(x=0, y=0)
 
         text = tk.Label(description_container,
-                       text="Um etwas zum Versionieren zu haben und uns die Funktionalität"
+                       text="Um etwas zum Versionieren zu haben und uns die Funktionalität "
                             "der Staging Area\nanzusehen, braucht unser Projekt jetzt Inhalt. Hierzu wollen wir vier Dateien anlegen:"
                             "\nmain.txt, main.log, second.txt und third.txt."
                             "\n\nÜber das Terminal gibt es einen Trick, wie man eine leere Datei anlegt.\nHierzu kann man "
@@ -640,10 +640,10 @@ class Gitignore(Page):
                              "werden sollen. Das können Dateien sein, die\nsensible Daten wie Passwörter oder spezifische "
                              "Konfigurationen\nenthalten. Es können aber auch Ordner sein, die von deiner "
                              "\nEntwicklungsumgebung angelegt wurden."
-                             "\nDamit soclhe Dateien und Ordner nicht mit versioniert werden, "
-                             "\ngibt es die sogenannte .gitignore. Diese Datei enthält alle Namen,\nEndungen oder "
+                             "\nDamit solche Dateien und Ordner nicht mit versioniert werden, "
+                             "\ngibt es die sogenannte '.gitignore'. Diese Datei enthält alle Namen,\nEndungen oder "
                              "Ordner, die du nicht mit in deinem Archiv haben\nwillst. Sie werden ignoriert."
-                             "\n\nHierzu muss die .gitignore angelegt werden. Dies können wir\nwieder mit dem touch-Befehl machen. "
+                             "\n\nHierzu muss die '.gitignore' angelegt werden. Dies können wir\nwieder mit dem touch-Befehl machen. "
                              "\nWichtig: Nicht den Punkt vor dem Dateinamen vergessen!"
                              "\nIn unserem Projekt wollen wir nicht, dass die Datei 'main.log'\nversioniert wird. Um sie in die "
                              ".gitignore einzutragen, können wir\nden Befehl 'echo \"main.log\" >> .gitignore' ausführen."
@@ -711,10 +711,10 @@ class GitStatusNew(Page):
                              "\n\nMit 'git status' kann man sich alle Dateien und Ordner anzeigen lassen, in denen Änderungen\n"
                              "vorgenommen wurden. Das beinhaltet sowohl inhaltliche Änderungen sowie das Löschen\nund Neuanlegen "
                              "von Dateien und Ordnern."
-                             " Alle diese Änderungen werden mit 'git status'\nangeziegt und noch zusätzlich kategorisiert."
+                             " Alle diese Änderungen werden mit 'git status'\nangezeigt und noch zusätzlich kategorisiert."
                              "\nUnterschieden wird in 'unversioniert', 'vorgemerkt' und 'nicht vorgemerkt'. "
                              "\nDen Unterschied dieser Kategorisierungen werden wir in den folgenden Schritten verstehen\nlernen."
-                             "\n\nWenn wir und nun den Status unseres Projektes ansehen, dann werden die 'main.txt',\ndie 'second.txt'"
+                             "\n\nWenn wir uns nun den Status unseres Projektes ansehen, dann werden die 'main.txt',\ndie 'second.txt'"
                              ",die 'third.txt' und die '.gitigore' unter dem Punkt 'Unversionierte Dateien'\nangezeigt. "
                              "Das trifft immer auf alle neu angelegten Dateien zu, da diese vorher nicht existierten\nund "
                              "somit auch noch nie archiviert werden konnten."
@@ -729,7 +729,7 @@ class GitStatusNew(Page):
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.87)
-        checkbox = tk.Label(description_container, text="1. Prüfe den Status deines Projekte",
+        checkbox = tk.Label(description_container, text="1. Prüfe den Status deines Projektes",
                    font="TkFont 12 bold", fg=font_color, bd=5, bg="#fff")
         checkbox.place(x=0, rely=0.93)
 
@@ -782,7 +782,7 @@ class GitAdd(Page):
                              " Mit 'git add Dateiname' kann man eine bestimmte Datei\nzur Archivierung vormerken. Man kann "
                              "auch eine Liste von Dateien vormerken oder\nmit 'git add .' alle Änderungen vormerken, die "
                              "im aktuellen Verzeichnis gemacht wurden."
-                             "\nDas bedeutet, dass alle Änderungen, die in einem Verzecihnis darüber gemacht wurden, "
+                             "\nDas bedeutet, dass alle Änderungen, die in einem Verzeichnis darüber gemacht wurden, "
                              "\nnicht berücksichtigt werden. Achte also gut darauf in welchen Verzeichnis du dich befindest,\n"
                              "wenn du 'git add .' verwendest."
                              "\n\nWir wollen vorerst nur zwei Dateien zur Archivierung vormerken: 'main.txt' und\n"
@@ -913,7 +913,7 @@ class GitCommit(Page):
                              "\nEine Commitmessage ist wichtig, denn in dieser kann man eine kurze Beschreibung\nder Version"
                              " und der gemachten Änderungen mitliefern, damit man später alle\nÄnderungen nachvollziehen kann."
                              "\nMan sollte also auch etwas sinnvolles in diese Message schreiben."
-                             "\n\nDa dies unsere erste Commit ist, also die erste Archivierung, schreiben wir das mit in\ndie Message:"
+                             "\n\nDa dies unser erster Commit ist, also die erste Archivierung, schreiben wir das mit in\ndie Message: "
                              "'git commit -m \"initial commit\"'."
                             , font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
@@ -977,7 +977,7 @@ class GitStatusAll(Page):
                              "angelegten Dateien 'second.txt' und 'third.txt' wurden nicht vorgemekt und sind in der\n"
                              "archivierten Version nicht enthalten. Sie existieren jedoch in unserem Working Directory "
                              "\nund wir könnten sie in eine spätere Version aufnehmen, wenn wir das wollen."
-                             "\n\nWir wollen und jedoch die letzte Kategorie ansehen, die 'git status' bietet."
+                             "\n\nWir wollen uns jedoch die letzte Kategorie ansehen, die 'git status' bietet."
                              "\nHierzu schreiben wir mit 'echo \"erster Inhalt\" >> main.txt' den Satz 'erster Inhalt' in die\nDatei 'main.txt'."
                              " Wenn wir das gemacht haben, prüfen wir den Status unserer Änderungen."
                              "\n\nDie soeben gemachte Änderung wird nun unter dem Punkt \n'Änderungen, die nicht zum "
