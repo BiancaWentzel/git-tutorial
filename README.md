@@ -27,7 +27,7 @@ Das Tutorial ist in 2 Teile aufgebaut:
    #### Linux:
    Führe einen der folgenden Befehle aus
       
-       apt install git  (Ubuntu, Fedora ...)
+       apt install git  (Debian, Ubuntu, Fedora ...)
        yum install git  (CentOS)
          
    #### MacOs:
@@ -42,26 +42,28 @@ Das Tutorial ist in 2 Teile aufgebaut:
        
 ### 2. Lade dir die Tutorialsoftware herunter:
 
-Besuche die Gitlab-Seite des Instituts und logge dich mit deinem Institutsaccount an: https://gitlab.met.fu-berlin.de
+Besuche die Gitlab-Seite des Instituts und logge dich mit den
+Zugangsdaten ein, die Du auch im PC-Pool des Instituts benutzt: https://gitlab.met.fu-berlin.de
 
 Suche über den 'Projects'-Reiter nach dem Projekt 'Git_Tutorial'  
 ![find_repo](img/find_repo.png)
 
-Lade die Projektresourcen herunter.
+Lade die Projektresourcen herunter (rechte Seite, wie im Bild markiert).
 ![download_repo](img/download_sourcecode.png)
 
-Verschiebe die heruntergeladenen Projektresourcen in einen Ordner deiner Wahl und entpacke sie.
+Verschiebe die heruntergeladenen Projektresourcen (kommt z.B. als
+zip-Datei) in einen Ordner deiner Wahl und entpacke sie. 
 
 
 ### 3. Installiere die Softwarevoraussetzungen
 #### Linux und MacOS:
 Öffne ein Terminal und installiere 'virtualenv':
 
-    apt install virtualenv (Ubuntu, Fedora ...)
+    apt install virtualenv (Debian, Ubuntu, Fedora ...)
     yum install virtualenv (CentOS)
     brew install virtualenv (MacOS)
 
-Navigiere zum Ort, an dem due die Software des Git-Tutorials gespeichert und entpackt hast.
+Navigiere zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast.
 Definiere eine neue leere virtuelle Umgebung:
 
     virtualenv venv
@@ -71,8 +73,13 @@ Aktiviere die virtuelle Umgebung und installiere das Tkinter-Paket:
     source ven/bin/activate
     pip install tkinter   
     
+Sollte beim installieren von tkinter eine Fehlermeldung auftauchen,
+probiere trotzdem den nächsten Schritt. Vielleicht war tkinter schon
+installiert. 
+
 #### Windows:
-Wenn du noch kein Python auf dem rechner hast, dann musst du aus dem Windows-App-Store Python3.7 installieren.
+Wenn du noch kein Python auf deinem Rechner hast, dann musst du aus
+dem Windows-App-Store Python3.7 installieren. 
          
 ### 4. Starte das Tutorial:
 
@@ -84,7 +91,7 @@ Wechsel in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
 #### Windows:
 Suche über die Apps nach der Power-Shell und öffne sie.
 Navigiere nun zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast.
-Wechsle in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
+Wechsele in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
 
     python main_first_part.py
     

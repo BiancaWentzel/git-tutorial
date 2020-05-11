@@ -45,18 +45,19 @@ class Introduction(Page):
                              "etwas gelöscht hast und dann alles nochmal machen musstest? Oder kennst du es,\nwenn man "
                              "für jede Änderungen eine neue Datei anlegt, um die alte Version nicht zu\nverlieren und "
                              "langsam den Überblick über die ganzen zusätzlichen Dateien verliert?"
-                             "\n\nGenau hier setztz Git an und ist dein bester Freund, damit dein Projekt übersichtlich\n"
+                             "\n\nGenau hier setzt Git an und ist dein bester Freund, damit dein Projekt übersichtlich\n"
                              "bleibt und nichts verloren geht und sich jede Änderung nachvollziehen lässt."
                              "\n\nGit ist ein sogenanntes Versionskontrollsystem (VCS - Version Controll System)."
                              "\nEs dient zur Protokollierung, Archivierung und Dokumentation von Änderungen in "
                              "Dateien \nund Ordnern eines Projektes. Für alle vorgemerkten Änderung wird eine Version des "
-                             "gesamten \nProjektes wie ein Screenshot abgespeichert und mit Angaben zur Zeit und zum "
+                             "gesamten \nProjektes änlich wie ein Screenshot abgespeichert und mit Angaben zur Zeit und zum "
                              "Autor sowie \neinem Kommentar des Autors zu den Änderungen archiviert. "
                              "\n\nWeiterhin bietet Git durch seine Funktionsweise die perfekte Umgebung, um im Team\nan "
                              "einem Projekt zu arbeiten. Teammitglieder können parallel an den gleichen Dateien\nund "
                              "Ordnern arbeiten, ohne dass etwas verloren geht. "
-                             "In Verbindung mit einer Platform\nwie GitLab oder GitHub ist der Projektinhalt außerdem "
-                             "immer und von überall erreichbar,\nwas noch flexibleres Arbeiten ermöglicht.",
+                             "In Verbindung mit einer Server-Platform\nwie GitLab oder GitHub ist der Projektinhalt außerdem "
+                             "immer und von überall erreichbar,\nwas noch flexibleres Arbeiten ermöglicht.\n\n"
+                             "Klicke Dich nun links im Inhaltsverzeichnis durch alle Kapitel durch.",
                         font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
         text.place(x=0, rely=0.49)
@@ -84,9 +85,9 @@ class GeneralStructure(Page):
                              "um das Archiv (Remote Repository) auf einem Server zu hinterlegen."
                              "\n\nZuerst konzentrieren wir uns jedoch auf die lokale Versionierung. Grob gesagt,\nkann "
                              "man die Versionierung in drei Ebenen aufteilen:"
-                             "\n- das Working Directory"
-                             "\n- die Staging Area"
-                             "\n- das Repository"
+                             "\n- das Projektverzeichnis (working directory)"
+                             "\n- die Bereitstellungszone (staging area)"
+                             "\n- das Archiv (repository)"
                              "\n\nJede dieser Ebenen spielt eine wichtige Rolle in der Versionierung und dient einem\n"
                              "bestimmten Zweck. Dieser Zweck und die Interaktion zwischen den einzelnen Ebenen\nwird in "
                              "den folgenden Kapiteln näher erläutert.",font="TkFont 12 bold", bg="white", fg=font_color,
