@@ -45,18 +45,19 @@ class Introduction(Page):
                              "etwas gelöscht hast und dann alles nochmal machen musstest? Oder kennst du es,\nwenn man "
                              "für jede Änderungen eine neue Datei anlegt, um die alte Version nicht zu\nverlieren und "
                              "langsam den Überblick über die ganzen zusätzlichen Dateien verliert?"
-                             "\n\nGenau hier setztz Git an und ist dein bester Freund, damit dein Projekt übersichtlich\n"
+                             "\n\nGenau hier setzt Git an und ist dein bester Freund, damit dein Projekt übersichtlich\n"
                              "bleibt und nichts verloren geht und sich jede Änderung nachvollziehen lässt."
                              "\n\nGit ist ein sogenanntes Versionskontrollsystem (VCS - Version Controll System)."
                              "\nEs dient zur Protokollierung, Archivierung und Dokumentation von Änderungen in "
                              "Dateien \nund Ordnern eines Projektes. Für alle vorgemerkten Änderung wird eine Version des "
-                             "gesamten \nProjektes wie ein Screenshot abgespeichert und mit Angaben zur Zeit und zum "
+                             "gesamten \nProjektes wie ein Schnappschuss abgespeichert und mit Angaben zur Zeit und zum "
                              "Autor sowie \neinem Kommentar des Autors zu den Änderungen archiviert. "
                              "\n\nWeiterhin bietet Git durch seine Funktionsweise die perfekte Umgebung, um im Team\nan "
                              "einem Projekt zu arbeiten. Teammitglieder können parallel an den gleichen Dateien\nund "
                              "Ordnern arbeiten, ohne dass etwas verloren geht. "
-                             "In Verbindung mit einer Platform\nwie GitLab oder GitHub ist der Projektinhalt außerdem "
-                             "immer und von überall erreichbar,\nwas noch flexibleres Arbeiten ermöglicht.",
+                             "In Verbindung mit einer Server-Platform\nwie GitLab oder GitHub ist der Projektinhalt außerdem "
+                             "immer und von überall erreichbar,\nwas noch flexibleres Arbeiten ermöglicht.\n\n"
+                             "Klicke Dich nun links im Inhaltsverzeichnis durch alle Kapitel durch.",
                         font="TkFont 12 bold", bg="white", fg=font_color,
                         justify="left")
         text.place(x=0, rely=0.49)
@@ -84,9 +85,9 @@ class GeneralStructure(Page):
                              "um das Archiv (Remote Repository) auf einem Server zu hinterlegen."
                              "\n\nZuerst konzentrieren wir uns jedoch auf die lokale Versionierung. Grob gesagt,\nkann "
                              "man die Versionierung in drei Ebenen aufteilen:"
-                             "\n- das Working Directory"
-                             "\n- die Staging Area"
-                             "\n- das Repository"
+                             "\n- das Projektverzeichnis (working directory)"
+                             "\n- die Zwischenablage (staging area)"
+                             "\n- das Archiv (repository)"
                              "\n\nJede dieser Ebenen spielt eine wichtige Rolle in der Versionierung und dient einem\n"
                              "bestimmten Zweck. Dieser Zweck und die Interaktion zwischen den einzelnen Ebenen\nwird in "
                              "den folgenden Kapiteln näher erläutert.",font="TkFont 12 bold", bg="white", fg=font_color,
@@ -177,7 +178,7 @@ class Repository(Page):
         text = tk.Label(description_container,
                         text="Die letzte und wichtigste Ebene ist das Repository, also das Archiv. Wenn man ein\nProjekt "
                              "versionieren möchte, sagt man, dass man ein Repository anlegt, obwohl\nsowohl ein Repository als auch "
-                             "eine Staging Area angelegt werden. Da jedoch\ndas Repositoryden Kernbestandteil der "
+                             "eine Staging Area angelegt werden. Da jedoch\ndas Repository den Kernbestandteil der "
                              "Versionierung darstellt, benutzt man\nden Begriff Repository einfach übergreifend."
                              "\n\nDas Repository ist also das Archiv, in dem alle Versionen des Projektes gespeichert\nwerden. "
                              "Jede Version hat einen Zeitstempel, einen Autor und eine vom Autor\nverfasste Anmerkung "
@@ -208,7 +209,7 @@ class RemoteRepository(Page):
 
         text = tk.Label(description_container,
                         text="Vor allem für die Arbeit im Team ist Git sehr gut geeignet. Befindet sich dein Projekt\n"
-                             "jedoch nur lokal auf deinem Rechner, geht das leider eher schlecht. Um Versionierung\nund "
+                             "jedoch nur lokal auf deinem Rechner, ist das sehr schwierig. Um Versionierung\nund "
                              "das Arbeiten im Team zu ermöglichen, gibt es Platformen wie GitLab oder GitHub,\ndie online auf "
                              "einem Server eine Kopie deines lokalen Repositorys speichern.\nAlso ein sogenanntes Remote Repository."
                              "\n\nDieses Repository ist dann von überall über das Internet erreichbar und auch für deine\nTeammitglieder."
@@ -274,9 +275,9 @@ class NewProject(Page):
                              "Mit 'mkdir Ordnername' legt man also einen neuen Ordner an, der den mitgegebenen\nNamen trägt."
                              " Da wir in diesem Ordner agieren wollen, wäre es besser, wenn wir uns\nin diesem Ordner befinden."
                              " Hierzu dient der Befehl 'cd Ordnername' (change directory),\nder dann in den angegebenen Ordner wechselt."
-                             "\n\nAnmerkung: Das Tutorial hat ein eingebautes Terminal, das im Hintergund die\nübergebenen "
-                             "Befehle ausführt. Man könnte das Tutorial auch parallel in einem extra\nTerminal durcharbeiten, "
-                             "muss dabei jedoch darauf achten, dass die Befehle\nvom Betribssystem abhängig sind."
+                             "\n\nAnmerkung: Das Tutorial hat ein eingebautes Terminal(siehe unten), das im Hintergund die\nübergebenen "
+                             "Befehle ausführt (auf 'Run' klicken). Man könnte das Tutorial auch parallel in einem\n extra Terminal durcharbeiten, "
+                             "muss dabei jedoch darauf achten, dass die ggf. Befehle\nvom Betribssystem abhängig sind."
                              , font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
 
         text.place(x=0, rely=0.15)
@@ -344,11 +345,11 @@ class InitializeRepo(Page):
                         text="Jetzt wollen wir anfangen, unser Projekt zu versionieren. Dafür müssen wir Git sagen,\n"
                              "dass wir das Projekt, in dem wir uns gerade befinden, versionieren möchten.\nAlso ein "
                              "Repository anlegen bzw. initiieren."
-                             "\n\nAngelehnt daran legt der Befehl 'git init' ein neues leere Repository(Archiv) an.\nBeim "
-                             "Initialisieren werden nun, wie bereits erläutert, also zwei virtuellen Ebenen angelegt: \ndie Staging Area und das Repository."
+                             "\n\nAngelehnt daran legt der Befehl 'git init' ein neues leeres Repository (Archiv) an.\nBeim "
+                             "Initialisieren werden nun zwei virtuellen Ebenen angelegt: \ndie Staging Area und das Repository."
                              "\nDiese Ebenen und alles rund um die Versionierung wird in einem versteckten Ordner (.git/)\nangelegt. "
                              "\n\nUm sich diesen versteckten Ordner anzeigen zu lassen und damit zu prüfen, ob wirklich\nein "
-                             "Repository angelegt wurde, lassen wir und den Inhalt des aktuellen Verzeichnisses\nanzeigen."
+                             "Repository angelegt wurde, lassen wir uns den Inhalt des aktuellen Verzeichnisses\nanzeigen."
                              " Der Befehl 'ls -a' (list --all) zeigt alle Datein und Ordner im Projekt an,\nauch die "
                              "versteckten (also die, die mit einem Punkt beginnen)."
                              , font="TkFont 12 bold", bg="white", fg=font_color,
@@ -547,7 +548,7 @@ class NewContent(Page):
                        text="Um etwas zum Versionieren zu haben und uns die Funktionalität "
                             "der Staging Area\nanzusehen, braucht unser Projekt jetzt Inhalt. Hierzu wollen wir vier Dateien anlegen:"
                             "\nmain.txt, main.log, second.txt und third.txt."
-                            "\n\nÜber das Terminal gibt es einen Trick, wie man eine leere Datei anlegt.\nHierzu kann man "
+                            "\n\nIm Terminal gibt es einen Trick um eine leere Datei anzulegen.\nHierzu kann man "
                             "den Befehl 'touch' verwenden. Dieser ist eigentlich dafür gedacht,\nden Zeitstempel einer "
                             "Datei zu ändern. Existiert die angegebene Datei jedoch nicht,\nwird diese angelegt und "
                             "gleichzeitig der Zeitstempel geändert."
@@ -643,7 +644,7 @@ class Gitignore(Page):
                              "\nDamit solche Dateien und Ordner nicht mit versioniert werden, "
                              "\ngibt es die sogenannte '.gitignore'. Diese Datei enthält alle Namen,\nEndungen oder "
                              "Ordner, die du nicht mit in deinem Archiv haben\nwillst. Sie werden ignoriert."
-                             "\n\nHierzu muss die '.gitignore' angelegt werden. Dies können wir\nwieder mit dem touch-Befehl machen. "
+                             "\n\nHierzu muss die Datei '.gitignore' angelegt werden. Dies können wir\nwieder mit dem touch-Befehl machen. "
                              "\nWichtig: Nicht den Punkt vor dem Dateinamen vergessen!"
                              "\nIn unserem Projekt wollen wir nicht, dass die Datei 'main.log'\nversioniert wird. Um sie in die "
                              ".gitignore einzutragen, können wir\nden Befehl 'echo \"main.log\" >> .gitignore' ausführen."
@@ -906,10 +907,10 @@ class GitCommit(Page):
         title.place(x=0, y=0)
         text = tk.Label(description_container,
                         text="Nun wollen wir die aktuelle Projektversion mit den vorgemerkten Änderungen archivieren."
-                             "\nHierbei wird also soetwas wie ein Screenshot von dem Projekt mit allen vorgemerkten\nÄnderungen gemacht und gespeichert."
+                             "\nHierbei wird also soetwas wie ein Schnappschuss von dem Projekt mit allen vorgemerkten\nÄnderungen gemacht und gespeichert."
                              " Man archiviert eine Projektversion mit dem Befehl\n'git commit'. Diesen kann man ohne weitere Optionen benutzen, sollte man jedoch nicht."
-                             "\nWenn man den Befehl ohne Option ausführt, öffnet sich ein Editor, der nach einer \nCommitmessage verlangt."
-                             " Um das zu umgehen, liefern wir gleich eine\nCommitmessage beim Ausführen des Befehls, indem wird die Option '-m' anfügen."
+                             "\nWenn man den Befehl ohne Option ausführt, öffnet sich ein Editor, der nach einer \n Nachricht (Commit message) verlangt."
+                             " Um das zu umgehen, liefern wir gleich eine\n commit message beim Ausführen des Befehls, indem wird die Option '-m' anfügen."
                              "\nEine Commitmessage ist wichtig, denn in dieser kann man eine kurze Beschreibung\nder Version"
                              " und der gemachten Änderungen mitliefern, damit man später alle\nÄnderungen nachvollziehen kann."
                              "\nMan sollte also auch etwas sinnvolles in diese Message schreiben."
@@ -1033,7 +1034,7 @@ class Summary(Page):
                              "\nHier nochmal eine kleine Zusammenfassung dessen, was du nun wissen solltest:"
                              "\n- Was Git ist und wofür man es braucht"
                              "\n- Aus welchen Ebenen sich das lokale Git zusammensetzt und wozu diese gut sind"
-                             "\n- Wie man eine Reposiroty anlegt, was eine .gitignore ist und wie man Git konfiguriert"
+                             "\n- Wie man eine Reposiroty anlegt, was die Datei .gitignore ist und wie man Git konfiguriert"
                              "\n- Die Befehle: git init, git config, git status, git add und git commit"
                              "\n\nNun kommen wir zur Hausaufgabe:"
                              "\nTeil 1 der Hausaufgabe ist es, dass du zurück zu Schritt 16. gehst, dort 'git status' ausführst\nund ein Screenshot vom Terminaloutput machst."
