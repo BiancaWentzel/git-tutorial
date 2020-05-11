@@ -956,7 +956,7 @@ class GitStatusAll(Page):
                     response = subprocess.check_output(command, shell=True)
                     output['text'] = response
                     task2['bg'] = '#6b9e1f'
-                elif command == "echo 'erster Inhalt' >> main.txt":
+                elif command == "echo \"erster Inhalt\" >> main.txt":
                     subprocess.check_output(command, shell=True)
                     output['text'] = "Du hast 'erster Inhalt' in die main.txt geschrieben."
                     task1['bg'] = fu_green
@@ -1046,7 +1046,7 @@ class Summary(Page):
 
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold", cursor="hand2")
         link1.place(relx=0.25, rely=0.57, relwidth=0.5)
-        link1.bind("<Button-1>", lambda e: callback("questionaire/first_questionaire.html"))
+        link1.bind("<Button-1>", lambda e: callback("./questionaire/first_questionaire.html"))
 
         additional = tk.Label(description_container, text="Bei Anmerkungen zum Tutorial (Rechtschreibfehler, Bugs ...) "
                                                           "oder bei Fragen zum Thema Git,\nschreib mir einfach auf "
