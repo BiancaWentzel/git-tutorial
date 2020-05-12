@@ -96,5 +96,5 @@ class MainView(tk.Frame):
 root = tk.Tk()
 main = MainView(root)
 main.pack(side="top", fill="both", expand=True)
-root.wm_geometry("1200x800")
+root.wm_geometry("1500x800")
 root.mainloop()
