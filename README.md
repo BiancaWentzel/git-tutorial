@@ -86,13 +86,15 @@ dem Windows-App-Store Python3.7 installieren.
 #### Linux und MacOs:
 Wechsel in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
 
-    python main_first_part.py
+    python main_first_part.py (für den ersten Teil des Tutorials)
+    python main_second_part.py (für den zweiten Teil des Tutorials)
     
 #### Windows:
 Suche über die Apps nach der Power-Shell und öffne sie.
 Navigiere nun zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast.
 Wechsele in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
 
-    python main_first_part.py
+    python main_first_part.py (für den ersten Teil des Tutorials)
+    python main_second_part.py (für den zweiten Teil des Tutorials)
     
     
