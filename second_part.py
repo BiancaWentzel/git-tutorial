@@ -6,7 +6,7 @@ import os
 import webbrowser
 import platform
 
-from utils import right_directory
+from utils import right_directory, file_exists
 
 font_color = "#0f425b"
 fu_green = '#6b9e1f'
@@ -33,22 +33,170 @@ class Introduction(Page):
         title.place(x=0, y=0)
 
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, wrap="word", pady=5, padx=5)
-        text.place(x=0, rely=0.07, relwidth=1, relheight=0.25)
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.2)
         text.insert("1.0", "Im letzten Teil des Tutorials haben wir die grundlegenden Strukturen und Befehle von Git gelernt."
-                           "Dies sind die Befehle, die man in der Regel am häufigsten benutzt, wenn man mit Git arbeitet. "
-                           "\n\nAber wir haben bisher nur an der Oberfläche gekratzt. Git bietet noch zahlreiche nützliche Befehle, "
-                           "die wir in diesem teil lernen werden. Außerdem wollen wir uns ein Remote Repository auf dem GitLab-Server "
-                           "des Instituts anlegen und nützliche Features dieser Platform kennenlenrnen.")
+                           " Die gelernten Befehle sind die, die man in der Regel am häufigsten benutzt, wenn man mit Git arbeitet. "
+                           "\n\nDas bisher gelernte kratzt jedoch nur an der Oberfläche dessen, was mit Git möglich ist. Git bietet noch zahlreiche nützliche Befehle, "
+                           "die wir in diesem Teil des Tutorials lernen werden. Außerdem wollen wir uns ein Remote Repository auf dem GitLab-Server "
+                           "des Instituts anlegen und die Interaktion zwischen lokalem und Remote Repository erkunden.")
         additional = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, wrap="word", pady=5, padx=5)
-        additional.place(x=0, rely=0.57, relwidth=1, relheight=0.2)
-        additional.insert("1.0", "Dieses Tutorial funktioniert geauso wie der erste Teil des Tutorials. Du bekommst "
-                           "Informationen zu einer bestimmten Struktur oder einen Befehl und sollst diesen dann im integrierten terminal ausführen."
-                           "Der zweite Teil des Tutorials baut auf dem ersten auf, also auf dem bereits angelegten Git-Repository namens 'gitcourse'.")
+        additional.place(x=0, rely=0.82, relwidth=1, relheight=0.12)
+        additional.insert("1.0", "Dieser Teil des Tutorials funktioniert geauso wie der erste. Du bekommst "
+                           "Informationen zu einer bestimmten Struktur oder einem Befehl und sollst diesen dann im integrierten Terminal ausführen."
+                                 "\nDu kannst das Tutorial auch nebenbei in einem extra Terminal ausführen, musst jedoch auch hier darauf achten, "
+                                 "dass einige der Befehle abhängig vom Betriebssystem sind.")
 
-        img = tk.PhotoImage(file="./img/localVCS.png")
+        img = tk.PhotoImage(file="./img/generalstructure.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0, rely=0.35)
+        panel.place(relx=0.15, rely=0.30)
+
+
+class Preparation(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        def run_command(command):
+            if command == "mkdir new_repo":
+                if os.system(command) == 0:
+                    output['text'] = "Das Verzeichnis 'new_repo' wurde angelegt."
+                elif platform.system() == "Windows" and os.system(command) != 0:
+                    output['text'] = "Das Verzeichnis existiert bereits!"
+                elif platform.system() != "Windows" and os.system(command) == 256:
+                    output['text'] = "Das Projekt existiert bereits."
+            elif command == "cd new_repo":
+                try:
+                    os.chdir("./new_repo")
+                    output['text'] = "Gewechselt in das Verzeichnis 'new_repo'.{}".format(os.getcwd())
+                    task1['bg'] = '#6b9e1f'
+                except:
+                    if os.getcwd().endswith("new_repo"):
+                        output['text'] = "Du befindest dich bereits im new_repo-Verzeichnis. {}".format(os.getcwd())
+                        task1['bg'] = '#6b9e1f'
+                    else:
+                        output['text'] = "Bist du sicher, dass du einen Projektordner namens 'new_repo' angelegt hast?"
+            elif command == "git init":
+                if os.getcwd().endswith("new_repo"):
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task2['bg'] = fu_green
+                else:
+                    output['text'] = "Du befindest dich nicht im Verzeichnis new_repo. Wechsel in das Verzeichnis!"
+            elif command == "git status":
+                if os.getcwd().endswith("new_repo"):
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                else:
+                    output['text'] = "Du befindest dich nicht im Verzeichnis new_repo. Wechsel in das Verzeichnis!"
+            elif command.startswith("git add"):
+                if os.getcwd().endswith("new_repo"):
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Datei wurde zur Versionierung vorgemerkt."
+                else:
+                    output['text'] = "Du befindest dich nicht im Verzeichnis new_repo. Wechsel in das Verzeichnis!"
+            elif command.startswith("git commit -m"):
+                if os.getcwd().endswith("new_repo"):
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task4['bg'] = fu_green
+                else:
+                    output['text'] = "Du befindest dich nicht im Verzeichnis new_repo. Wechsel in das Verzeichnis!"
+            elif command == "touch first.txt":
+                if os.getcwd().endswith("new_repo"):
+                    if platform.system() == "Windows":
+                        try:
+                            subprocess.check_output("<nul (set/p z=)>first.txt", shell=True)
+                            output['text'] = "Die Datei first.txt wurde angelegt."
+                        except:
+                            pass
+                    else:
+                        subprocess.check_output(command, shell=True)
+                    output['text'] = "Die Datei first.txt wurde erfolgreich angelegt."
+                else:
+                    output['text'] = "Du befindest dich nicht im Verzeichnis new_repo. Wechsel in das Verzeichnis!"
+            elif command == "touch second.txt":
+                if os.getcwd().endswith("new_repo"):
+                    if platform.system() == "Windows":
+                        try:
+                            subprocess.check_output("<nul (set/p z=)>second.txt", shell=True)
+                            output['text'] = "Die Datei second.txt wurde angelegt."
+                        except:
+                            pass
+                    else:
+                        subprocess.check_output(command, shell=True)
+                    output['text'] = "Die Datei second.txt wurde erfolgreich angelegt."
+                else:
+                    output['text'] = "Du befindest dich nicht im Verzeichnis new_repo. Wechsel in das Verzeichnis!"
+            elif command == "touch third.txt":
+                if os.getcwd().endswith("new_repo"):
+                    if platform.system() == "Windows":
+                        try:
+                            subprocess.check_output("<nul (set/p z=)>third.txt", shell=True)
+                            output['text'] = "Die Datei third.txt wurde angelegt."
+                            task3['bg'] = fu_green
+                        except:
+                            pass
+                    else:
+                        subprocess.check_output(command, shell=True)
+                    output['text'] = "Die Datei third.txt wurde erfolgreich angelegt."
+                    task3['bg'] = fu_green
+                else:
+                    output['text'] = "Du befindest dich nicht im Verzeichnis new_repo. Wechsel in das Verzeichnis!"
+            else:
+                output['text'] = "Prüfe deine Syntax!"
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=0.6)
+
+        title = tk.Label(description_container, text="2. Vorbereitungen", font="TkHeaderFont 24 bold", bg='white',
+                         fg=font_color)
+        title.place(x=0, y=0)
+
+        text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, wrap="word", pady=5,
+                       padx=5)
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.54)
+        text.insert("1.0",
+                    "Im vorherigen Teil des Tutorials haben wir ein Repository angelegt und in diesem zahlreiche Befehle ausprobiert. "
+                    "Das wollen wir im jetzigen Teil des Tutorials auch machen. In einem neuen Repository können wir, "
+                    "wie bereits im ersten Teil, Dateien anlegen, versionieren und unterschiedliche Git-Befehle ausprobieren."
+                    "\n\nHier eine kleine Erinnerung an die im ersten Teil schon verwendeten Befehle:"
+                    "\n- mkdir Verzeichnisname (Anlegen eines Verzeichnisses)"
+                    "\n- cd Verzeichnisname (Wechseln in das angegebene Verzeichnis)"
+                    "\n- git init (Anlegen eines Repositorys)"
+                    "\n- touch Dateiname (Anlegen einer leeren Datei mit dem angegebenen Namen)"
+                    "\n- git add (Vormerken zur Versionierung)"
+                    "\n- git commit -m \"Commitmessage\" (Aktuelle Projektversion speichern)")
+
+        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
+        task_title.place(x=0, rely=0.65)
+        task1 = tk.Label(description_container, text="1. Lege einen neuen Ordner namens 'new_repo' an und wechsel in dieses Verzeichnis..",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task1.place(x=0, rely=0.72)
+        task2 = tk.Label(description_container,
+                         text="2. Initiiiere ein Repository in diesem Verzeichnis",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task2.place(x=0, rely=0.79)
+        task3 = tk.Label(description_container,
+                         text="3. Lege 3 neue Dateien an: first.txt, second.txt und third.txt",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task3.place(x=0, rely=0.86)
+        task4 = tk.Label(description_container,
+                         text="4. Merke alle Dateien zur Versionierung vor und commite sie.",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task4.place(x=0, rely=0.93)
+
+
+        terminal_container = tk.Frame(self, bg="#464e51")
+        terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
+
+        command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
+        command_line.place(relwidth=0.8, relheight=0.15)
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()),
+                               bg=fu_green, fg="white")
+        run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
+        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
+                          anchor="nw", font="TkFont 10 bold")
+        output.place(relheight=0.85, relwidth=1, rely=0.15)
 
 
 class GitDiff(Page):
@@ -56,55 +204,48 @@ class GitDiff(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            if command == "cd gitcourse":
-                try:
-                    os.chdir("./gitcourse")
-                    output['text'] = "Gewechselt in das Verzeichnis 'gitcourse'.{}".format(os.getcwd())
-                    task1['bg'] = fu_green
-                except:
-                    if right_directory():
-                        output['text'] = "Du befindest dich bereits im gitcourse-Projektordner. {}".format(os.getcwd())
-                        task2['bg'] = '#6b9e1f'
-                    else:
-                        output['text'] = "Es scheint, dass kein gitcourse-Ordner existiert. Hast du den ersten Teil des " \
-                                         "Tutorials gemacht?"
-            elif command == "git diff main.txt":
-                if right_directory():
+            if command == "echo \"Der erste Inhalt\" >> first.txt":
+                subprocess.check_output(command, shell=True)
+                output['text'] = "Inahlt in die Datei first.txt geschrieben."
+                task1['bg'] = fu_green
+            elif command == "git diff first.txt":
+                if os.getcwd().endswith("new_repo"):
                     response = subprocess.check_output(command, shell=True)
                     output['text'] = response
                     task2['bg'] = fu_green
                 else:
-                    output['text'] = "Wechsel bitte zuerst in den gitcourse-Ordner!"
+                    output['text'] = "Wechsel bitte zuerst in das new_repo-Verzeichnis!"
             else:
                 output['text'] = "Überprüfe deine Syntax!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="2. Git diff", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="3. Git diff", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
         text.place(x=0, rely=0.1, relwidth=1, relheight=0.65)
-        text.insert("1.0", "Wenn man sehr viele Änderungen macht, kann man ja schnell mal den Überblick verlieren. "
+        text.insert("1.0", "Wenn man sehr viele Änderungen macht, kann man schnell mal den Überblick verlieren welche man gemacht hat. "
                            "Der Befehl 'git status' hilft ja bereits, um zu sehen, an welcher Datei Veränderungen vorgenommen wurden."
-                           "Das ist schön und gut, aber man will natürlich auch wissen, was genau man in der Datei verändert hat. "
+                           " Das ist schön und gut, aber man will natürlich auch wissen, was genau man in der Datei verändert hat. "
                            "Vor allem, wenn die Änderungen nicht von einem selbst stammen. "
                            "\n\nHierzu gibt es den Befehl 'git diff Dateiname'."
-                           " Dieser zeigt einem alle gemachten Änderungen im Vergleich zum letzten Commit an."
-                           " Alle von Änderungen betroffenen Codezeilen werden dann im Terminal angezeigt. Genauer gesagt, werden beide Versionen angezeigt."
-                           " Das bedeutet, die alte Version (also die Version des letzten Commits) wird mit einem Minus vor dem Code angezeigt,"
-                           " die neue Version des Codes wird mit einem Plus vor dem Code angezeigt."
-                           "\n\n Wir wollen uns nun die aus dem letzten Tutorial gemachten Änderungen in der main.txt-Datei ansehen."
-                           "Hierzu müssen wir wieder mit dem Befehl 'cd' in den gitcourse-Ordner wechseln und dann den 'git diff'-Befehl ausführen.")
+                           " Dieser zeigt einem alle gemachten Änderungen in der Datei an. Hier wird verglichen zwischen "
+                           "dem Inhalt der Datei beim letzten Commit und dem Inhalt, der seitdem dazugekommenen ist und nicht commited wurde."
+                           " Alle von Änderungen betroffenen Codezeilen werden dann im Terminal angezeigt. Genauer gesagt, werden beide Versionen angezeigt: "
+                           "die alte und die neue Version."
+                           " Die alte Version des Codes wird mit einem Minus gekennzecihnet, die neue Version mit einem Plus."
+                           "\n\nIm vorherigen Schritt haben wir die leere Datei first.txt commited und werden nun einen neuen Satz in diese Datei schreiben,"
+                           "der dann durch 'git diff' markiert werden sollte.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.77)
-        task1 = tk.Label(description_container, text="1. Wechsel in das gitcourse-Verzeichnis.",
+        task1 = tk.Label(description_container, text="1. Schreibe den Text \"Der erste Inhalt\" in die Datei first.txt.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.84)
-        task2 = tk.Label(description_container, text="2. Lass dir die Änderungen in der main.txt anzeigen",
+        task2 = tk.Label(description_container, text="2. Lass dir die Unterschiede in der first.txt anzeigen",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task2.place(x=0, rely=0.92)
 
@@ -126,10 +267,10 @@ class GitCheckout(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            if right_directory():
-                if command == "git checkout main.txt":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
+            if os.getcwd().endswith("new_repo"):
+                if command == "git checkout first.txt":
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Alle Änderungen in der Datei first.txt wurden rückgängig gemacht"
                     task1['bg'] = fu_green
                 elif command == "git status":
                     response = subprocess.check_output(command, shell=True)
@@ -138,34 +279,34 @@ class GitCheckout(Page):
                 else:
                     output['text'] = "Überprüfe deine Syntax!"
             else:
-                output['text'] = "Du befindest dich nicht im gitcourse-Verzeichnis! Gehe ein paar Schritte zurück " \
+                output['text'] = "Du befindest dich nicht im new_repo-Verzeichnis! Gehe ein paar Schritte zurück " \
                                  "und wechsel in das Verzeichnis!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="3. Git checkout", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="4. Git checkout", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
         text.place(x=0, rely=0.1, relwidth=1, relheight=0.65)
         text.insert("1.0", "Es kann natürlich vorkommen, dass man eine Weile an seinem Projekt gearbeitet hat und irgendwann merkt,"
-                           "dass man totalen Blödsinn gemacht hat und das eigentlich alles rückgängig machen will."
-                           "Hierzu gibt es verscheidene Möglichkeiten, die spezielle auf den Versionierungssstatus bezogen sind."
-                           "\n\nZuerst wollen wir Änderungen rückgängig machen, die noch nicht zum Commit vorgemerkt sind und auch noch nicht commited wurden."
+                           " dass man totalen Blödsinn gemacht hat und eigentlich alles rückgängig machen will. "
+                           "Hierzu gibt es verscheidene Möglichkeiten, die speziell auf den Versionierungssstatus der Änderungen bezogen sind."
+                           "\n\nZuerst wollen wir Änderungen rückgängig machen, die noch nicht zum Commit vorgemerkt sind und auch noch nicht commited wurden. "
                            "Also Änderungen, die bisher nur im Working Directory zu finden sind."
                            "\n\nHierzu gibt es den Befehl 'git checkout' den man entweder auf eine bestimmte Datei beziehen kann 'git checkout Dateiname' oder "
                            "auf alle gemachten Änderungen 'git checkout *'."
-                           "\n\nWenn du nun den Status der veränderungen mit 'git status' prüfst, solltest du sehen, dass die Datei "
-                           "main.txt nicht mehr angezeigt wird, da alle Änderungen rückgängi gemacht wurden.")
+                           "\n\nNachdem du mit 'git checkout' die Änderungen in der first.txt rückgängig gemacht hast, kannst du den Status des Repositorys prüfen. "
+                           "Du solltest sehen, dass die Datei 'first.txt' nicht mehr angezeigt wird, da alle Änderungen rückgängig gemacht wurden.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.77)
-        task1 = tk.Label(description_container, text="1. Mache alle Änderungen in der main.txt rückgängig.",
+        task1 = tk.Label(description_container, text="1. Mache alle Änderungen in der first.txt rückgängig.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.84)
-        task2 = tk.Label(description_container, text="2. Pürfe den Änderungsstatus deines repositorys.",
+        task2 = tk.Label(description_container, text="2. Prüfe den Änderungsstatus deines Repositorys.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task2.place(x=0, rely=0.92)
 
@@ -184,8 +325,7 @@ class GitCheckout(Page):
         img = tk.PhotoImage(file="./img/gitcheckout.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.7, rely=0.76)
-    pass
+        panel.place(relx=0.815, rely=0.76)
 
 
 class GitReset(Page):
@@ -193,44 +333,64 @@ class GitReset(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            if command == "git add second.txt":
-                pass
-            elif command == "git status":
-                pass
-            elif command == "git reset second.txt":
-                pass
+            if os.getcwd().endswith("new_repo"):
+                if file_exists("second.txt"):
+                    if command == "git add second.txt":
+                        subprocess.check_output(command, shell=True)
+                        output['text'] = "Die Datei second.txt wurde zur Versionierung vorgemerkt!"
+                        task2['bg'] = fu_green
+                    elif command == "git status":
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                    elif command == "git reset second.txt":
+                        subprocess.check_output(command, shell=True)
+                        output['text'] = "Vormerkung der Datei second.txt rückgängig gemacht!"
+                        task3['bg'] = fu_green
+                    elif command == "echo \"Das hier wird vorgemerkt.\" >> second.txt":
+                        subprocess.check_output(command, shell=True)
+                        output['text'] = "Der Satz wurde in die Datei second.txt geschrieben."
+                        task1['bg'] = fu_green
+                    else:
+                        output['text'] = "Überprüfe deine Syntax!"
+                else:
+                    output['text'] = "Die Datei second.txt existiert nicht.\nGehe einige Schritte zurück und erledige alle Aufgaben!"
             else:
-                output['text'] = "Überpürfe deine Syntax!"
+                output['text'] = "Du befindest dich nicht im Verzeichnis gitcourse.\n Gehe zurück zu Schritt ... und " \
+                                 "wechsel das Verzeichnis!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="6. Git reset", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="5. Git reset", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.61)
         text.insert("1.0", "Es kann vorkommen, dass man in einem Projekt Änderungen gemacht und zur Versionierung vorgemerkt hat, "
-                           "die man eigentlich doch nicht versionieren möchte. Zum Beispiel kann man eine Konfig-Datei "
-                           "mit Passwörtern zur Versionierung vorgemerkt haben, weil man alle Änderungen vorgemerkt hat "
-                           "und vergessen hat, die Konfigurationsdatei in die .gitigno ezu schreiben."
-                           "Das ist natürlich ungünstig und deswegen will man diese datei dann wieder aus der Vormerkungen herausnehmen."
-                           "Hierzu bietet Git den Befehl 'reset'. Mit 'git reset Dateiname# kann man eine oder meherere "
-                           "Datein aus der Staging Area entfernen, mit 'git reset' entfernt man alle vorgemerkten Änderungen."
-                           "\n\nDas wollen wir mal ausprobieren. Zuerst merken wir hierfür die Änderungen der second.txt-Datei "
-                           "zur Versionierung vor (git add). Die Vormkerung können wir uns wieder mit 'git status' anzeigen lassen"
-                           " und mit 'git reset Dateiname' machen wir diese Vormerkung rückgängig. Und auch das können "
-                           "wir uns wieder mit 'git status' ansehen.")
+                           "die man eigentlich doch nicht versionieren möchte. "
+                           "Das ist natürlich ungünstig und deswegen will man diese dann wieder aus der Vormerkungen herausnehmen. "
+                           "Hierzu bietet Git den Befehl 'git reset'. Mit 'git reset Dateiname' kann man eine oder meherere "
+                           "Dateien aus der Staging Area entfernen."
+                           "\nIm Status-Bereich von Git werden die Änderungen also aus der Staging Area ('Zum Commit vorgemerkte Änderungen') "
+                           "zurück in das Working Directory verschoben ('Unversionierte Dateien' oder 'Nicht zum commit vorgemerkte Änderungen')"
+                           "\n\nDas wollen wir mal ausprobieren. Zuerst schreiben wir den Text 'Das hier wird vorgemerkt.' "
+                           "in die 'second.txt' und merken diese Änderungen zur Versionieurng vor."
+                           " Die Vormerkung können wir uns mit 'git status' anzeigen lassen"
+                           " und mit 'git reset Dateiname' machen wir diese Vormerkung rückgängig. Mit 'git status' "
+                           "sollte man nun sehen, dass die Änderungen nicht mehr in der Staging Area (Zum Commit vorgemerkt) gelistet sind.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.77)
-        task1 = tk.Label(description_container, text="1. Merke die datei second.txt zum Commit vor.",
+        task_title.place(x=0, rely=0.72)
+        task1 = tk.Label(description_container, text="1. Schreibe \"Das hier wird vorgemerkt.\" in die Datei second.txt.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="1. Mache den Staging-Prozess der second.txt-Datei rückgängig.",
+        task1.place(x=0, rely=0.79)
+        task2 = tk.Label(description_container, text="2. Merke die second.txt zur Versionierung vor.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.92)
+        task2.place(x=0, rely=0.86)
+        task3 = tk.Label(description_container, text="3. Mache den Staging-Prozess der second.txt-Datei rückgängig.",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task3.place(x=0, rely=0.93)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -247,7 +407,7 @@ class GitReset(Page):
         img = tk.PhotoImage(file="./img/gitreset.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.6, rely=0.67)
+        panel.place(relx=0.65, rely=0.75)
 
 
 class GitLog(Page):
@@ -255,7 +415,7 @@ class GitLog(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            if right_directory():
+            if os.getcwd().endswith("new_repo"):
                 if command == "git log":
                     response = subprocess.check_output(command, shell=True)
                     output['text'] = response
@@ -263,30 +423,30 @@ class GitLog(Page):
                 else:
                     output['text'] = "Überprüfe deine Syntax!"
             else:
-                output['text'] = "Du befindest dich nicht im gitcourse-Verzeichnis! Gehe ein paar Schritte zurück und" \
+                output['text'] = "Du befindest dich nicht im new_repo-Verzeichnis! Gehe ein paar Schritte zurück und" \
                                  " wechsel in das Verzeichnis!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="5. Git log", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="6. Git log", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
         text.place(x=0, rely=0.1, relwidth=0.6, relheight=0.4)
         text.insert("1.0", "Im Laufe der Bearbeitung eines Projektes archiviert man sehr viele Projektversionen."
-                           "Hierzu ist es auch gut, einen Überblick über alle Versionen zu haben, vor allem, wenn man "
+                           " Hierzu ist es auch gut, einen Überblick über alle Versionen zu haben, vor allem, wenn man "
                            "doch mal zu einer früheren Version zurückkehren möchte."
                            "\n\nHierzu stellt Git das Werkzeug der Commit-History bereit. Diese beinhaltet die Liste aller gemachten"
                            "Commits, also aller versionierten Projektversionen. ")
         text2 = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5, wrap="word")
-        text2.place(x=0, rely=0.5, relwidth=1, relheight=0.32)
-        text2.insert("1.0", "Mit dem Befehl 'git log' kann man sich diese Commit-History anzeigen lassen. Jeder Eintrag enhält den Autor des Commits,"
+        text2.place(x=0, rely=0.51, relwidth=1, relheight=0.32)
+        text2.insert("1.0", "Mit dem Befehl 'git log' kann man sich diese Commit-History anzeigen lassen. Jeder Eintrag enhält den Autor des Commits, "
                            "den Zeitstempel, die mitgelieferte Commitmessage sowie eine Referenz. Diese Referenz ist einen "
                            "eindeutige Zahlen- und Buchtsbenkombination, die einem Commit zugeordnet ist."
                            "\n\nHier zeigt sich außerdem, warum es so wichtig ist, eine vernünftige Commitmessage mitzuliefern, "
-                           "da man sonst sehr schwer nachvollziehen kann, welche Änderungen in den jeweiligen Commits gemacht "
+                           "da man sonst sehr schwer nachvollziehen kann welche Änderungen in den jeweiligen Commits gemacht "
                            "wurden.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
@@ -325,28 +485,22 @@ class GitResetSoftDescription(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.05, relwidth=1, relheight=0.35)
-        text.insert("1.0", "Warum haben wir uns nun die Commit-History angesehen?"
-                           "\n\nEs kann vorkommen, dass man eine Projektversion archiviert hat, also ins Repository commited."
-                           "Merkt man jedoch, dass man vielleicht noch nicht fertig war mit den Änderungen, dann gibt es eine Möglichkeit,"
+        text.place(x=0, rely=0.05, relwidth=1, relheight=0.38)
+        text.insert("1.0", "Warum haben wir uns nun die Commit-History angesehen? Um einen Überblick über alle Commits zu "
+                           "haben und so die Möglichkeit, alte Commits wiederherzustellen bzw. Commits rückgängig zu machen oder zu löschen."
+                           "\n\nEs kann vorkommen, dass man eine Projektversion archiviert hat, also ins Repository committet."
+                           " Merkt man jedoch, dass man vielleicht noch nicht fertig war mit den Änderungen, dann gibt es eine Möglichkeit,"
                            "eine Projektversion aud dem Repository zurück in die Staging Area zu holen. Man macht also "
                            "einen Commit rückgängig, jedoch ohne die Änderungen zu verlieren."
-                           "Hierzu gibt es den Befehl 'git reset --soft HEAD'."
+                           "\n\nHierzu gibt es den Befehl 'git reset --soft HEAD'."
                            "\nUnd genau hier kommt die Commit-History ins Spiel. Es gibt mehrere Wege, auf einen früheren Commit zurückzusetzen."
-                           "Man kann mit 'HEAD~1' einen Commit, oder entsprechend der Zahl mehrere Commit zurückspringen. "
-                           "Bei einer großen Menge an Commits wird das aber irgendwann etwas schwirieg, auch wenn es selten vorkommt, dass man so weit zurückgeht."
-                           "Man kann an auch eine Commit-Referenz direkt übergeben, die man sich aus der commit-History holt, also diese"
-                           "eindeutige Zahlen- und Buchtsbanekombination, die wir in der Commit-History gesehen haben.")
+                           " Man kann mit 'HEAD~1' einen Commit (oder entsprechend der Zahl mehrere Commits) zurückspringen. "
+                           "Bei einer großen Menge an Commits wird das aber irgendwann etwas schwierig, auch wenn es selten vorkommt, dass man so weit zurückgeht.")
 
         img = tk.PhotoImage(file="./img/resetsoft.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.17, rely=0.52)
-
-        img = tk.PhotoImage(file="./img/gitresetsoft.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0.17, rely=0.35)
+        panel.place(relx=0.17, rely=0.48)
 
 
 class GitResetSoft(Page):
@@ -354,45 +508,59 @@ class GitResetSoft(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            if right_directory():
-                if command == "git log":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
-                    task2['bg'] = fu_green
-                elif command == "git status":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
-                    task4['bg'] = fu_green
-                elif command == "git add third.txt":
-                    pass
-                elif command.starts_with("git commit"):
-                    pass
-                elif command == "git reset --soft HEAD~1":
-                    pass
+            if os.getcwd().endswith("new_repo"):
+                if file_exists("third.txt"):
+                    if command == "git log":
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task2['bg'] = fu_green
+                    elif command == "git status":
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task4['bg'] = fu_green
+
+                    elif command == "git add third.txt":
+                        subprocess.check_output(command, shell=True)
+                        output['text'] = "Die Datei third.txt wurde zur Archivierung vorgemerkt."
+                    elif command.startswith("git commit -m"):
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task1['bg'] = fu_green
+                    elif command == "git reset --soft HEAD~1":
+                        subprocess.check_output(command, shell=True)
+                        output['text'] = "Der Commit wurde rückgängig gemacht und die Änderungen wurden in die Staging" \
+                                         " Area übernommen."
+                        task3['bg'] = fu_green
+                    elif command == "echo \"Diese Änderungen gehen nicht verloren\" >> third.txt":
+                        subprocess.check_output(command, shell=True)
+                        output['text'] = "Der Satz 'Diese Änderungen eghen nicht veloren' wurde in die third.txt geschrieben."
+                    else:
+                        output['text'] = "Prüfe deine Syntax!"
+                else:
+                    output['text'] = "die datei third.txt existiert nicht.\nGehe einige schritte zurück und arbeite die Aufgaben nacheinander ab!"
             else:
-                output['text'] = "Prüfe deine Syntax!"
+                output['text'] = "Du befindest dich nicht im new_repo-Verzeichnis.\nGehe einige Schritte zurück und befolge die Aufgaben."
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="7. Git reset soft", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="8. Git reset soft", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.35)
-        text.insert("1.0", "Nun wollen wir mit 'git reset --soft HEAD~1' auf den vorletzten Commit zurücksetzen. Also "
-                           "den Commit vor dem aktuellsten und somit alle gemachten Änderungen des aktuellsten "
-                           "Commits zurück in die Saging Area verschieben."
-                           "Bisher haben wir jedoch nur einmal commited und wollen zuerst die Datei third.txt zur "
-                           "Versionierung vormerken und dann commiten."
-                           "Wenn wir das getan haben, können wir die Commit-History checken und dann den neuen Commit "
-                           "rückgängig machen. Prüfen wir dann den Status der Änderungen, sollten sich die soeben "
-                           "gemachten Änderungen wieder in der Staging Area befinden.")
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.37)
+        text.insert("1.0", "Nun wollen wir mit 'git reset --soft HEAD~1' den letzten Commit zurücksetzen. Die dort "
+                           "gespeicherten Änderungen also zurück in die Staging Area verschieben."
+                           "\nDa wir bisher nur einen Commit in der History haben, speichern wir einen neuen. "
+                           "Hierzu wollen wir zuerst die Datei third.txt verändern und dann versionieren."
+                           " Nun können wir die Commit-History checken und sollten den neuen Commit sehen."
+                           " Diesen können wir dann rückgängig machen, was sowohl die Entfernung des Commits aus der "
+                           "Commit-History bewirkt als auch Veränderungen im Status des Repositorys.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.63)
-        task1 = tk.Label(description_container, text="1. Merke third.txt zur Versionierung vor und committe sie.",
+        task1 = tk.Label(description_container, text="1. Schreibe 'Diese Änderungen gehen nicht verloren' in die third.txt und versioniere sie. (add & commit)",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.70)
         task2 = tk.Label(description_container, text="2. Lass dir die Commit-History anzeigen",
@@ -417,6 +585,11 @@ class GitResetSoft(Page):
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
+        img = tk.PhotoImage(file="./img/gitresetsoft.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0.37, rely=0.4)
+
 
 class GitResetHardDescription(Page):
     def __init__(self, *args, **kwargs):
@@ -425,32 +598,26 @@ class GitResetHardDescription(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
-        title = tk.Label(description_container, text="8. Git reset hard", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="9. Git reset hard", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.05, relwidth=1, relheight=0.35)
-        text.insert("1.0", "Man kann also Commit rückgängig machen, ohne dass die Veränderungen verloren gehen und dann "
-                           "weiter an dieser Projektversion arbeiten und irgendwann, wenn an fertig ist, erneut commiten."
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.32)
+        text.insert("1.0", "Man kann also Commits rückgängig machen, ohne dass die Veränderungen verloren gehen und dann "
+                           "weiter an dieser Projektversion arbeiten und irgendwann, wenn man fertig ist, erneut committen."
                            "\n\nEs kommt aber auch vor, dass man etwas komplett nicht mehr braucht oder aus versehen etwas "
                            "so doll kaputt gemacht hat, dass es nicht mehr funktioniert und man den Code auch wirklich "
                            "nicht mehr haben will."
-                           "\n\nHierzu gibt es dann den Befehl #git reset --hard HEAD'. Dieser funktioniert äquivalent zum "
+                           "\n\nHierzu gibt es dann den Befehl 'git reset --hard HEAD'. Dieser funktioniert äquivalent zum "
                            "vorherigen Befehl, nur dass hier die archivierte Version komplett weggeschmissen wird. Will "
-                           "man also auf einige Commit vor dem aktuellen zurücksetzen, werden alle Commit, die nach "
-                           "dem kommen, auf den man zurücksetzen will, komplett gelöscht. Und hiermit ist gelöscht geöscht "
-                           "gemeint. Diese Versionen kann man auch nicht wieder herstellen, sie sind komplett weg.")
-
-        img = tk.PhotoImage(file="./img/gitresethard.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0.37, rely=0.37)
+                           "man also auf den vorvorletzen Commit vor dem aktuellen zurücksetzen, werden alle Commits und "
+                           "Änderungen nach dem vorvorletzen komplett gelöscht. Und hiermit ist das unwiederbringliche Löschen gemeint.")
 
         img = tk.PhotoImage(file="./img/resethard.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.0, rely=0.57)
+        panel.place(relx=0.17, rely=0.45)
 
 
 class GitResetHard(Page):
@@ -458,29 +625,52 @@ class GitResetHard(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            pass
+            if os.getcwd().endswith("new_repo"):
+                if file_exists("third.txt"):
+                    if command.startswith("git commit -m"):
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task1['bg'] = fu_green
+                    elif command == "git status":
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task4['bg'] = fu_green
+                    elif command == "git log":
+                        response = subprocess.check_output(command, shell=True)
+                        output['text'] = response
+                        task2['bg'] = fu_green
+                    elif command == "git reset --hard HEAD~1":
+                        subprocess.check_output(command, shell=True)
+                        output['text'] = "Letzter Commit wurde gelöscht!"
+                        task3['bg'] = fu_green
+                    else:
+                        output['text'] = "Prüfe deine Syntax!"
+                else:
+                    output['text'] = "Die Datei third.txt existiert nicht.\nGehe einige Schritte zurück und erledige die dort gestellten Aufgaben!"
+            else:
+                output['text'] = "Du befindest dich nicht im Verzeichnis new_repo.\n" \
+                                 "Gehe einige Schritte zurück und erledige alle dort angegebenen Aufgaben!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="8. Git reset hard", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="10. Git reset hard", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.45)
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.38)
         text.insert("1.0", "Jetzt wollen wir einen Commit komplett löschen. Dazu wiederholen wir einen Teil der Schritte "
-                           "aus dem Schritt des Soft-Resets."
-                           "Also merken wir erneut die Datei 'third.txt# zum Commit vor, commiten sie auch schließlich "
+                           "aus dem Teil des Soft-Resets."
+                           "Wir merken erneut die Datei 'third.txt' vor, commiten sie "
                            "und können uns den neuen Commit erneut in der Commit-History ansehen."
-                           "Nun wollen wir den Commit loswerden und löschen ihn mit 'git reset --hard HEAD~1'."
-                           "Und wenn wir diesmal in die Staging Area gucken (git status), ist dort auch nichts vorgemerkt zu finden."
-                           "\n\n Anmerkung: In der Regel kommt er erfreulich selten vor, dass man etwas rückgängig machen "
-                           "muss, aber es ist gut, es schonmal gesehen zu haben.")
+                           "\n\nNun wollen wir den Commit rückgängig machen bzw. entsorgen indem wir den Befehl 'git reset --hard HEAD~1' ausführen. "
+                           "Hiermit stellen wir den vorletzten Commit wieder her und löschen den letzten Commit komplett."
+                           " Das bedeutet, die Änderungen des letzten Commits werden NICHT in die Staging Area verschoben sondern unwiederbringlich gelöscht!")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.63)
-        task1 = tk.Label(description_container, text="1. Merke third.txt zur Versionierung vor und committe sie.",
+        task1 = tk.Label(description_container, text="1. Committe die Änderungen der third.txt.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.70)
         task2 = tk.Label(description_container, text="2. Lass dir die Commit-History anzeigen",
@@ -490,7 +680,7 @@ class GitResetHard(Page):
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task3.place(x=0, rely=0.84)
         task4 = tk.Label(description_container,
-                         text="3. Prüfe, ob die zuvor commiteten Änderungen nun in der Staging Area vorgemerkt sind. ",
+                         text="4. Kontrolliere, ob die zuvor versionierten Änderungen NICHT in der Staging Area gelistet sind.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task4.place(x=0, rely=0.92)
 
@@ -506,7 +696,12 @@ class GitResetHard(Page):
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
+        img = tk.PhotoImage(file="./img/gitresethard.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0.45, rely=0.50)
 
+#######################################################################################################################
 class RemoteRepository(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
@@ -519,36 +714,99 @@ class RemoteRepository(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.05, relwidth=1, relheight=0.2)
-        text.insert("1.0", "So nun kennen wir die wichtigsten und am häufigsten genutzten Befhele, um lokal "
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.22)
+        text.insert("1.0", "Nun kennen wir die wichtigsten und am häufigsten genutzten Befehle, um lokal "
                            "Projektsoftware oder -inhalt zu versionieren. Nun wollen wir uns mit dem Remote Repository "
-                           "und dem Platform GitLab auseinandersetzen."
-                           "\nHierzu musst du dich mit deinem Institutsaccount bei GitLab-Server anmelden: gitlab.met.fu-berlin.de"
-                           "\n\nDort findest du dann eine Möglichkeit, ein neues Repository anzulegen."
-                           "Drücke auf den Vutton, um ein neues Repository anzulegen.")
+                           "und der Platform GitLab auseinandersetzen."
+                           "\nHierzu musst du dich mit deinem Institutsaccount auf dem GitLab-Server anmelden: gitlab.met.fu-berlin.de"
+                           "\n\nHier beitet dir ein kleiner grüner Button die Möglichkeit, ein neues Repository anzulegen. Was wir jetzt auch machen wollen.")
         text3 = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text3.place(x=0, rely=0.4, relwidth=1, relheight=0.07)
-        text3.insert("1.0", "Nenne dieses im Textfeld der Gui 'first_repo'."
-                           "Dies ist eine weitere Möglichkeit, ein Repository anzulegen, dass sich jedoch momentan nur auf dem GitLab-Server befindet.")
+        text3.place(x=0, rely=0.43, relwidth=1, relheight=0.15)
+        text3.insert("1.0", "Hast du diesen Button gedrückt, kannst du dein neues, leeres Repository benennen. Wir wollen es 'first_repo' nennen."
+                            "\n\nWir haben nun ein neues, leeres Repository, dass sich momentan jedoch nur auf dem GitLab-Server des Instituts befindet, "
+                            "aber noch nicht auf deinem Rechner. Das wollen wir gleich ändern.")
 
         img = tk.PhotoImage(file="./img/newremoterepo.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0, rely=0.25)
+        panel.place(relx=0.12, rely=0.3)
 
         img = tk.PhotoImage(file="./img/remotereponaming.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0, rely=0.47)
+        panel.place(relx=0.12, rely=0.61)
+
+
+class SSHKey(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=1)
+
+        title = tk.Label(description_container, text="SSH-Key", bg="white", font="TkHeaderFont 24 bold",
+                         fg=font_color)
+        title.place(x=0, y=0)
+        text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
+                       wrap="word")
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.38)
+        text.insert("1.0", "Nun haben wir ein Remote Repository auf dem GitLab-Servers des Instituts."
+                           "Jede Interaktion mit dem Remote Remote Repository über die Konsole würde eine Abfrage deiner"
+                           " Benutzerdaten fordern, also Benutzername und Passwort. Das ist auf Dauer relativ hinderlich und so gibt es die "
+                           "Möglichkeit, einen SSH-Key zu hinterlegen. Dieser besteht aus einem öffentlichen und einem privaten Teil."
+                           "Den Schlüssel erzeugst du auf deinem Rechner und hinterlegst den öffentlichen teil des Schlüssels im GitLab."
+                           "So kommunizieren der GitLab-Server und dein rechner über ein gesicherte Verbindung, ohne jedes mal deine Nutzerdaen "
+                           "eingeben zu müssen."
+                           "\n\nUm einen SSH-Key zu hinterlgen, musst du im GitLab auf dein Profil unter Settings nach SSH-Key suchen."
+                           " Dort kannst du für jeden Rechner einen SSH-Schlüssel hinterlegen. "
+                           " Am oberen Ende der eite, auf der man SSH-Schlüssel hinterlegen kann, befindet sich ein Link, der erklärt, "
+                           "wie man für sein Betriebssystem einen Schlüssel erzeugt und hinterlegt."
+                           "\n\nSobald du einen Schlüssel erzegt und hinterlegt hast, können wir zum nächsten Schritt übergehen.")
+
+
+        img = tk.PhotoImage(file="./img/addkey.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0, rely=0.5)
+
+        img = tk.PhotoImage(file="./img/sshguide.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0.5, rely=0.5)
 
 
 class CloneRepo(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
-        def run_command():
-            pass
+        def run_command(command):
+            if command == "cd ..":
+                try:
+                    os.chdir("..")
+                    output['text'] = "Gewechselt in das Verzeichnis '..'.{}".format(os.getcwd())
+                    task1['bg'] = '#6b9e1f'
+                except:
+                    output['text'] = "Es ist ein Fehler aufgetreten."
+            elif command == "cd first_repo":
+                try:
+                    os.chdir("./first_repo")
+                    output['text'] = "Gewechselt in das Verzeichnis 'first_repo'.{}".format(os.getcwd())
+                    task2['bg'] = fu_green
+                except:
+                    if os.getcwd().endswith("first_repo"):
+                        output['text'] = "Du befindest dich bereits im first_repo-Verzeichnis. {}".format(os.getcwd())
+                        task2['bg'] = fu_green
+                    else:
+                        output['text'] = "Bist du sicher, dass du das Repository geklont hast?"
+            elif command.startwith("git clone"):
+                if not os.getcwd().endswith("git_tutorial"):
+                    output['text'] = "Du befindest dich nicht im übergeordneten Verzeichnis, Wechsel bitte!"
+                else:
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+            else:
+                output['text'] = "Überprüfe deine Syntax!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -558,25 +816,22 @@ class CloneRepo(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.05, relwidth=1, relheight=0.27)
-        text.insert("1.0", "Nun wurde ein leeres Repository angelegt."
-                           "Im folgenden Dialog siehst du unterschiedliche Möglichkeiten, um dein Repository zu "
-                           "befüllen bzw. auf deinen rechner zu übertragen."
-                           "Wir wollen dieses Repository nun klonen. Es wird also das gesamte repository mitsamt "
-                           "Commit-History lokal auf deinen rechner kopiert."
-                           "Bisher ist jedoch ja alles leer. Wir orientieren uns nun an dem Punkt 'Ein neues Repository anlegen',"
-                           "betrachten jedoch zunächst nur die ersten beiden Schritte."
-                           "Abgewandelt werden muss dier Link, der bei 'git clone' übergeben wird. Hierzu muss der : "
-                           "nach dem .de durch einen / ersetzt werden."
-                           "\n\nIm Moment befinden wir uns noch im Verzeichnis gitcourse. Hier wollen wir nun nicht mehr "
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.57)
+        text.insert("1.0", "Nun haben wir einen SSH-Key an- und hinterlegt, damit dieser Rechner jederzeit ohne Passwortabfrage mit "
+                           "dem GitLab-Server des Instituts kommunizieren kann."
+                           "\n\nJetzt wollen wir das leere Repository, das wir vorhin angelegt haben, auf unseren Rechner übertragen."
+                           " Hierzu klont man dieses mit dem Befehl 'git clone'. Wir wollen das Repository von dem GitLab-Server des "
+                           "Instituts klonen und müssen im Befehl den Ort benennen, von dem das Repository geklont werden muss."
+                           "\nDieser Ort ist ein Link zum Remote Repository, der in deinem leeren Repository auf der GitLab-Seite angezeigt wird."
+                           " Den dort angezeigten Befel kopierst du einfach und überträgst ihn ins Terminal, wo du ihn ausführst."
+                           "\n\nIm Moment befinden wir uns noch im Verzeichnis new_repo. Hier wollen wir nun nicht mehr "
                            "arbeiten, wir müssen also in den darübergelegenen Ordner (..) wechseln.")
-
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.77)
         task1 = tk.Label(description_container, text="1.Wechsle in das übergeordnete Verzeichnis.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.84)
-        task2 = tk.Label(description_container, text="2. Klone dein neues Repository und wechsel in das neue repository.",
+        task2 = tk.Label(description_container, text="2. Klone dein neues Repository und wechsel in das neue Repository.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task2.place(x=0, rely=0.92)
 
@@ -592,60 +847,10 @@ class CloneRepo(Page):
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
-
         img = tk.PhotoImage(file="./img/clonerepo.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.5, rely=0.25)
-
-
-class Readme(Page):
-    def __init__(self, *args, **kwargs):
-        Page.__init__(self, *args, **kwargs)
-
-        def run_command():
-            pass
-
-        description_container = tk.Frame(self, bg="#fff", bd=10)
-        description_container.place(relwidth=1, relheight=0.6)
-
-        title = tk.Label(description_container, text="Remote Repository", bg="white", font="TkHeaderFont 24 bold",
-                         fg=font_color)
-        title.place(x=0, y=0)
-        text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
-                       wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "Der nächste Schritt in der Anleitung zeigt das Anlegen einer README.md-Datei."
-                           "Dies ist die Datei, die auf der Startseite deines Remote-Repositorys angezeigt wird. Es "
-                           "handelt sich um eine Markdown-Datei in der man in der Regel eine krze Beschreibung des "
-                           "Inhalts des Repositorys festhält, sowie eine Installationsanleiteung oder Softwarevoraussetzungen."
-                           "Es ist sozusagen das Aushängeschild deines Projekt auf dem du einen groben Überblick über die "
-                           "Funktionalität deines projektes geben kannst."
-                           "Du musst keine READMEDatei anlegen, aber es wäre durchaus sinnvoll."
-                           "Für unser neues Projekt wollen wir auf jeden Fall eine README anlegen (touch-Befehl)."
-                           "In diese Schreiben wir dann mit dem echo-Befehl:"
-                           "echo \"## Mein erstes Repository\" >> README.md")
-
-        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.77)
-        task1 = tk.Label(description_container, text="1. Lege die Datei README.md an.",
-                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="2.Befülle die README.md mit dem oben genannten Text..",
-                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.92)
-
-        terminal_container = tk.Frame(self, bg="#464e51")
-        terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
-
-        command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
-        command_line.place(relwidth=0.8, relheight=0.15)
-        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()),
-                               bg=fu_green, fg="white")
-        run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
-        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
-                          anchor="nw", font="TkFont 10 bold")
-        output.place(relheight=0.85, relwidth=1, rely=0.15)
+        panel.place(relx=0.42, rely=0.7)
 
 
 class GitPush(Page):
@@ -653,7 +858,32 @@ class GitPush(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            pass
+            if not os.getcwd().endswith("first_repo"):
+                output['text'] = "Du befindest dich nicht im Verzeichnis first_repo. Gehe einen Schritt zurück und wechsel bitte!"
+            else:
+                if command == "git push -u origin master":
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task2['bg'] = fu_green
+                elif command == "touch main.txt":
+                    if platform.system() == "Windows":
+                        try:
+                            subprocess.check_output("<nul (set/p z=)>main.txt", shell=True)
+                            output['text'] = "Die Datei main.txt wurde angelegt."
+                        except:
+                            pass
+                    else:
+                        subprocess.check_output(command, shell=True)
+                    output['text'] = "Die Datei main.txt wurde erfolgreich angelegt."
+                elif command == "git add main.txt" or command == "git add .":
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Die Datei wurde voremerkt."
+                elif command.startswith("git commit -m"):
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task1['bg'] = fu_green
+                else:
+                    output['text'] = "Prüfe deine Syntax!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -663,23 +893,28 @@ class GitPush(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "So nun haben wir lokal auf unserem Rechner das online anlegete und geklonte Repository befüllt."
-                           "Nun wollen wir diese erste Version des Projektes versionieren. Wir merken also alle Änderungen"
-                           "zum Commit vor und commiten die Version dann. Schön und gut aber so befindet sich die neuste "
-                           "Version des Projektes nur lokal auf unserem Rechner."
-                           "Nun wollen wir diese Version auch in unseres Remote Repository kopieren. Hierzu gibt es den Befehl 'git push'."
-                           "Diesen Befehl führt man so jedes Mal aus, wenn man sein lokales Repository ins Remote Repository kopieren will."
-                           "Beim allerersten Push jedoch kommen zwei Optionen hinzu: 'git push -u origin master#."
-                           "Mit orogin wird im Hintergund der Online-Link des Repositorys hinterlget, sodass du ihn nicht bei jedem Push mit angeben musst."
-                           "master beschreibt den Hauptzweig, auf den das Archiv gepusht wird."
-                           "In Git gibt es etwas, das sich Branches nennt, darauf wollen wir jedoch nicht weiter drauf eingehen, da das in diesem rahen zu komplex wird.")
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.65)
+        text.insert("1.0", "Nun haben wir das leere neue Repository auf unseren Rechner kopiert und wollen es befüllen. "
+                           "Dazu legen wir mit dem touch-Befehl eine neue Datei an und merken sie erst zur Versionierung "
+                           "vor und dann committen wir sie."
+                           "\n\nSo haben wir dann eine neue Projektversion, die sich jedoch nur lokal auf unserem Rechner befindet. "
+                           "Wenn wir das Repository mitsamt Commit-History jetzt auf den GitLab-Server kopieren wollen,"
+                           "verwenden wir den Befehl 'git push'."
+                           "\n\nIn der Regel ist dies der Befehl, mit dem man das lokale Repository auf den Server kopiert. Beim allerersten Push zum Server jedoch,"
+                           "muss mann den Befehl ergänzen: 'git push -u origin master'."
+                           "\n\nDer Befehl speichert mit '-u origin' die URL, von der wir zuvor das Repositroy geklont haben als Ursprungs-URL,"
+                           "die bei jedem Push als Adresse des Remote Repositorys auf dem Server verwendet wird. Mit 'master' wird"
+                           "ein sogenannter Branch gesetzt. Branches sind ein wichitges und mächtiges Werkzeug in Git, werden hier"
+                           "aber nicht weiter thematisiert, weil das unnötig komplex wäre.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="1. Kopiere dein lokales Repository in dein remote Repository..",
+        task_title.place(x=0, rely=0.77)
+        task1 = tk.Label(description_container, text="1. Lege die Datei main.txt an, merke sie vor und committe sie.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.92)
+        task1.place(x=0, rely=0.84)
+        task2 = tk.Label(description_container, text="2. Pushe eine Kopie deines lokalen Repositorys auf den GitLab-Server.",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task2.place(x=0, rely=0.92)
 
         terminal_container = tk.Frame(self, bg="#464e51")
         terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
@@ -693,11 +928,15 @@ class GitPush(Page):
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
+        img = tk.PhotoImage(file="./img/gitpush.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0.66, rely=0.77)
 
-class Wiki(Page):
+
+class RemoteChanges(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
-
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
@@ -707,64 +946,24 @@ class Wiki(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "Ein solcher GitLab-Server bietet viele hilfreiche Möglichkeiten, Informationen festzuhalten und zu verwalten."
-                           "Eine Möglichkeit davon ist das Wiki. Dieses findest du in der Menüleiste am Rand")
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.28)
+        text.insert("1.0", "Nun wissen wir, wie man die Version des lokalen Repositorys auf den Server kopiert. "
+                           "Die Platform GitLab bietet die Möglichkeit, auch über die Online-Oberfläche den Inhalt des Projektes zu bearbeiten."
+                           "Wir wollen jetzt in unserer main.txt-Datei ein paar Änderungen vornehmen."
+                           "\n\nHierzu gibt es bei der Auswahl der Datei einen Button 'Edit'. Daraufhin öffnet sich ein Editor, in dem man die Datei bearbeiten kann."
+                           " Wir schreiben einfach ein paar Sätze in die Datei. Sind alle Änderungen gemacht, "
+                           "kann man unter dem Editors noch eine Commit-Message eingeben und die Änderungen dann speichern."
+                           "\n\nJede Änderung über die Web-GUI wird sofort als Commit gespeichert.")
 
-        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="1. Lass dir die Commit-History anzeigen.",
-                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.92)
-
-        img = tk.PhotoImage(file="./img/newremoterepo.png")
+        img = tk.PhotoImage(file="./img/editfile.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0, rely=0.35)
+        panel.place(relx=0.12, rely=0.35)
 
-
-
-class Issues(Page):
-    def __init__(self, *args, **kwargs):
-        Page.__init__(self, *args, **kwargs)
-
-        def run_command(command):
-            pass
-
-        description_container = tk.Frame(self, bg="#fff", bd=10)
-        description_container.place(relwidth=1, relheight=1)
-
-        title = tk.Label(description_container, text="Remote Repository", bg="white", font="TkHeaderFont 24 bold",
-                         fg=font_color)
-        title.place(x=0, y=0)
-        text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
-                       wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "")
-
-        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="1. Lass dir die Commit-History anzeigen.",
-                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.92)
-
-        img = tk.PhotoImage(file="./img/newremoterepo.png")
+        img = tk.PhotoImage(file="./img/remotechanges.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0, rely=0.35)
-
-        img = tk.PhotoImage(file="./img/remotereponaming.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0, rely=0.35)
-
-        img = tk.PhotoImage(file="./img/remotereponaming.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0, rely=0.35)
-
-
-
+        panel.place(relx=0.19, rely=0.48)
 
 
 class GitPull(Page):
@@ -772,7 +971,15 @@ class GitPull(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            pass
+            if not os.getcwd().endswith("first_repo"):
+                output['text'] = "Du befindest dich nicht im Verzeichnis first_repo. Gehe einige Schritte zurück und wechsel bitte!"
+            else:
+                if command == "git pull":
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task1['bg'] = fu_green
+                else:
+                    output['text'] = "Prüfe deine Syntax!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -782,12 +989,15 @@ class GitPull(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "")
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.4)
+        text.insert("1.0", "So nun haben wir online Änderungen an unserem Projekt vorgenommen und somit auch das Repository verändert."
+                           "\n\nWie bekommen wir nun jedoch die aktuelle Version des Repositorys auf unseren Rechner, um da weiterzuarbeiten?"
+                           "\n\nHierzu gibt es den Befehl 'git pull'. Dieser kopiert das online gespeicherte Remote Repository mitsamt Commit-History und überträgt alle Änderungen "
+                           "auf das lokale Repository.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="1. Lass dir die Commit-History anzeigen.",
+        task1 = tk.Label(description_container, text="1. Kopiere den Inhalt des Remote Repositorys in dein lokales Repository.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.92)
 
@@ -803,45 +1013,43 @@ class GitPull(Page):
                           anchor="nw", font="TkFont 10 bold")
         output.place(relheight=0.85, relwidth=1, rely=0.15)
 
+        img = tk.PhotoImage(file="./img/gitpull.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0.25, rely=0.55)
+
 
 class CreateMergeConflict(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
-        def run_command(command):
-            pass
-
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
-        title = tk.Label(description_container, text="Remote Repository", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="Mergekonflikte", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "")
-
-        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="1. Lass dir die Commit-History anzeigen.",
-                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.92)
-
-        img = tk.PhotoImage(file="./img/newremoterepo.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0, rely=0.35)
-
-        img = tk.PhotoImage(file="./img/remotereponaming.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0, rely=0.35)
-
-        img = tk.PhotoImage(file="./img/remotereponaming.png")
-        panel = tk.Label(description_container, image=img)
-        panel.image = img
-        panel.place(relx=0, rely=0.35)
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.7)
+        text.insert("1.0", "Es kann jedoch passieren, dass man lokal an seinem Projekt arbeitet und gleichzeitig jemand anderes"
+                           " eine neue Version ins Remote Repository gespeichert hat."
+                           " Man arbeitet also lokal mit einer veraltetetn Version des Projektes."
+                           "\n\nWill man die eigenen Änderungen nun in das Remote Repository pushen, kann es zu Problemen kommen."
+                           " Git kann Änderungen zusammenführen aber manchmal kann es sein, dass Änderungen an der gleichen Datei "
+                           "gemacht werden und an diesem Punkt weiß Git nicht, wie diese Änderungen zusammengeführt werden sollen."
+                           " Es kommt zu einem sogenannten Mergekonflikt."
+                           "\n\nAlle Dateien, die Mergekonflikte enthalten, werden mit 'git status' unter dem Punkt 'Nicht zusammengeführt Pfade' gelistet."
+                           " Der betroffene Code in der Datei wird gekennzeichnet."
+                           " Der Code zwischen <<<<<<< HEAD und ======== ist die Version des Codes die sich im Remote Repsoitory befindet."
+                           " Der Code zwischen ==== und >>>>>> Commit-Referenz (Buchstaben- und Zahlenkombination) enthält die Version deiner Änderungen."
+                           "\n\nDa solche Mergekonflikte öfters mal auftreten können, wenn man mit mehreren Leuten im Team an einem Projekt arbeitet, "
+                           "muss man auch wissen, wie man einen solchen Mergekonflikt löst. Hierzu wollen wir einen Mergekonflikt provozieren."
+                           " Ändere hierfür über die Weboberfläche den Inhalt der main.txt-Datei und speichere die Änderungen in einem neuen Commit. "
+                           "Nun wollen wir lokal an der gleichen Datei eine Änderung vornehmen, vormerken und dann in das lokale Repository commiten."
+                           " Da wir jetzt ein und dieselbe Datei an einer relativ ähnlichen Stelle geändert haben, wird Git Probleme bekommen, "
+                           "diese Ändeurngen zusammenzuführen."
+                           "\n\nWenn du die Änderungen vorgenommen hast, können wir im nächsten Schritt üben, wie man einen Mergekonflikt wieder auflöst.")
 
 
 class ResolveMergeConflicts(Page):
@@ -849,7 +1057,25 @@ class ResolveMergeConflicts(Page):
         Page.__init__(self, *args, **kwargs)
 
         def run_command(command):
-            pass
+            if os.getcwd().endswith("first_repo"):
+                if command == "git pull":
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task1['bg'] = fu_green
+                elif command == "git add main.txt" or command == "git add .":
+                    output['text'] = "Datei wurde vorgemerkt."
+                elif command.startswith("git commit -m"):
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task3['bg'] = fu_green
+                elif command == "git push":
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task4['bg'] = fu_green
+                else:
+                    output['text'] = "Prüfe deine Syntax!"
+            else:
+                output['text'] = "Du befindest dich im falschen Verzeichnis. \nBitte gehe einige Schritte zurück und wechsel ins first-Repo-Verzeichnis!"
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
@@ -859,36 +1085,91 @@ class ResolveMergeConflicts(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "")
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.5)
+        text.insert("1.0", "Wenn wir nun unsere lokalen Änderungen in das Remote Repository pushen wollen, beschwert sich Git, "
+                           "dass es einen Mergekonflikt gibt. Wie löst man diesen nun auf?"
+                           "\n\nMit 'git pull' holt man sich die Version des Remote Repositorys. Jetzt sind beide Versionen "
+                           "in den betroffenen Dateien vermekrt und entsprechend markiert."
+                           "\nNun gibt es drei Möglichkeiten, den Konflikt zu lösen. Entweder übernimmt man die eigene "
+                           "Version, die Version aus dem Remote Repository oder man verbindet beide Versionen "
+                           "zu einer neuen. "
+                           "\nEntsprechend der Entscheidung löscht man die andere Version (oder eben nicht) "
+                           "und dann löscht man noch alle Konfliktmarkierungen. Nun muss man diese komplett neue Version "
+                           "der Datei wieder vormerken und comitten und dann kann man sie auch ins Remote Repostory pushen.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
-        task_title.place(x=0, rely=0.84)
-        task1 = tk.Label(description_container, text="1. Lass dir die Commit-History anzeigen.",
+        task_title.place(x=0, rely=0.65)
+        task1 = tk.Label(description_container,
+                         text="1. Pulle vom Remote Repository.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
-        task1.place(x=0, rely=0.92)
+        task1.place(x=0, rely=0.72)
+        task2 = tk.Label(description_container,
+                         text="2. Öffne einen Editor deiner Wahl und lösen den Mergekonflikt. (wird nicht grün markiert)",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task2.place(x=0, rely=0.79)
+        task3 = tk.Label(description_container,
+                         text="3. Merke die Änderung zur Versionierung vor und committe sie.",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task3.place(x=0, rely=0.86)
+        task4 = tk.Label(description_container,
+                         text="4. Pushe den gelösten Mergekonflikt ins Remote Repository",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task4.place(x=0, rely=0.93)
+
+        terminal_container = tk.Frame(self, bg="#464e51")
+        terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
+
+        command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
+        command_line.place(relwidth=0.8, relheight=0.15)
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()),
+                               bg=fu_green, fg="white")
+        run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
+        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
+                          anchor="nw", font="TkFont 10 bold")
+        output.place(relheight=0.85, relwidth=1, rely=0.15)
 
 
 class Summary(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
-        def run_command(command):
-            pass
+        def callback(filename):
+            webbrowser.open('file://' + os.path.realpath(filename))
 
         description_container = tk.Frame(self, bg="#fff", bd=10)
-        description_container.place(relwidth=1, relheight=0.6)
+        description_container.place(relwidth=1, relheight=1)
 
         title = tk.Label(description_container, text="Zusammenfassung", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.6)
-        text.insert("1.0", "")
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.3)
+        text.insert("1.0", "Großartig, du hast den zweiten Teil des Tutorials geschafft!"
+                           "\n\nDu solltest jetzt eine ungefähre Vorstellung von Git und seinem Nutzen haben. Außerdem solltest du"
+                           " die grundlegenden Strukturen und Befehle kennen, die man häufig verwendet. In der "
+                           "Git-Dokumentation findest du noch ausführlichere Beschreibungen der Software und ihres Gebrauchs: https://git-scm.com/"
+                           "\n\nAuch im zweiten Teil des Tutorials müssen Aufgaben bearbeitet und nachgewiesen werden:"
+                           "\n1. Schicke mir den Link deines Remote Repositorys auf dem GitLab-Server"
+                           "\n2. Bearbeite das Quiz und mache einen Screenshot von deinem Ergebnis")
+
+        link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold",
+                          cursor="hand2")
+        link1.place(relx=0.25, rely=0.4, relwidth=0.5)
+        link1.bind("<Button-1>", lambda e: callback("./questionaire/first_questionaire.html"))
 
         img = tk.PhotoImage(file="./img/emergency.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
-        panel.place(relx=0.48, rely=0.0)
+        panel.place(relx=0.63, rely=0.5)
+
+        additional = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
+                       wrap="word")
+        additional.place(relx=0.65, rely=0.84, relwidth=0.34, relheight=0.15)
+        additional.insert("1.0", "Fragen, Anmerkungen und Hausaufgaben wie immer per Mail an bianca1409@zedat.fu-berlin.de oder im RocketChat.")
+
+        img = tk.PhotoImage(file="./img/generalstructure.png")
+        panel = tk.Label(description_container, image=img)
+        panel.image = img
+        panel.place(relx=0, rely=0.5)
 
