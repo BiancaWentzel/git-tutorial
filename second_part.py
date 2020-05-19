@@ -6,7 +6,7 @@ import os
 import webbrowser
 import platform
 
-from utils import right_directory, file_exists
+from utils import file_exists
 
 font_color = "#0f425b"
 fu_green = '#6b9e1f'
@@ -33,14 +33,14 @@ class Introduction(Page):
         title.place(x=0, y=0)
 
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, wrap="word", pady=5, padx=5)
-        text.place(x=0, rely=0.07, relwidth=1, relheight=0.2)
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.23)
         text.insert("1.0", "Im letzten Teil des Tutorials haben wir die grundlegenden Strukturen und Befehle von Git gelernt."
                            " Die gelernten Befehle sind die, die man in der Regel am häufigsten benutzt, wenn man mit Git arbeitet. "
                            "\n\nDas bisher gelernte kratzt jedoch nur an der Oberfläche dessen, was mit Git möglich ist. Git bietet noch zahlreiche nützliche Befehle, "
                            "die wir in diesem Teil des Tutorials lernen werden. Außerdem wollen wir uns ein Remote Repository auf dem GitLab-Server "
                            "des Instituts anlegen und die Interaktion zwischen lokalem und Remote Repository erkunden.")
         additional = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, wrap="word", pady=5, padx=5)
-        additional.place(x=0, rely=0.82, relwidth=1, relheight=0.12)
+        additional.place(x=0, rely=0.82, relwidth=1, relheight=0.15)
         additional.insert("1.0", "Dieser Teil des Tutorials funktioniert geauso wie der erste. Du bekommst "
                            "Informationen zu einer bestimmten Struktur oder einem Befehl und sollst diesen dann im integrierten Terminal ausführen."
                                  "\nDu kannst das Tutorial auch nebenbei in einem extra Terminal ausführen, musst jedoch auch hier darauf achten, "
@@ -603,7 +603,7 @@ class GitResetHardDescription(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.07, relwidth=1, relheight=0.32)
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.35)
         text.insert("1.0", "Man kann also Commits rückgängig machen, ohne dass die Veränderungen verloren gehen und dann "
                            "weiter an dieser Projektversion arbeiten und irgendwann, wenn man fertig ist, erneut committen."
                            "\n\nEs kommt aber auch vor, dass man etwas komplett nicht mehr braucht oder aus versehen etwas "
@@ -709,7 +709,7 @@ class RemoteRepository(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
-        title = tk.Label(description_container, text="Remote Repository", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="11. Remote Repository", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
@@ -722,7 +722,7 @@ class RemoteRepository(Page):
                            "\n\nHier beitet dir ein kleiner grüner Button die Möglichkeit, ein neues Repository anzulegen. Was wir jetzt auch machen wollen.")
         text3 = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text3.place(x=0, rely=0.43, relwidth=1, relheight=0.15)
+        text3.place(x=0, rely=0.43, relwidth=1, relheight=0.17)
         text3.insert("1.0", "Hast du diesen Button gedrückt, kannst du dein neues, leeres Repository benennen. Wir wollen es 'first_repo' nennen."
                             "\n\nWir haben nun ein neues, leeres Repository, dass sich momentan jedoch nur auf dem GitLab-Server des Instituts befindet, "
                             "aber noch nicht auf deinem Rechner. Das wollen wir gleich ändern.")
@@ -745,12 +745,12 @@ class SSHKey(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
-        title = tk.Label(description_container, text="SSH-Key", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="12. SSH-Key", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.07, relwidth=1, relheight=0.38)
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.40)
         text.insert("1.0", "Nun haben wir ein Remote Repository auf dem GitLab-Servers des Instituts."
                            "Jede Interaktion mit dem Remote Remote Repository über die Konsole würde eine Abfrage deiner"
                            " Benutzerdaten fordern, also Benutzername und Passwort. Das ist auf Dauer relativ hinderlich und so gibt es die "
@@ -811,7 +811,7 @@ class CloneRepo(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="Remote Repository", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="13. Repository klonen", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
@@ -828,7 +828,7 @@ class CloneRepo(Page):
                            "arbeiten, wir müssen also in den darübergelegenen Ordner (..) wechseln.")
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.77)
-        task1 = tk.Label(description_container, text="1.Wechsle in das übergeordnete Verzeichnis.",
+        task1 = tk.Label(description_container, text="1. Wechsle in das übergeordnete Verzeichnis.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.84)
         task2 = tk.Label(description_container, text="2. Klone dein neues Repository und wechsel in das neue Repository.",
@@ -888,19 +888,19 @@ class GitPush(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="Git push", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="14. Git push", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.65)
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.66)
         text.insert("1.0", "Nun haben wir das leere neue Repository auf unseren Rechner kopiert und wollen es befüllen. "
                            "Dazu legen wir mit dem touch-Befehl eine neue Datei an und merken sie erst zur Versionierung "
                            "vor und dann committen wir sie."
                            "\n\nSo haben wir dann eine neue Projektversion, die sich jedoch nur lokal auf unserem Rechner befindet. "
                            "Wenn wir das Repository mitsamt Commit-History jetzt auf den GitLab-Server kopieren wollen,"
                            "verwenden wir den Befehl 'git push'."
-                           "\n\nIn der Regel ist dies der Befehl, mit dem man das lokale Repository auf den Server kopiert. Beim allerersten Push zum Server jedoch,"
+                           "\nIn der Regel ist dies der Befehl, mit dem man das lokale Repository auf den Server kopiert. Beim allerersten Push zum Server jedoch,"
                            "muss mann den Befehl ergänzen: 'git push -u origin master'."
                            "\n\nDer Befehl speichert mit '-u origin' die URL, von der wir zuvor das Repositroy geklont haben als Ursprungs-URL,"
                            "die bei jedem Push als Adresse des Remote Repositorys auf dem Server verwendet wird. Mit 'master' wird"
@@ -941,7 +941,7 @@ class RemoteChanges(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
-        title = tk.Label(description_container, text="Remote Repository", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="15. Remote Changes", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
@@ -984,7 +984,7 @@ class GitPull(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="Git pull", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="16. Git pull", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
@@ -1026,7 +1026,7 @@ class MergeConflict(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
-        title = tk.Label(description_container, text="Mergekonflikte", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="17. Mergekonflikte", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
@@ -1068,18 +1068,23 @@ class CreateMergeConflict(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="Mergekonflikte provozieren", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="18. Mergekonflikte provozieren", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.07, relwidth=1, relheight=0.5)
-        text.insert("1.0","Nun wollen wir einen Megrkonflikt auslösen.")
+        text.place(x=0, rely=0.1, relwidth=1, relheight=0.5)
+        text.insert("1.0","Nun wollen wir einen Megrkonflikt auslösen. Hierzu werden wir die Datei main.txt zum einen lokal verändern"
+                          " und dann außerdem im Remote Repository. Da wir dann zwei unterschiedlcihe Projektversionen haben, "
+                          "die in ein und derselben Datei Änderungen aufweisen, weiß Git nicht, wie die Änderungen zusammengeführt werden sollen."
+                          "\n\nEine gute Praxis, um Mergekonflikte so gut es geht zu vermeiden ist es, bevor man mit der Arbeit am "
+                          "Projekt anfängt, jedes mal zu zu pullen. So hat man immer die neustes Version des projektes und sollten doch mal parallel "
+                          "Änderungen gemacht worden sein, kann Git sie entweder selbstständig zusammenführen oder man muss den Konflikt selbst lösen.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.72)
         task1 = tk.Label(description_container,
-                         text="1. Öffne die main.txt mit einem Editor deiner wajl und schreibe etwas hinein. SPeichere die Änderung. (wird nicht grün markiert)",
+                         text="1. Öffne, ändere und speichere die main.txt mit einem Editor deiner Wahl.(wird nciht markiert)",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.79)
         task2 = tk.Label(description_container,
@@ -1087,7 +1092,7 @@ class CreateMergeConflict(Page):
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task2.place(x=0, rely=0.86)
         task3 = tk.Label(description_container,
-                         text="3. Öffne die main.txt über die Web-GUI und bearbeite diese dort und speichere die Veränderungen.",
+                         text="3. Öffne die main.txt über die Web-GUI und bearbeite und speichere sie.",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task3.place(x=0, rely=0.93)
 
@@ -1134,7 +1139,7 @@ class ResolveMergeConflicts(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=0.6)
 
-        title = tk.Label(description_container, text="Mergekonflikte lösen", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="19. Mergekonflikte lösen", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
@@ -1193,7 +1198,7 @@ class Summary(Page):
         description_container = tk.Frame(self, bg="#fff", bd=10)
         description_container.place(relwidth=1, relheight=1)
 
-        title = tk.Label(description_container, text="Zusammenfassung", bg="white", font="TkHeaderFont 24 bold",
+        title = tk.Label(description_container, text="20. Zusammenfassung", bg="white", font="TkHeaderFont 24 bold",
                          fg=font_color)
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
@@ -1222,7 +1227,7 @@ class Summary(Page):
         additional.place(relx=0.65, rely=0.84, relwidth=0.34, relheight=0.15)
         additional.insert("1.0", "Fragen, Anmerkungen und Hausaufgaben wie immer per Mail an bianca1409@zedat.fu-berlin.de oder im RocketChat.")
 
-        img = tk.PhotoImage(file="./img/generalstructure.png")
+        img = tk.PhotoImage(file="./img/generalstructure2.png")
         panel = tk.Label(description_container, image=img)
         panel.image = img
         panel.place(relx=0, rely=0.5)
