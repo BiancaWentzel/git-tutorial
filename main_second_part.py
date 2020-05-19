@@ -3,7 +3,7 @@
 import tkinter as tk
 from second_part import Introduction, GitDiff, GitCheckout, GitLog, GitReset, GitResetSoft, GitResetHard, \
     RemoteRepository, GitPush, GitPull, ResolveMergeConflicts, Summary, CloneRepo, \
-    CreateMergeConflict, GitResetSoftDescription, GitResetHardDescription, RemoteChanges, SSHKey, Preparation
+    CreateMergeConflict, GitResetSoftDescription, GitResetHardDescription, RemoteChanges, SSHKey, Preparation, MergeConflict
 
 font_color = "#0f425b"
 fu_green = '#6b9e1f'
@@ -28,9 +28,10 @@ class MainView(tk.Frame):
         p12 = GitPush(self)
         p15 = RemoteChanges(self)
         p16 = GitPull(self)
-        p17 = CreateMergeConflict(self)
-        p18 = ResolveMergeConflicts(self)
-        p19 = Summary(self)
+        p17 = MergeConflict(self)
+        p18 = CreateMergeConflict(self)
+        p19 = ResolveMergeConflicts(self)
+        p20 = Summary(self)
 
 
         buttonframe = tk.Frame(self, bg=fu_grey, bd=10)
@@ -57,6 +58,7 @@ class MainView(tk.Frame):
         p17.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         p18.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         p19.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p20.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
 
         b1 = tk.Button(buttonframe, text="1. Rückblick", command=p1.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
         b11 = tk.Button(buttonframe, text="2. Vorbereitungen", command=p11.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
@@ -75,8 +77,9 @@ class MainView(tk.Frame):
         b15 = tk.Button(buttonframe, text="15. Remote Changes", command=p15.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
         b16 = tk.Button(buttonframe, text="16. Git pull", command=p16.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
         b17 = tk.Button(buttonframe, text="17. Mergekonflikte", command=p17.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
-        b18 = tk.Button(buttonframe, text="18. Mergekonflikte lösen", command=p18.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
-        b19 = tk.Button(buttonframe, text="19. Zusammenfassung", command=p19.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
+        b18 = tk.Button(buttonframe, text="18. Mergekonflikte provizieren", command=p18.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
+        b19 = tk.Button(buttonframe, text="19. Mergekonflikte lösen", command=p19.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
+        b20 = tk.Button(buttonframe, text="20. Zusammenfassung", command=p20.lift, fg="white", bg=fu_green, font="TkFont 10 bold")
 
 
         b1.pack(fill="x")
@@ -98,6 +101,7 @@ class MainView(tk.Frame):
         b17.pack(fill="x")
         b18.pack(fill="x")
         b19.pack(fill="x")
+        b20.pack(fill="x")
 
         p1.show()
 

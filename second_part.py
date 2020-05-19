@@ -799,12 +799,12 @@ class CloneRepo(Page):
                         task2['bg'] = fu_green
                     else:
                         output['text'] = "Bist du sicher, dass du das Repository geklont hast?"
-            elif command.startwith("git clone"):
+            elif command.startswith("git clone"):
                 if not os.getcwd().endswith("git_tutorial"):
                     output['text'] = "Du befindest dich nicht im übergeordneten Verzeichnis, Wechsel bitte!"
                 else:
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Respository geklont"
             else:
                 output['text'] = "Überprüfe deine Syntax!"
 
@@ -879,8 +879,8 @@ class GitPush(Page):
                     subprocess.check_output(command, shell=True)
                     output['text'] = "Die Datei wurde voremerkt."
                 elif command.startswith("git commit -m"):
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Änderungen committet."
                     task1['bg'] = fu_green
                 else:
                     output['text'] = "Prüfe deine Syntax!"
@@ -1019,7 +1019,7 @@ class GitPull(Page):
         panel.place(relx=0.25, rely=0.55)
 
 
-class CreateMergeConflict(Page):
+class MergeConflict(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
 
@@ -1031,7 +1031,7 @@ class CreateMergeConflict(Page):
         title.place(x=0, y=0)
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
-        text.place(x=0, rely=0.1, relwidth=1, relheight=0.7)
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.5)
         text.insert("1.0", "Es kann jedoch passieren, dass man lokal an seinem Projekt arbeitet und gleichzeitig jemand anderes"
                            " eine neue Version ins Remote Repository gespeichert hat."
                            " Man arbeitet also lokal mit einer veraltetetn Version des Projektes."
@@ -1044,12 +1044,65 @@ class CreateMergeConflict(Page):
                            " Der Code zwischen <<<<<<< HEAD und ======== ist die Version des Codes die sich im Remote Repsoitory befindet."
                            " Der Code zwischen ==== und >>>>>> Commit-Referenz (Buchstaben- und Zahlenkombination) enthält die Version deiner Änderungen."
                            "\n\nDa solche Mergekonflikte öfters mal auftreten können, wenn man mit mehreren Leuten im Team an einem Projekt arbeitet, "
-                           "muss man auch wissen, wie man einen solchen Mergekonflikt löst. Hierzu wollen wir einen Mergekonflikt provozieren."
-                           " Ändere hierfür über die Weboberfläche den Inhalt der main.txt-Datei und speichere die Änderungen in einem neuen Commit. "
-                           "Nun wollen wir lokal an der gleichen Datei eine Änderung vornehmen, vormerken und dann in das lokale Repository commiten."
-                           " Da wir jetzt ein und dieselbe Datei an einer relativ ähnlichen Stelle geändert haben, wird Git Probleme bekommen, "
-                           "diese Ändeurngen zusammenzuführen."
-                           "\n\nWenn du die Änderungen vorgenommen hast, können wir im nächsten Schritt üben, wie man einen Mergekonflikt wieder auflöst.")
+                           "muss man auch wissen, wie man einen solchen Mergekonflikt löst.")
+
+
+class CreateMergeConflict(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        def run_command(command):
+            if os.getcwd().endswith("first_repo"):
+                if command == "git add ." or command == "git add main.txt":
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Die Datei main.txt wurde vorgemerkt."
+                elif command.startswith("git commit -m"):
+                    response = subprocess.check_output(command, shell=True)
+                    output['text'] = response
+                    task2['bg'] = fu_green
+                else:
+                    output['text'] = "Prüfe deine Syntax!"
+            else:
+                output['text'] = "Du befindest dich nicht im first_repo-Verzeichnis.\nGehe einige Schritte zurück und erledige die Aufgaben!"
+
+        description_container = tk.Frame(self, bg="#fff", bd=10)
+        description_container.place(relwidth=1, relheight=0.6)
+
+        title = tk.Label(description_container, text="Mergekonflikte provozieren", bg="white", font="TkHeaderFont 24 bold",
+                         fg=font_color)
+        title.place(x=0, y=0)
+        text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
+                       wrap="word")
+        text.place(x=0, rely=0.07, relwidth=1, relheight=0.5)
+        text.insert("1.0","Nun wollen wir einen Megrkonflikt auslösen.")
+
+        task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
+        task_title.place(x=0, rely=0.72)
+        task1 = tk.Label(description_container,
+                         text="1. Öffne die main.txt mit einem Editor deiner wajl und schreibe etwas hinein. SPeichere die Änderung. (wird nicht grün markiert)",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task1.place(x=0, rely=0.79)
+        task2 = tk.Label(description_container,
+                         text="2. Versioniere diese Änderung: git add und git commit.",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task2.place(x=0, rely=0.86)
+        task3 = tk.Label(description_container,
+                         text="3. Öffne die main.txt über die Web-GUI und bearbeite diese dort und speichere die Veränderungen.",
+                         bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
+        task3.place(x=0, rely=0.93)
+
+        terminal_container = tk.Frame(self, bg="#464e51")
+        terminal_container.place(relwidth=1, relheight=0.4, rely=0.6)
+
+        command_line = tk.Entry(terminal_container, bg="#464e51", fg="#ccc", font="TkFont 10 bold")
+        command_line.place(relwidth=0.8, relheight=0.15)
+        run_button = tk.Button(terminal_container, text="Run", command=lambda: run_command(command_line.get()),
+                               bg=fu_green, fg="white")
+        run_button.place(relwidth=0.2, relheight=0.15, relx=0.8)
+        output = tk.Label(terminal_container, bg="#464e51", bd=5, height=10, width=20, fg="#ccc", justify="left",
+                          anchor="nw", font="TkFont 10 bold")
+        output.place(relheight=0.85, relwidth=1, rely=0.15)
+
 
 
 class ResolveMergeConflicts(Page):
@@ -1059,18 +1112,19 @@ class ResolveMergeConflicts(Page):
         def run_command(command):
             if os.getcwd().endswith("first_repo"):
                 if command == "git pull":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Mergekonflikt!"
                     task1['bg'] = fu_green
                 elif command == "git add main.txt" or command == "git add .":
+                    subprocess.check_output(command, shell=True)
                     output['text'] = "Datei wurde vorgemerkt."
                 elif command.startswith("git commit -m"):
                     response = subprocess.check_output(command, shell=True)
                     output['text'] = response
                     task3['bg'] = fu_green
                 elif command == "git push":
-                    response = subprocess.check_output(command, shell=True)
-                    output['text'] = response
+                    subprocess.check_output(command, shell=True)
+                    output['text'] = "Die neuen Änderungen wurde auf das remote Repository übertragen."
                     task4['bg'] = fu_green
                 else:
                     output['text'] = "Prüfe deine Syntax!"
@@ -1156,7 +1210,7 @@ class Summary(Page):
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold",
                           cursor="hand2")
         link1.place(relx=0.25, rely=0.4, relwidth=0.5)
-        link1.bind("<Button-1>", lambda e: callback("./questionaire/first_questionaire.html"))
+        link1.bind("<Button-1>", lambda e: callback("../questionaire/second_questionaire.html") or callback("./questionaire/second_questionaire.html"))
 
         img = tk.PhotoImage(file="./img/emergency.png")
         panel = tk.Label(description_container, image=img)
