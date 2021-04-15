@@ -1227,7 +1227,7 @@ class Summary(Page):
         additional = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
         additional.place(relx=0.65, rely=0.84, relwidth=0.34, relheight=0.15)
-        additional.insert("1.0", "Link und Sceenshot (Abgabe bis zum 29.04.2020 12:00 Uhr) sowie Fragen und Anmerkungen bitte per Mail an jana.ulrich@met.fu-berlin.de.")
+        additional.insert("1.0", "Link und Sceenshot bis zum 06.05.2020 12:00 Uhr im Whiteboard hochladen. Fragen und Anmerkungen bitte per Mail an janaulrich@zedat.fu-berlin.de.")
 
         img = tk.PhotoImage(file="./img/generalstructure2.png")
         panel = tk.Label(description_container, image=img)

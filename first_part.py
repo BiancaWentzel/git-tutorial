@@ -1008,7 +1008,7 @@ class Summary(Page):
                              "\nTeil 2 der Hausaufgabe ist es, dass du das unten verlinkte Quiz löst und ebenfalls ein Screenshot von der Anzeige deiner Ergebnisse machst."
                              "\n(Der Link zum Quiz funktioniert erst wenn du die Aufgabe auf Folie 7 erledigt hast."
                              "\nDen Punkt für das Quiz gibt es nur bei mindestens 10 richtigen Antworten.)"
-                             "\n\nBeide Screenshots schickst du dann bitte bis spätestens 29.04.2020 12:00 Uhr an: jana.ulrich@met.fu-berlin.de")
+                             "\n\nBeide Screenshots lädst du dann bitte bis spätestens 06.05.2020 12:00 Uhr im Whiteboard hoch.)
 
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold", cursor="hand2")
         link1.place(relx=0.25, rely=0.57, relwidth=0.5)
@@ -1016,7 +1016,7 @@ class Summary(Page):
 
         additional = tk.Label(description_container, text="Bei Anmerkungen zum Tutorial (Rechtschreibfehler, Bugs ...) "
                                                           "oder bei Fragen zum Thema Git,\nschreib einfach "
-                                                          "eine Mail an die oben genannte Adresse.",
+                                                          "eine Mail an janaulrich@zedat.fu-berlin.de.",
                               font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
         additional.place(x=0, rely=0.92)
 
