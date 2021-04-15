@@ -75,7 +75,9 @@ Aktiviere die virtuelle Umgebung und installiere das Tkinter-Paket:
     
 Sollte beim installieren von tkinter eine Fehlermeldung auftauchen,
 probiere trotzdem den nächsten Schritt. Vielleicht war tkinter schon
-installiert. 
+installiert. Ansonsten kannst du auch probieren:
+
+    sudo apt-get install python3-tk   
 
 #### Windows:
 Wenn du noch kein Python auf deinem Rechner hast, dann musst du aus
@@ -84,15 +86,15 @@ dem Windows-App-Store Python3.7 installieren.
 ### 4. Starte das Tutorial:
 
 #### Linux und MacOs:
-Wechsel in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
+Wechsel in den 'git_tutorial'-Ordner (`cd git_tutorial`) und führe den folgenden Befehl aus:
 
     python main_first_part.py (für den ersten Teil des Tutorials)
     python main_second_part.py (für den zweiten Teil des Tutorials)
     
 #### Windows:
 Suche über die Apps nach der Power-Shell und öffne sie.
-Navigiere nun zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast.
-Wechsele in den 'git_tutorial'-Ordner und führe den folgenden Befehl aus:
+Navigiere nun zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast (`sl <path>` (set location)).
+Wechsele in den 'git_tutorial'-Ordner (`sl git_tutorial`) und führe den folgenden Befehl aus:
 
     python main_first_part.py (für den ersten Teil des Tutorials)
     python main_second_part.py (für den zweiten Teil des Tutorials)
