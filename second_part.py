@@ -237,7 +237,7 @@ class GitDiff(Page):
                            " Alle von Änderungen betroffenen Codezeilen werden dann im Terminal angezeigt. Genauer gesagt, werden beide Versionen angezeigt: "
                            "die alte und die neue Version."
                            " Die alte Version des Codes wird mit einem Minus gekennzecihnet, die neue Version mit einem Plus."
-                           "\n\nIm vorherigen Schritt haben wir die leere Datei first.txt commited und werden nun einen neuen Satz in diese Datei schreiben,"
+                           "\n\nIm vorherigen Schritt haben wir die leere Datei first.txt commited und werden nun einen neuen Satz in diese Datei schreiben, "
                            "der dann durch 'git diff' markiert werden sollte.")
 
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
@@ -751,16 +751,16 @@ class SSHKey(Page):
         text = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
         text.place(x=0, rely=0.07, relwidth=1, relheight=0.40)
-        text.insert("1.0", "Nun haben wir ein Remote Repository auf dem GitLab-Servers des Instituts."
+        text.insert("1.0", "Nun haben wir ein Remote Repository auf dem GitLab-Servers des Instituts. "
                            "Jede Interaktion mit dem Remote Remote Repository über die Konsole würde eine Abfrage deiner"
                            " Benutzerdaten fordern, also Benutzername und Passwort. Das ist auf Dauer relativ hinderlich und so gibt es die "
                            "Möglichkeit, einen SSH-Key zu hinterlegen. Dieser besteht aus einem öffentlichen und einem privaten Teil."
-                           "Den Schlüssel erzeugst du auf deinem Rechner und hinterlegst den öffentlichen teil des Schlüssels im GitLab."
+                           "Den Schlüssel erzeugst du auf deinem Rechner und hinterlegst den öffentlichen teil des Schlüssels im GitLab. "
                            "So kommunizieren der GitLab-Server und dein rechner über ein gesicherte Verbindung, ohne jedes mal deine Nutzerdaen "
                            "eingeben zu müssen."
                            "\n\nUm einen SSH-Key zu hinterlgen, musst du im GitLab auf dein Profil unter Settings nach SSH-Key suchen."
                            " Dort kannst du für jeden Rechner einen SSH-Schlüssel hinterlegen. "
-                           " Am oberen Ende der eite, auf der man SSH-Schlüssel hinterlegen kann, befindet sich ein Link, der erklärt, "
+                           " Am oberen Ende der Seite, auf der man SSH-Schlüssel hinterlegen kann, befindet sich ein Link, der erklärt, "
                            "wie man für sein Betriebssystem einen Schlüssel erzeugt und hinterlegt."
                            "\n\nSobald du einen Schlüssel erzegt und hinterlegt hast, können wir zum nächsten Schritt übergehen.")
 
@@ -1084,7 +1084,7 @@ class CreateMergeConflict(Page):
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.72)
         task1 = tk.Label(description_container,
-                         text="1. Öffne, ändere und speichere die main.txt mit einem Editor deiner Wahl.(wird nciht markiert)",
+                         text="1. Öffne, ändere und speichere die main.txt mit einem Editor deiner Wahl. (wird nicht markiert)",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.79)
         task2 = tk.Label(description_container,
@@ -1159,7 +1159,7 @@ class ResolveMergeConflicts(Page):
         task_title = tk.Label(description_container, text="Aufgaben", font="TkFont 14 bold", bg="white", fg=font_color)
         task_title.place(x=0, rely=0.65)
         task1 = tk.Label(description_container,
-                         text="1. Pulle vom Remote Repository.",
+                         text="1. Pulle vom Remote Repository. (wird ggf. nicht grün markiert)",
                          bg="white", font="TkFont 12 bold", fg=font_color, bd=5)
         task1.place(x=0, rely=0.72)
         task2 = tk.Label(description_container,
@@ -1210,7 +1210,9 @@ class Summary(Page):
                            "Git-Dokumentation findest du noch ausführlichere Beschreibungen der Software und ihres Gebrauchs: https://git-scm.com/"
                            "\n\nAuch im zweiten Teil des Tutorials müssen Aufgaben bearbeitet und nachgewiesen werden:"
                            "\n1. Schicke mir den Link deines Remote Repositorys auf dem GitLab-Server"
-                           "\n2. Bearbeite das Quiz und mache einen Screenshot von deinem Ergebnis")
+                           "\n2. Bearbeite das Quiz und mache einen Screenshot von deinem Ergebnis"
+                           "\n(Achtung beim klicken des Buttons öffen sich zwei Fenster. Das Fenster mit Fehlermeldung kann irgnoriert werden."
+                           "\n Den Punkt für das Quiz gibt es nur bei mindestens 10 richtigen Antworten.")
 
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold",
                           cursor="hand2")
@@ -1225,7 +1227,7 @@ class Summary(Page):
         additional = tk.Text(description_container, font="TkFont 12 bold", bg="white", fg=font_color, padx=5, pady=5,
                        wrap="word")
         additional.place(relx=0.65, rely=0.84, relwidth=0.34, relheight=0.15)
-        additional.insert("1.0", "Fragen, Anmerkungen und Hausaufgaben wie immer per Mail an bianca1409@zedat.fu-berlin.de oder im RocketChat.")
+        additional.insert("1.0", "Link und Sceenshot (Abgabe bis zum 29.04.2020 12:00 Uhr) sowie Fragen und Anmerkungen bitte per Mail an jana.ulrich@met.fu-berlin.de.")
 
         img = tk.PhotoImage(file="./img/generalstructure2.png")
         panel = tk.Label(description_container, image=img)

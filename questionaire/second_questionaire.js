@@ -92,7 +92,7 @@ const myQuestions = [
     correctAnswer: "b"
   },
   {
-    question: "Welche Befehl versioniert alle vorgemerkten Änderungen?",
+    question: "Welcher Befehl versioniert alle vorgemerkten Änderungen?",
     answers: {
       a: "git status",
       b: "git add",
@@ -179,7 +179,7 @@ const myQuestions = [
     {
     question: "Was macht der Befehl 'git clone'?",
     answers: {
-      a: "Man kopiert den aktuellen Stand des Remote Repostorys ins lokale Repository.",
+      a: "Man kopiert den aktuellen Stand des Remote Repositorys ins lokale Repository.",
       b: "Er kopiert das Remote Repository und legt ein lokales Repository mit dem gleichen Inhalt an.",
       c: "Er kopiert ein lokales Repository."
     },
@@ -208,7 +208,7 @@ const myQuestions = [
     answers: {
       a: "Ein Fehler im Code, der zu Problemen führt.",
       b: "Unterschiedlcihe Versionen von Dateien, die gemerged werden.",
-      c: "Verschieden Änderungen an Dateien und strukturen in einem Projekt, die von git nicht automatisch zusammengeführt werden können."
+      c: "Verschieden Änderungen an Dateien und Strukturen in einem Projekt, die von git nicht automatisch zusammengeführt werden können."
     },
     correctAnswer: "c"
     }

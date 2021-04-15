@@ -41,9 +41,9 @@ class Introduction(Page):
                              "etwas gelöscht hast und dann alles nochmal machen musstest? Oder kennst du es, wenn man "
                              "für jede Änderungen eine neue Datei anlegt, um die alte Version nicht zu verlieren und "
                              "langsam den Überblick über die ganzen zusätzlichen Dateien verliert?"
-                             "\n\nGenau hier setzt Git an und ist dein bester Freund, damit dein Projekt übersichtlich"
+                             "\n\nGenau hier setzt Git an und ist dein bester Freund, damit dein Projekt übersichtlich "
                              "bleibt und nichts verloren geht und sich jede Änderung nachvollziehen lässt."
-                             "\n\nGit ist ein sogenanntes Versionskontrollsystem (VCS - Version Controll System)."
+                             "\n\nGit ist ein sogenanntes Versionskontrollsystem (VCS - Version Controll System). "
                              "Es dient zur Protokollierung, Archivierung und Dokumentation von Änderungen in "
                              "Dateien und Ordnern eines Projektes. Für alle vorgemerkten Änderung wird eine Version des "
                              "gesamten Projektes wie ein Schnappschuss abgespeichert und mit Angaben zur Zeit und zum "
@@ -267,7 +267,7 @@ class NewProject(Page):
                              " Hierzu dient der Befehl 'cd Ordnername' (change directory), der dann in den angegebenen Ordner wechselt."
                              "\n\nAnmerkung: Das Tutorial hat ein eingebautes Terminal(siehe unten), das im Hintergund die übergebenen "
                              "Befehle ausführt (auf 'Run' klicken). Man könnte das Tutorial auch parallel in einem extra Terminal durcharbeiten, "
-                             "muss dabei jedoch darauf achten, dass die ggf. Befehle\nvom Betribssystem abhängig sind.")
+                             "muss dabei jedoch darauf achten, dass die ggf. Befehle\nvom Betriebssystem abhängig sind.")
 
 
 
@@ -879,7 +879,7 @@ class GitCommit(Page):
         text = tk.Text(description_container, pady=5, padx=5, wrap="word", font="TkFont 12 bold", bg="white", fg=font_color)
         text.place(x=0, rely=0.1, relwidth=1, relheight=0.55)
         text.insert("1.0", "Nun wollen wir die aktuelle Projektversion mit den vorgemerkten Änderungen archivieren."
-                             " Hierbei wird also soetwas wie ein Schnappschuss von dem Projekt mit allen vorgemerkten Änderungen gemacht und gespeichert."
+                             " Hierbei wird also so etwas wie ein Schnappschuss von dem Projekt mit allen vorgemerkten Änderungen gemacht und gespeichert."
                              " Man archiviert eine Projektversion mit dem Befehl 'git commit'. Diesen kann man ohne weitere Optionen benutzen, sollte man jedoch nicht."
                              " Wenn man den Befehl ohne Option ausführt, öffnet sich ein Editor, der nach einer Nachricht (Commit message) verlangt."
                              " Um das zu umgehen, liefern wir gleich eine commit message beim Ausführen des Befehls, indem wird die Option '-m' anfügen."
@@ -1006,15 +1006,17 @@ class Summary(Page):
                              "\n\nNun kommen wir zur Hausaufgabe:"
                              "\nTeil 1 der Hausaufgabe ist es, dass du zurück zu Schritt 16. gehst, dort 'git status' ausführst und ein Screenshot vom Terminaloutput machst."
                              "\nTeil 2 der Hausaufgabe ist es, dass du das unten verlinkte Quiz löst und ebenfalls ein Screenshot von der Anzeige deiner Ergebnisse machst."
-                             "\n\nBeide Screenshots schickst du dann bitte bis spätestens 15.05.2020 12:00 Uhr an mich: bianca1409@zedat.fu-berlin.de")
+                             "\n(Der Link zum Quiz funktioniert erst wenn du die Aufgabe auf Folie 7 erledigt hast."
+                             "\nDen Punkt für das Quiz gibt es nur bei mindestens 10 richtigen Antworten.)"
+                             "\n\nBeide Screenshots schickst du dann bitte bis spätestens 29.04.2020 12:00 Uhr an: jana.ulrich@met.fu-berlin.de")
 
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold", cursor="hand2")
         link1.place(relx=0.25, rely=0.57, relwidth=0.5)
-        link1.bind("<Button-1>", lambda e: callback("./questionaire/first_questionaire.html"))
+        link1.bind("<Button-1>", lambda e: callback("../questionaire/first_questionaire.html"))
 
         additional = tk.Label(description_container, text="Bei Anmerkungen zum Tutorial (Rechtschreibfehler, Bugs ...) "
-                                                          "oder bei Fragen zum Thema Git,\nschreib mir einfach auf "
-                                                          "RocketChat oder per Mail an die oben genannte Adresse.",
+                                                          "oder bei Fragen zum Thema Git,\nschreib einfach "
+                                                          "eine Mail an die oben genannte Adresse.",
                               font="TkFont 12 bold", bg="white", fg=font_color, justify="left")
         additional.place(x=0, rely=0.92)
 
