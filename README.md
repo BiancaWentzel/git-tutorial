@@ -70,7 +70,7 @@ Definiere eine neue leere virtuelle Umgebung:
     
 Aktiviere die virtuelle Umgebung und installiere das Tkinter-Paket:
 
-    source ven/bin/activate
+    source venv/bin/activate
     pip install tkinter   
     
 Sollte beim installieren von tkinter eine Fehlermeldung auftauchen,

@@ -1008,7 +1008,7 @@ class Summary(Page):
                              "\nTeil 2 der Hausaufgabe ist es, dass du das unten verlinkte Quiz löst und ebenfalls ein Screenshot von der Anzeige deiner Ergebnisse machst."
                              "\n(Der Link zum Quiz funktioniert erst wenn du die Aufgabe auf Folie 7 erledigt hast."
                              "\nDen Punkt für das Quiz gibt es nur bei mindestens 10 richtigen Antworten.)"
-                             "\n\nBeide Screenshots lädst du dann bitte bis spätestens 06.05.2020 12:00 Uhr im Whiteboard hoch.)
+                             "\n\nBeide Screenshots lädst du dann bitte bis spätestens 06.05.2020 12:00 Uhr im Whiteboard hoch.")
 
         link1 = tk.Button(description_container, text="--> Quiz <--", fg="white", bg=fu_green, font="TkFont 12 bold", cursor="hand2")
         link1.place(relx=0.25, rely=0.57, relwidth=0.5)
