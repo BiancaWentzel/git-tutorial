@@ -800,11 +800,11 @@ class CloneRepo(Page):
                     else:
                         output['text'] = "Bist du sicher, dass du das Repository geklont hast?"
             elif command.startswith("git clone"):
-                if not os.getcwd().endswith("git_tutorial"):
-                    output['text'] = "Du befindest dich nicht im übergeordneten Verzeichnis, Wechsel bitte!"
-                else:
-                    subprocess.check_output(command, shell=True)
-                    output['text'] = "Respository geklont"
+                #if not os.getcwd().endswith("git_tutorial"):
+                #    output['text'] = "Du befindest dich nicht im übergeordneten Verzeichnis, Wechsel bitte!"
+                #else:
+                subprocess.check_output(command, shell=True)
+                output['text'] = "Respository geklont"
             else:
                 output['text'] = "Überprüfe deine Syntax!"
 
