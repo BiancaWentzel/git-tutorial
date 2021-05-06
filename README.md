@@ -93,8 +93,8 @@ Wechsel in den 'git_tutorial'-Ordner (`cd git_tutorial`) und führe den folgende
     
 #### Windows:
 Suche über die Apps nach der Power-Shell und öffne sie.
-Navigiere nun zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast (`sl <path>` (set location)).
-Wechsele in den 'git_tutorial'-Ordner (`sl git_tutorial`) und führe den folgenden Befehl aus:
+Navigiere nun zum Ort, an dem du die Software des Git-Tutorials gespeichert und entpackt hast (`cd <path>`).
+Wechsele in den 'git_tutorial'-Ordner (`cd git_tutorial`) und führe den folgenden Befehl aus:
 
     python main_first_part.py (für den ersten Teil des Tutorials)
     python main_second_part.py (für den zweiten Teil des Tutorials)
